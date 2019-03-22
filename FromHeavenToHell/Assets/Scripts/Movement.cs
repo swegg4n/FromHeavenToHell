@@ -7,6 +7,8 @@ public class Movement : MonoBehaviour
     private float velocityX;
     private float velocityY;
 
+    [SerializeField] private bool usingController;
+
     [SerializeField] private float velocitySpeed;
     [SerializeField] private float addForceSpeed;
 
@@ -30,33 +32,35 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("Horizontal") > 0)
+        if(usingController == true)
         {
             velocityX = Input.GetAxisRaw("Horizontal");
-        }
-        else
-        {
-            velocityX = 0;
-        }
-
-        if (Input.GetAxisRaw("Vertical") < 0 || Input.GetAxisRaw("Vertical") > 0)
-        {
             velocityY = Input.GetAxisRaw("Vertical");
+
+            if (useVelocity)
+            {
+                rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
+            }
+
+            if (useAddForce)
+            {
+                rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
+            }
         }
         else
         {
-            velocityY = 0;
-        }
+            velocityX = Input.GetAxisRaw("HorizontalMouse");
+            velocityY = Input.GetAxisRaw("VerticalMouse");
 
+            if (useVelocity)
+            {
+                rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
+            }
 
-        if (useVelocity)
-        {
-            rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
-        }
-
-        if (useAddForce)
-        {
-            rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
+            if (useAddForce)
+            {
+                rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
+            }
         }
     }
 }
