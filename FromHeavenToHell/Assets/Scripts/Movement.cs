@@ -31,21 +31,32 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         if (Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("Horizontal") > 0)
+        {
             velocityX = Input.GetAxisRaw("Horizontal");
+        }
         else
+        {
             velocityX = 0;
+        }
 
         if (Input.GetAxisRaw("Vertical") < 0 || Input.GetAxisRaw("Vertical") > 0)
+        {
             velocityY = Input.GetAxisRaw("Vertical");
+        }
         else
+        {
             velocityY = 0;
+        }
 
 
         if (useVelocity)
+        {
             rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
+        }
 
         if (useAddForce)
+        {
             rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
-            
+        }
     }
 }
