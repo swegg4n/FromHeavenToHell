@@ -15,7 +15,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool useVelocity;
     [SerializeField] private bool useAddForce;
 
-
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -29,6 +28,10 @@ public class Movement : MonoBehaviour
         useVelocity = true;
     }
 
+    private void Update()
+    {
+        
+    }
 
     void FixedUpdate()
     {
