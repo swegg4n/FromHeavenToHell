@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour
     private float velocityX;
     private float velocityY;
 
-    [SerializeField] private bool usingController;
+    [SerializeField] private bool player1;
 
     [SerializeField] private float velocitySpeed;
     [SerializeField] private float addForceSpeed;
@@ -32,35 +32,44 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(usingController == true)
+        if(player1 == true)
         {
-            velocityX = Input.GetAxisRaw("Horizontal");
-            velocityY = Input.GetAxisRaw("Vertical");
-
-            if (useVelocity)
-            {
-                rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
-            }
-
-            if (useAddForce)
-            {
-                rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
-            }
+            MovePlayer("P1");
+        }
+        else if(player1 == false)
+        {
+            MovePlayer("P2");   
         }
         else
         {
-            velocityX = Input.GetAxisRaw("HorizontalMouse");
-            velocityY = Input.GetAxisRaw("VerticalMouse");
+            //velocityX = Input.GetAxisRaw("HorizontalMouse");
+            //velocityY = Input.GetAxisRaw("VerticalMouse");
 
-            if (useVelocity)
-            {
-                rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
-            }
+            //if (useVelocity)
+            //{
+            //    rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
+            //}
 
-            if (useAddForce)
-            {
-                rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
-            }
+            //if (useAddForce)
+            //{
+            //    rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
+            //}
+        }
+    }
+
+    private void MovePlayer(string player)
+    {
+        velocityX = Input.GetAxisRaw("Horizontal" + player);
+        velocityY = Input.GetAxisRaw("Vertical" + player);
+
+        if (useVelocity)
+        {
+            rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
+        }
+
+        if (useAddForce)
+        {
+            rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
         }
     }
 }

@@ -8,36 +8,45 @@ public class AimIndicator : MonoBehaviour
     private float aimY;
 
     private Vector2 lastDirection;
-    public Vector2 direction;
+    public Vector2 direction { get; private set; }
 
-    [SerializeField] private bool usingController;
+    [SerializeField] private bool player1;
 
     void Update()
     {
-        if (usingController == true)
+        if (player1 == true)
         {
-            aimX = Input.GetAxisRaw("HorizontalRightStick");
-            aimY = Input.GetAxisRaw("VerticalRightStick");
-
-            direction = new Vector2(aimX, aimY);
-
-            if(direction == Vector2.zero)
-            {
-                direction = lastDirection;
-            }
-
-            transform.up = direction;
-
-            lastDirection = direction;
+            MoveSight("P1");
+        }
+        else if(player1 == false)
+        {
+            MoveSight("P2");
         }
         else
         {
-            mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            //mousePos = Input.mousePosition;
+            //mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-            direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+            //direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
 
-            transform.up = direction;
+            //transform.up = direction;
         }
+    }
+
+    private void MoveSight(string player)
+    {
+        aimX = Input.GetAxisRaw("HorizontalRightStick" + player);
+        aimY = Input.GetAxisRaw("VerticalRightStick" + player);
+
+        direction = new Vector2(aimX, aimY);
+
+        if (direction == Vector2.zero)
+        {
+            direction = lastDirection;
+        }
+
+        transform.up = direction;
+
+        lastDirection = direction;
     }
 }

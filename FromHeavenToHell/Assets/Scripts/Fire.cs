@@ -6,35 +6,40 @@ public class Fire : MonoBehaviour
 {
     [SerializeField] private GameObject projectile;
 
-    [SerializeField] private bool usingController;
+    [SerializeField] private bool player1;
 
-    private float lastFireInput;
-    private float fireInput;
+    private bool fireInput;
 
     private float projectileSpeed = 1f;
 
     private void Update()
     {
-        if(usingController == true)
+        if(player1 == true)
         {
-            fireInput = Input.GetAxisRaw("Fire1");
-
-            if (lastFireInput < 0.5 && fireInput > 0.5)
-            {
-                var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
-                bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
-            }
-
-            lastFireInput = fireInput;
+            FireShot("R1P1");
+        }
+        else if(player1 == false)
+        {
+            FireShot("R1P2");
         }
         else
         {
-            if (Input.GetButtonDown("Fire1Mouse"))
-            {
-                var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
-                bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
-            }
+            //if (Input.GetButtonDown("Fire1Mouse"))
+            //{
+            //    var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            //    bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
+            //}
         }
     }
 
+    private void FireShot(string input)
+    {
+        fireInput = Input.GetButtonDown(input);
+
+        if (fireInput == true)
+        {
+            var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
+        }
+    }
 }
