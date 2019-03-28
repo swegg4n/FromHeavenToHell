@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221e7b4b8e96f4c419dbc9378e2a2c35, type: 3}
+  m_Name: Ability01
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  color: {r: 0, g: 0.3308518, b: 1, a: 1}
+  abilityType: 0
+  damage: 0
+  speed: 20
+  fireRate: 0
+  castTime: 0
+  prefab: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363, type: 3}
