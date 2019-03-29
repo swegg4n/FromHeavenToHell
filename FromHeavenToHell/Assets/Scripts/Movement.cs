@@ -7,14 +7,11 @@ public class Movement : MonoBehaviour
     private float velocityX;
     private float velocityY;
 
-    [SerializeField] private bool player1;
-
     [SerializeField] private float velocitySpeed;
     [SerializeField] private float addForceSpeed;
 
     [SerializeField] private bool useVelocity;
     [SerializeField] private bool useAddForce;
-
 
     private void Awake()
     {
@@ -32,36 +29,47 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(player1 == true)
+        if(gameObject.tag == "PlayerDemon")
         {
-            MovePlayer("P1");
+            if(PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            {
+                GetKeyboardInput();
+            }
+            else
+            {
+                GetJoystickInput("P1");
+            }  
         }
-        else if(player1 == false)
+        else if(gameObject.tag == "PlayerAngel")
         {
-            MovePlayer("P2");   
+            if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
+            {
+                GetKeyboardInput();
+            }
+            else
+            {
+                GetJoystickInput("P2");
+            }
+              
         }
-        else
-        {
-            //velocityX = Input.GetAxisRaw("HorizontalMouse");
-            //velocityY = Input.GetAxisRaw("VerticalMouse");
-
-            //if (useVelocity)
-            //{
-            //    rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
-            //}
-
-            //if (useAddForce)
-            //{
-            //    rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
-            //}
-        }
+        MovePlayer();
     }
 
-    private void MovePlayer(string player)
+    private void GetKeyboardInput()
+    {
+        velocityX = Input.GetAxisRaw("HorizontalMouse");
+        velocityY = Input.GetAxisRaw("VerticalMouse");
+        
+    }
+
+
+    private void GetJoystickInput(string player)
     {
         velocityX = Input.GetAxisRaw("Horizontal" + player);
         velocityY = Input.GetAxisRaw("Vertical" + player);
-
+    }
+    private void MovePlayer()
+    {
         if (useVelocity)
         {
             rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;

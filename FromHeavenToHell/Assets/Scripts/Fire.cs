@@ -6,29 +6,42 @@ public class Fire : MonoBehaviour
 {
     [SerializeField] private GameObject projectile;
 
-    [SerializeField] private bool player1;
-
     private bool fireInput;
 
     private float projectileSpeed = 1f;
 
     private void Update()
     {
-        if(player1 == true)
+        if(gameObject.tag == "PlayerDemon")
         {
-            FireShot("R1P1");
+            if (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            {
+                KeyboardFireShot();
+            }
+            else
+            {
+                FireShot("R1P1");
+            }
         }
-        else if(player1 == false)
+        else if(gameObject.tag == "PlayerAngel")
         {
-            FireShot("R1P2");
+            if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
+            {
+                KeyboardFireShot();
+            }
+            else
+            {
+                FireShot("R1P2");
+            }
         }
-        else
+    }
+
+    private void KeyboardFireShot()
+    {
+        if (Input.GetButtonDown("MouseLeftClick"))
         {
-            //if (Input.GetButtonDown("Fire1Mouse"))
-            //{
-            //    var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
-            //    bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
-            //}
+            var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
         }
     }
 

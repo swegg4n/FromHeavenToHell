@@ -2,6 +2,8 @@
 
 public class AimIndicator : MonoBehaviour
 {
+    [SerializeField] private GameObject aimIndicator;
+
     private Vector3 mousePos;
 
     private float aimX;
@@ -10,30 +12,41 @@ public class AimIndicator : MonoBehaviour
     private Vector2 lastDirection;
     public Vector2 direction { get; private set; }
 
-    [SerializeField] private bool player1;
-
     void Update()
     {
-        if (player1 == true)
+        if (gameObject.tag == "PlayerDemon")
         {
-            MoveSight("P1");
+            if (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            {
+                MoveSightKeyboard();
+            }
+            else
+            {
+                MoveSightJoystick("P1");
+            }
         }
-        else if(player1 == false)
+        else if(gameObject.tag == "PlayerAngel")
         {
-            MoveSight("P2");
-        }
-        else
-        {
-            //mousePos = Input.mousePosition;
-            //mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            //direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-
-            //transform.up = direction;
+            if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
+            {
+                MoveSightKeyboard();
+            }
+            else
+            {
+                MoveSightJoystick("P2");
+            }
         }
     }
 
-    private void MoveSight(string player)
+    private void MoveSightKeyboard()
+    {
+        mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+        aimIndicator.transform.up = direction;
+    }
+
+    private void MoveSightJoystick(string player)
     {
         aimX = Input.GetAxisRaw("HorizontalRightStick" + player);
         aimY = Input.GetAxisRaw("VerticalRightStick" + player);
@@ -45,7 +58,7 @@ public class AimIndicator : MonoBehaviour
             direction = lastDirection;
         }
 
-        transform.up = direction;
+        aimIndicator.transform.up = direction;
 
         lastDirection = direction;
     }
