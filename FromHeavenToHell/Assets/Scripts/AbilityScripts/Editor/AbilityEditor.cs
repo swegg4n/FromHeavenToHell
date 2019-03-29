@@ -12,7 +12,8 @@ public class AbilityEditor : Editor
         speed,
         fireRate,
         castTime,
-        prefab;
+        projectilePrefab,
+        beamPrefab;
 
 
     private void OnEnable()
@@ -25,7 +26,9 @@ public class AbilityEditor : Editor
         speed = serializedObject.FindProperty("speed");
         fireRate = serializedObject.FindProperty("fireRate");
         castTime = serializedObject.FindProperty("castTime");
-        prefab = serializedObject.FindProperty("prefab");
+        projectilePrefab = serializedObject.FindProperty("projectilePrefab");
+        beamPrefab = serializedObject.FindProperty("beamPrefab");
+
     }
     
 
@@ -40,10 +43,6 @@ public class AbilityEditor : Editor
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(abilityType);
-            EditorGUILayout.Space();
-
-            EditorGUILayout.PropertyField(damage);
-            EditorGUILayout.PropertyField(speed);
 
 
             AbilityProperty.AbilityType type = (AbilityProperty.AbilityType)abilityType.enumValueIndex;
@@ -51,14 +50,23 @@ public class AbilityEditor : Editor
             switch (type)
             {
                 case AbilityProperty.AbilityType.Projectile:
-                    EditorGUILayout.PropertyField(prefab);
+                    EditorGUILayout.PropertyField(projectilePrefab);
+                    EditorGUILayout.Space();
+
                     EditorGUILayout.PropertyField(fireRate);
                     break;
 
-                case AbilityProperty.AbilityType.Ray:
+                case AbilityProperty.AbilityType.Beam:
+                    EditorGUILayout.PropertyField(beamPrefab);
+                    EditorGUILayout.Space();
+
                     EditorGUILayout.PropertyField(castTime);
                     break;
             }
+            EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(damage);
+            EditorGUILayout.PropertyField(speed);
         }
 
         serializedObject.ApplyModifiedProperties();

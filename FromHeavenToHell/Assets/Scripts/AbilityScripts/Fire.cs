@@ -15,7 +15,7 @@ public class Fire : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("R1P1") == true && isPlayer1 == true)
+        if (Input.GetButton("R1P1") == true && isPlayer1 == true)
         {
             if (selectedAbility != null)
                 selectedAbility.UseAbility(transform.position, GetComponentInChildren<AimIndicator>().direction);

@@ -3,9 +3,9 @@
 [CreateAssetMenu(fileName = "Ability", menuName = "Abilities/New Ability", order = 1)]
 public class AbilityProperty : ScriptableObject
 {
-    public enum AbilityType { Projectile, Ray };
+    public enum AbilityType { Projectile, Beam };
 
-    public Texture2D icon;
+    public Sprite icon;
     public Color color;
 
     public AbilityType abilityType;
@@ -16,7 +16,8 @@ public class AbilityProperty : ScriptableObject
         fireRate,
         castTime;
 
-    public GameObject prefab;
+    public GameObject projectilePrefab;
+    public GameObject beamPrefab;
 
 
 
@@ -24,12 +25,30 @@ public class AbilityProperty : ScriptableObject
     {
         Debug.Log("fire");
 
-        var projectile = Instantiate(prefab, position, Quaternion.identity);
 
-        projectile.GetComponent<SpriteRenderer>().color = color;
+        if (abilityType == AbilityType.Projectile)
+        {
+            var projectile = Instantiate(projectilePrefab, position, Quaternion.identity);
 
-        projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
+            if (icon != null)
+            {
+                projectile.GetComponent<SpriteRenderer>().sprite = icon;
+            }
+            else
+            {
+                Debug.LogWarning("Ability has no assigned sprite!");
+            }
+            
+            projectile.GetComponent<SpriteRenderer>().color = color;
 
+            projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
+        }
+
+        if (abilityType == AbilityType.Beam)
+        {
+            Instantiate(beamPrefab, position, Quaternion.identity);
+
+        }
     }
 
 }
