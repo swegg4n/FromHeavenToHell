@@ -103,11 +103,11 @@ GameObject:
   - component: {fileID: 3292446865433229539}
   - component: {fileID: 3292446865433229564}
   - component: {fileID: 3292446865433229565}
-  - component: {fileID: 3292446865433229537}
   - component: {fileID: 3292446865433229566}
   - component: {fileID: 5388830894049039041}
   - component: {fileID: 5388830894049039040}
   - component: {fileID: 8137756910610324487}
+  - component: {fileID: 2673308927998628773}
   m_Layer: 8
   m_Name: PlayerDemon
   m_TagString: PlayerDemon
@@ -221,20 +221,6 @@ MonoBehaviour:
   addForceSpeed: 0
   useVelocity: 1
   useAddForce: 0
---- !u!114 &3292446865433229537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3292446865433229567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9712809ce17db574790700b704a97740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
-    type: 3}
 --- !u!50 &3292446865433229566
 Rigidbody2D:
   serializedVersion: 4
@@ -300,6 +286,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimIndicator: {fileID: 5376424359726455559}
+--- !u!114 &2673308927998628773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292446865433229567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
+    type: 3}
 --- !u!1 &3292446865895240584
 GameObject:
   m_ObjectHideFlags: 0

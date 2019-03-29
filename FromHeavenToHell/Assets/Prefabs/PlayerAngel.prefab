@@ -213,11 +213,11 @@ GameObject:
   - component: {fileID: 7963643071853028613}
   - component: {fileID: 7963643071853028634}
   - component: {fileID: 7963643071853028635}
-  - component: {fileID: 7963643071853028615}
   - component: {fileID: 7963643071853028632}
   - component: {fileID: 5506701336157980906}
   - component: {fileID: 1618585971}
   - component: {fileID: 1618585972}
+  - component: {fileID: 1377581642106567832}
   m_Layer: 8
   m_Name: PlayerAngel
   m_TagString: PlayerAngel
@@ -331,20 +331,6 @@ MonoBehaviour:
   addForceSpeed: 0
   useVelocity: 1
   useAddForce: 0
---- !u!114 &7963643071853028615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963643071853028633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9712809ce17db574790700b704a97740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
-    type: 3}
 --- !u!50 &7963643071853028632
 Rigidbody2D:
   serializedVersion: 4
@@ -410,3 +396,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56e118e80579184ab5f1de932b8b0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1377581642106567832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963643071853028633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
+    type: 3}
