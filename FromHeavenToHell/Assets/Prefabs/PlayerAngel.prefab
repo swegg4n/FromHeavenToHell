@@ -408,5 +408,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
-    type: 3}
+  selectedAbility: {fileID: 11400000, guid: 25a072897e12240479b529daab96ee28, type: 2}

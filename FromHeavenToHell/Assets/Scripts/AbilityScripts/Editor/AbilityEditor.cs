@@ -13,7 +13,7 @@ public class AbilityEditor : Editor
         fireRate,
         castTime,
         projectilePrefab,
-        beamPrefab;
+        staticBeamPrefab;
 
 
     private void OnEnable()
@@ -27,7 +27,7 @@ public class AbilityEditor : Editor
         fireRate = serializedObject.FindProperty("fireRate");
         castTime = serializedObject.FindProperty("castTime");
         projectilePrefab = serializedObject.FindProperty("projectilePrefab");
-        beamPrefab = serializedObject.FindProperty("beamPrefab");
+        staticBeamPrefab = serializedObject.FindProperty("staticBeamPrefab");
 
     }
     
@@ -56,11 +56,9 @@ public class AbilityEditor : Editor
                     EditorGUILayout.PropertyField(fireRate);
                     break;
 
-                case AbilityProperty.AbilityType.Beam:
-                    EditorGUILayout.PropertyField(beamPrefab);
+                case AbilityProperty.AbilityType.StaticBeam:
+                    EditorGUILayout.PropertyField(staticBeamPrefab);
                     EditorGUILayout.Space();
-
-                    EditorGUILayout.PropertyField(castTime);
                     break;
             }
             EditorGUILayout.Space();
