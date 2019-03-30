@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAbility: {fileID: 11400000, guid: 25a072897e12240479b529daab96ee28, type: 2}
+  selectedAbility: {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
 --- !u!1 &3292446865895240584
 GameObject:
   m_ObjectHideFlags: 0
