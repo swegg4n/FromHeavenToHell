@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 5388830894049039040}
   - component: {fileID: 8137756910610324487}
   - component: {fileID: 2673308927998628773}
+  - component: {fileID: 6855944054570006609}
   m_Layer: 8
   m_Name: PlayerDemon
   m_TagString: PlayerDemon
@@ -299,6 +300,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedAbility: {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
+--- !u!114 &6855944054570006609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3292446865433229567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2c5e2f38e30d546b820727e132791d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3292446865895240584
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,6 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
-        selectedAbility.UpdateCooldown(gameObject);
-
         if (gameObject.tag == "PlayerDemon")
         {
             if ((PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true && Input.GetButton("MouseLeftClick") == true) ||

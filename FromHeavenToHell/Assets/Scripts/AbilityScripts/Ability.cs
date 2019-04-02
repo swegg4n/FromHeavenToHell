@@ -3,13 +3,10 @@
 public abstract class Ability : ScriptableObject
 {
     [SerializeField] protected GameObject abilityPrefab;
-    [SerializeField] protected string abilityName = "New Ability";
-    [SerializeField] protected Sprite abilityIcon;
-    [SerializeField] protected AudioClip abilitySound;
+    [SerializeField] private string abilityName = "New Ability";
+    [SerializeField] private Sprite abilityIcon;
+    [SerializeField] private AudioClip abilitySound;
+    [SerializeField] private int damage;
 
-
-    public abstract void TriggerAbility(GameObject player);
-
-    public abstract void UpdateCooldown(GameObject player);
-
+    public abstract void TriggerAbility(GameObject caster);
 }
