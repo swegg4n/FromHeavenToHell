@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseEnemyAi : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Vector2 direction;
+    private Vector2 closestPlayerDirection;
 
-    float velocityX;
-    float velocityY;
+    private GameObject playerOne;
+    private GameObject playerTwo;
 
-    Vector2 direction;
+    private float raycastRange = 100f;
+    [SerializeField] private LayerMask layerMask;
 
-    GameObject playerOne;
-    GameObject playerTwo;
 
 
     void Start()
@@ -24,22 +22,42 @@ public class BaseEnemyAi : MonoBehaviour
         GetComponent<Rigidbody2D>().drag = 1000f;
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
-        
-        if (Vector2.Distance(playerOne.GetComponent<Transform>().position, GetComponent<Transform>().position) <=
-            Vector2.Distance(playerTwo.GetComponent<Transform>().position, GetComponent<Transform>().position))
+        SetClosestPlayerDirection();
+
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, closestPlayerDirection, raycastRange, layerMask);
+
+        if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Walls"))
         {
-            velocityX = playerOne.GetComponent<Transform>().position.x - GetComponent<Transform>().position.x;
-            velocityY = playerOne.GetComponent<Transform>().position.y - GetComponent<Transform>().position.y;
+            Debug.Log("path blocked");
         }
         else
         {
-            velocityX = playerTwo.GetComponent<Transform>().position.x - GetComponent<Transform>().position.x;
-            velocityY = playerTwo.GetComponent<Transform>().position.y - GetComponent<Transform>().position.y;
+            direction = closestPlayerDirection;
         }
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(velocityX,velocityY).normalized * GetComponent<EnemyBaseClass>().SpeedFactor;
+
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * GetComponent<EnemyBaseClass>().SpeedFactor;
     }
+
+
+    private void SetClosestPlayerDirection()
+    {
+        if (Vector2.Distance(playerOne.GetComponent<Transform>().position, GetComponent<Transform>().position) <=
+            Vector2.Distance(playerTwo.GetComponent<Transform>().position, GetComponent<Transform>().position))
+        {
+            closestPlayerDirection = new Vector2(playerOne.GetComponent<Transform>().position.x - transform.position.x,
+                playerOne.GetComponent<Transform>().position.y - transform.position.y);
+
+        }
+        else
+        {
+            closestPlayerDirection = new Vector2(playerTwo.GetComponent<Transform>().position.x - transform.position.x,
+                playerTwo.GetComponent<Transform>().position.y - transform.position.y);
+        }
+    }
+
 }
