@@ -51,7 +51,6 @@ public class AnimationController : MonoBehaviour
         else
         {
             animator.SetInteger("AnimationSelector", (int)AnimationSelector.Idle);
-
         }
     }
 }
