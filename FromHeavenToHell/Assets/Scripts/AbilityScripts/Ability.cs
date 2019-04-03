@@ -9,4 +9,6 @@ public abstract class Ability : ScriptableObject
     [SerializeField] private int damage;
 
     public abstract void TriggerAbility(GameObject caster);
+
+    public virtual void FixedUpdate() { }
 }

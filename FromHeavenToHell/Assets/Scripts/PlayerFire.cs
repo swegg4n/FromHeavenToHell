@@ -24,6 +24,8 @@ public class PlayerFire : MonoBehaviour
                 selectedAbility.TriggerAbility(gameObject);
             }
         }
+
+        selectedAbility.FixedUpdate();
     }
 
 }
