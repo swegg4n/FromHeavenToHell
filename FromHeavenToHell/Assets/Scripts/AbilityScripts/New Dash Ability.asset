@@ -17,4 +17,6 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
   damage: 0
-  dashDistance: 2
+  dashDistance: 50
+  dashTime: 0
+  cooldown: 2

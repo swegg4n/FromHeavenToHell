@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public abstract class Ability : ScriptableObject
 {
@@ -7,6 +8,7 @@ public abstract class Ability : ScriptableObject
     [SerializeField] private Sprite abilityIcon;
     [SerializeField] private AudioClip abilitySound;
     [SerializeField] private int damage;
+
 
     public abstract void TriggerAbility(GameObject caster);
 
