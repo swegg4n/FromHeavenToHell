@@ -24,69 +24,76 @@ public class EnemyManager : MonoBehaviour
     #endregion
 
     [SerializeField] private float timeBetweenSpawn;
-    private float timeSinceLastSpawn;
+    [SerializeField] private float delay;
     [SerializeField] private int nrOfEnemiesToSpawn;
+    private float timeSinceLastSpawn;
 
     [SerializeField] private Tilemap groundTileMap;
-    private Vector2Int[] tilePositionsArray;
-
-    Vector2 bounds;
-    BoundsInt nrOfCells;
+    private List<Vector3> tilePositionList;
 
     [SerializeField] private Tilemap wallTilemap;
     [SerializeField] private Tilemap topWallTilemap;
 
+    [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject bunnyDog;
 
     private Random rnd = new Random();
 
-    void Start()
+    private void Start()
     {
-        timeBetweenSpawn = 2;
+        timeBetweenSpawn = 1f;
+        delay = 3f;
 
-        bounds = groundTileMap.cellSize;
-        nrOfCells = groundTileMap.cellBounds;
-        tilePositionsArray = new Vector2Int[nrOfCells.x * nrOfCells.y];
-        int indexCounter = 0;
-        for (int x = 0; x < nrOfCells.x; x =+ (int)bounds.x)
+        tilePositionList = new List<Vector3>();
+
+        for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
         {
-            for (int y = 0; y < nrOfCells.y; y =+ (int)bounds.y)
+            for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
             {
-                tilePositionsArray[indexCounter] = new Vector2Int(x, y);
-                indexCounter++;
+                Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
+                Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
+                place.x += groundTileMap.cellSize.x / 2;
+                if (groundTileMap.HasTile(localPlace) == true
+                    && wallTilemap.HasTile(localPlace) == false
+                    && topWallTilemap.HasTile(localPlace) == false)
+                {
+                    tilePositionList.Add(place);
+                }
             }
         }
     }
-
-    void Update()
+    private void Update()
     {
         timeSinceLastSpawn += Time.deltaTime;
 
         if(timeSinceLastSpawn > timeBetweenSpawn)
         {
-            Spawn(4);
+            StartCoroutine(Spawn(4, delay));
+
             timeSinceLastSpawn = 0;
         }
         
     }
 
-    void Spawn(int nrOfSpawns)
+    private IEnumerator Spawn(int nrOfSpawns, float delay)
     {
-        int counter = nrOfSpawns;
-
-        while (counter > 0)
+        List<int> tempIndexList = new List<int>();
+        List<GameObject> spawnIndicatorList = new List<GameObject>();
+        for (int i = 0; i < nrOfSpawns; i++)
         {
-            for (int i = 0; i < nrOfSpawns; i++)
-            {
-                int tempSpawnTile = rnd.Next(0, tilePositionsArray.Length);
-
-                if (!wallTilemap.HasTile((Vector3Int)tilePositionsArray[tempSpawnTile]) && !topWallTilemap.HasTile((Vector3Int)tilePositionsArray[tempSpawnTile]))
-                {
-                    Instantiate(bunnyDog);
-                    nrOfSpawns--;
-                }
-
-            }
+            tempIndexList.Add(rnd.Next(0, tilePositionList.Count));
+            spawnIndicatorList.Add(Instantiate(spawnIndicator, tilePositionList[tempIndexList[i]], Quaternion.identity));
         }
+
+        yield return new WaitForSeconds(delay);
+
+        for (int i = 0; i < nrOfSpawns; i++)
+        {
+            Instantiate(bunnyDog, tilePositionList[tempIndexList[i]], Quaternion.identity);
+            Destroy(spawnIndicatorList[i]);
+        }
+
+        spawnIndicatorList.Clear();
+        tempIndexList.Clear();
     }
 }
