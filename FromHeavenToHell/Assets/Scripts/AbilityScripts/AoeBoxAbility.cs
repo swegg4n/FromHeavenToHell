@@ -15,7 +15,7 @@ public class AoeBoxAbility : Ability
 
         if (cdController.CooldownPassed() == true)
         {
-            float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);
+            float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);//Konverterar vector2 till vinkel
             float degAngle = radAngle / (2 * Mathf.PI) * 360;
 
             var aoeBox = Instantiate(abilityPrefab, caster.transform.position, Quaternion.Euler(0, 0, degAngle));

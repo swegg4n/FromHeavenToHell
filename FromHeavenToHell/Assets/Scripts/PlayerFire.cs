@@ -8,6 +8,12 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
+        UseAbility();
+        selectedAbility.FixedUpdate();
+    }
+
+    private void UseAbility()
+    {
         if (gameObject.tag == "PlayerDemon")
         {
             if ((PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true && Input.GetButton("MouseLeftClick") == true) ||
@@ -24,8 +30,5 @@ public class PlayerFire : MonoBehaviour
                 selectedAbility.TriggerAbility(gameObject);
             }
         }
-
-        selectedAbility.FixedUpdate();
     }
-
 }

@@ -18,14 +18,13 @@ public class DashAbility : Ability
 
     public override void TriggerAbility(GameObject caster)
     {
-
         CooldownController cdController = caster.GetComponent<CooldownController>();
         if(cdController.CooldownPassed() == true)
         {
             this.caster = caster;
             dashDirection = caster.GetComponent<AimIndicator>().direction.normalized;
             
-            //calculate dash target  (direction * dashDistance, detect colliders with raytrace)
+
             if (dashTime != 0)
             {
                 caster.GetComponent<Movement>().dashing = true;
