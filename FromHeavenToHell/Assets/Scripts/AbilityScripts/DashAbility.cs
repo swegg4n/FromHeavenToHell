@@ -26,7 +26,7 @@ public class DashAbility : Ability
 
             if (dashTime != 0)
             {
-                caster.GetComponent<Movement>().dashing = true;
+                caster.GetComponent<PlayerMovement>().dashing = true;
                 dashSpeed = dashDistance / dashTime;
                 cdController.ResetCooldown(cooldown);
             }
@@ -44,7 +44,7 @@ public class DashAbility : Ability
     {
         if(caster != null)
         {
-            if (caster.GetComponent<Movement>().dashing == true)
+            if (caster.GetComponent<PlayerMovement>().dashing == true)
             {
                 NormalDash();
             }
@@ -72,7 +72,7 @@ public class DashAbility : Ability
         else
         {
             timeCounter = 0;
-            caster.GetComponent<Movement>().dashing = false;
+            caster.GetComponent<PlayerMovement>().dashing = false;
         }
     }
 }

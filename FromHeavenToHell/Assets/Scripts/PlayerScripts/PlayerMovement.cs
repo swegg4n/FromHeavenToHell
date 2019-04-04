@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool useVelocity;
     [SerializeField] private bool useAddForce;
-    [SerializeField] private Tilemap tileMap;
 
     public bool dashing { get; set; }
 
