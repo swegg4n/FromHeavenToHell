@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
     public int indexGridX;
     public int indexGridY;
@@ -9,16 +9,10 @@ public class Node : MonoBehaviour
 
     public Vector3 worldPosition;
 
-    public Node derivationNode;
-
-    public int gCost;
-    public int hCost;
-
-    public int fCost { get { return gCost + hCost; } }
+    public int hCost { get; set; }
 
 
-
-    public Node (int indexGridX, int indexGridY, bool isWall, Vector3 worldPosition)
+    public Node(int indexGridX, int indexGridY, bool isWall, Vector3 worldPosition)
     {
         this.indexGridX = indexGridX;
         this.indexGridY = indexGridY;

@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 public class Grid : MonoBehaviour
 {
-    public Transform startPosition;
+    //public Transform startPosition;
     public LayerMask wallMask;
 
     public float tileSize;
@@ -12,14 +12,12 @@ public class Grid : MonoBehaviour
     public Tilemap wallsTileMap;
 
     public Node[,] nodeArray;
-    public List<Node> finalPath;
 
     private int gridSizeX;
     private int gridSizeY;
 
 
-
-    private void Start()
+    private void Awake()
     {
         tileSize = groundTileMap.cellSize.x;
         gridSizeX = groundTileMap.size.x;
@@ -27,25 +25,23 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-
     private void CreateGrid()
     {
         nodeArray = new Node[gridSizeX, gridSizeY];
-        Vector3 firstTilePosition = new Vector3(-15.5f, -8.5f, 0);
+        Vector3 firstTilePosition = new Vector3(-16f, -9f, 0);
 
         for (int y = 0; y < gridSizeY; y++)
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * tileSize - 0.5f), (int)(firstTilePosition.y + y * tileSize - 0.5f), 0));
-
+                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * tileSize), (int)(firstTilePosition.y + y * tileSize), 0));
+                
                 nodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * tileSize, firstTilePosition.y + y * tileSize, 0));
             }
         }
     }
 
-
-    public List<Node> GetNeighboringNodes(Node neighborNode)
+    public List<Node> GetNeighboringNodes(Node node)
     {
         List<Node> neighborList = new List<Node>();
 
@@ -54,50 +50,62 @@ public class Grid : MonoBehaviour
 
         #region Check if neighbor nodes are within range of the 2D array
         //right
-        indexCheckX = neighborNode.indexGridX + 1;
-        indexCheckY = neighborNode.indexGridY;
+        indexCheckX = node.indexGridX + 1;
+        indexCheckY = node.indexGridY;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                {
+                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                }
             }
         }
 
         //left
-        indexCheckX = neighborNode.indexGridX - 1;
-        indexCheckY = neighborNode.indexGridY;
+        indexCheckX = node.indexGridX - 1;
+        indexCheckY = node.indexGridY;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                {
+                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                }
             }
         }
 
         //top
-        indexCheckX = neighborNode.indexGridX;
-        indexCheckY = neighborNode.indexGridY - 1;
+        indexCheckX = node.indexGridX;
+        indexCheckY = node.indexGridY - 1;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                {
+                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                }
             }
         }
 
         //bottom
-        indexCheckX = neighborNode.indexGridX;
-        indexCheckY = neighborNode.indexGridY + 1;
+        indexCheckX = node.indexGridX;
+        indexCheckY = node.indexGridY + 1;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                {
+                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                }
             }
         }
         #endregion
@@ -105,19 +113,19 @@ public class Grid : MonoBehaviour
         return neighborList;
     }
 
-    
     public Node GetNodeFromWorldPoint(Vector3 worldPoint)
     {
         int xPos = Mathf.RoundToInt(worldPoint.x);
         int yPos = Mathf.RoundToInt(worldPoint.y);
 
-        int xIndex = groundTileMap.WorldToCell(new Vector3Int(xPos, yPos, 0)).x;
-        int yIndex = groundTileMap.WorldToCell(new Vector3Int(xPos, yPos, 0)).y;
+        xPos = Mathf.Clamp(xPos, -16, 15);  //hardcode
+        yPos = Mathf.Clamp(yPos, -9, 8);    //hardcode
 
+        int xIndex = xPos + 16; //hardcode
+        int yIndex = yPos + 9;  //hardcode
 
         return nodeArray[xIndex, yIndex];
     }
-
 
     private void OnDrawGizmos()
     {
@@ -136,15 +144,7 @@ public class Grid : MonoBehaviour
                     Gizmos.color = Color.yellow;
                 }
 
-                if (finalPath != null)
-                {
-                    if (finalPath.Contains(node))
-                    {
-                        Gizmos.color = Color.blue;
-                    }
-                }
-
-                Gizmos.DrawCube(node.worldPosition, Vector3.one * tileSize / 3);    
+                Gizmos.DrawWireCube(new Vector3(node.worldPosition.x + tileSize / 2, node.worldPosition.y + tileSize / 2, 0), Vector3.one * tileSize / 3);
             }
         }
     }
