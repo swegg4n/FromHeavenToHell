@@ -35,17 +35,17 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Tilemap topWallTilemap;
 
     [SerializeField] private GameObject spawnIndicator;
-    [SerializeField] private GameObject bunnyDog;
+    [SerializeField] private GameObject enemy;
 
     private Random rnd = new Random();
 
+    /// <summary>
+    /// Skapar en lista med tillåtna spawnpositioner
+    /// </summary>
     private void Start()
     {
-        timeBetweenSpawn = 1f;
-        delay = 3f;
-
         tilePositionList = new List<Vector3>();
-
+        
         for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
         {
             for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
@@ -68,7 +68,7 @@ public class EnemyManager : MonoBehaviour
 
         if(timeSinceLastSpawn > timeBetweenSpawn)
         {
-            StartCoroutine(Spawn(4, delay));
+            StartCoroutine(Spawn(nrOfEnemiesToSpawn, delay));
 
             timeSinceLastSpawn = 0;
         }
@@ -89,7 +89,7 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < nrOfSpawns; i++)
         {
-            Instantiate(bunnyDog, tilePositionList[tempIndexList[i]], Quaternion.identity);
+            Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity);
             Destroy(spawnIndicatorList[i]);
         }
 

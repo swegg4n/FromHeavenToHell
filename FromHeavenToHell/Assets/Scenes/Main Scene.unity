@@ -8979,5 +8979,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7335792222528850430, guid: 6e87183079f60194d9fe1513258203e4,
         type: 3}
+    - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: delay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: timeBetweenSpawn
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: nrOfEnemiesToSpawn
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 5771654108664280101, guid: 72996831fa2e53d4283ca460b88163e7,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
