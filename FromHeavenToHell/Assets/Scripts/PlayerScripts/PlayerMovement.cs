@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool useVelocity;
     [SerializeField] private bool useAddForce;
+    [SerializeField] private Tilemap tileMap;
+
+    public bool dashing { get; set; }
 
     private void Awake()
     {
@@ -29,18 +33,24 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(gameObject.tag == "PlayerDemon")
+        GetInput();
+        MovePlayer();
+    }
+
+    private void GetInput()
+    {
+        if (gameObject.tag == "PlayerDemon")
         {
-            if(PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            if (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
             {
                 GetKeyboardInput();
             }
             else
             {
                 GetJoystickInput("P1");
-            }  
+            }
         }
-        else if(gameObject.tag == "PlayerAngel")
+        else if (gameObject.tag == "PlayerAngel")
         {
             if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
             {
@@ -50,32 +60,29 @@ public class PlayerMovement : MonoBehaviour
             {
                 GetJoystickInput("P2");
             }
-              
         }
-        MovePlayer();
     }
 
     private void GetKeyboardInput()
     {
         velocityX = Input.GetAxisRaw("HorizontalMouse");
         velocityY = Input.GetAxisRaw("VerticalMouse");
-        
     }
-
 
     private void GetJoystickInput(string player)
     {
         velocityX = Input.GetAxisRaw("Horizontal" + player);
         velocityY = Input.GetAxisRaw("Vertical" + player);
     }
+
     private void MovePlayer()
     {
-        if (useVelocity)
+        if (useVelocity == true && dashing == false)
         {
             rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
         }
 
-        if (useAddForce)
+        if (useAddForce == true)
         {
             rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
         }

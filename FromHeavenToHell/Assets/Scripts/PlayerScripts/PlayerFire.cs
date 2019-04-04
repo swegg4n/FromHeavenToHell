@@ -1,58 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
 {
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private Ability selectedAbility;
 
-    private bool fireInput;
-
-    private float projectileSpeed = 1f;
 
     private void Update()
     {
+        UseAbility();
+        selectedAbility.Update();
+    }
+
+
+    private void UseAbility()
+    {
         if (gameObject.tag == "PlayerDemon")
         {
-            if (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            if ((PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true && Input.GetButton("MouseLeftClick") == true) ||
+                (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == false && Input.GetButton("R1P1") == true))
             {
-                KeyboardFireShot();
-            }
-            else
-            {
-                FireShot("R1P1");
+                selectedAbility.TriggerAbility(gameObject);
             }
         }
         else if (gameObject.tag == "PlayerAngel")
         {
-            if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
+            if ((PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true && Input.GetButton("MouseLeftClick") == true) ||
+                (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == false && Input.GetButton("R1P2") == true))
             {
-                KeyboardFireShot();
+                selectedAbility.TriggerAbility(gameObject);
             }
-            else
-            {
-                FireShot("R1P2");
-            }
-        }
-    }
-
-    private void KeyboardFireShot()
-    {
-        if (Input.GetButtonDown("MouseLeftClick"))
-        {
-            var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
-        }
-    }
-
-    private void FireShot(string input)
-    {
-        fireInput = Input.GetButtonDown(input);
-
-        if (fireInput == true)
-        {
-            var bullet = Instantiate(projectile, transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = GetComponentInChildren<AimIndicator>().direction.normalized * projectileSpeed;
         }
     }
 }

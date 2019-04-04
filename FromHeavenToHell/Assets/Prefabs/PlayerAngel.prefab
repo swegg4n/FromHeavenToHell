@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199837326968631044}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 7963643071247855209}
@@ -214,10 +214,11 @@ GameObject:
   - component: {fileID: 7963643071853028634}
   - component: {fileID: 7963643071853028635}
   - component: {fileID: 7963643071853028632}
-  - component: {fileID: 5506701336157980906}
   - component: {fileID: 1618585971}
   - component: {fileID: 1618585972}
+  - component: {fileID: 5506701336157980906}
   - component: {fileID: 1377581642106567832}
+  - component: {fileID: 1968686558640596770}
   m_Layer: 8
   m_Name: PlayerAngel
   m_TagString: PlayerAngel
@@ -331,6 +332,7 @@ MonoBehaviour:
   addForceSpeed: 0
   useVelocity: 1
   useAddForce: 0
+  tileMap: {fileID: 0}
 --- !u!50 &7963643071853028632
 Rigidbody2D:
   serializedVersion: 4
@@ -352,19 +354,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &5506701336157980906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963643071853028633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3a1cee1a2f5dc44b3123647a20e774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimIndicator: {fileID: 199837326968631044}
 --- !u!95 &1618585971
 Animator:
   serializedVersion: 3
@@ -396,6 +385,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56e118e80579184ab5f1de932b8b0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5506701336157980906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963643071853028633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3a1cee1a2f5dc44b3123647a20e774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimIndicator: {fileID: 199837326968631044}
 --- !u!114 &1377581642106567832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,5 +410,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
-    type: 3}
+  selectedAbility: {fileID: 11400000, guid: 683b58c7d8082d342a96f034fb7b6445, type: 2}
+--- !u!114 &1968686558640596770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963643071853028633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2c5e2f38e30d546b820727e132791d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
