@@ -9,7 +9,6 @@ public class ProjectileAbility : Ability
     [SerializeField] private float cooldown;
 
 
-
     public override void TriggerAbility(GameObject caster)
     {
         CooldownController cdController = caster.GetComponent<CooldownController>();

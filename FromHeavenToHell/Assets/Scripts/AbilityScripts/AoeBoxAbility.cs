@@ -5,8 +5,9 @@ public class AoeBoxAbility : Ability
 {
     [SerializeField] private float cooldown;
     [SerializeField] private float activeDuration;
-
-
+    [SerializeField] private float timeBetweenTicks;
+    [SerializeField] private int range;
+    private float timeSinceLastTick;
 
     public override void TriggerAbility(GameObject caster)
     {
@@ -18,11 +19,23 @@ public class AoeBoxAbility : Ability
             float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);//Konverterar vector2 till vinkel
             float degAngle = radAngle / (2 * Mathf.PI) * 360;
 
-            var aoeBox = Instantiate(abilityPrefab, caster.transform.position, Quaternion.Euler(0, 0, degAngle));
+            Vector2 targetPosition = (Vector2)caster.transform.position + caster.GetComponent<AimIndicator>().direction.normalized * range / GameManager.instance.tileSize;
+
+            var aoeBox = Instantiate(abilityPrefab, targetPosition, Quaternion.Euler(0, 0, degAngle));
             Destroy(aoeBox, activeDuration);
 
-            cdController.ResetCooldown(cooldown);  
+            cdController.ResetCooldown(cooldown);
         }
     }
 
+    public override void Update()
+    {
+        timeSinceLastTick += Time.deltaTime;
+
+        if(timeSinceLastTick > timeBetweenTicks)
+        {
+            //Gör damage genom damagemanagern
+            timeSinceLastTick = 0;
+        }
+    }
 }

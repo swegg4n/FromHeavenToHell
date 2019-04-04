@@ -19,5 +19,6 @@ MonoBehaviour:
   abilitySound: {fileID: 0}
   damage: 0
   cooldown: 1
-  activeDuration: 2
-  animationClip: {fileID: 7400000, guid: 2ff7f2f87ff64584bbdcdbbfebc5a78f, type: 2}
+  activeDuration: 30
+  timeBetweenTicks: 3
+  range: 80

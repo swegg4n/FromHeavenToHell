@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Tilemaps;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Ability/Dash Ability")]
 public class DashAbility : Ability
@@ -19,6 +17,7 @@ public class DashAbility : Ability
     public override void TriggerAbility(GameObject caster)
     {
         CooldownController cdController = caster.GetComponent<CooldownController>();
+
         if(cdController.CooldownPassed() == true)
         {
             this.caster = caster;
@@ -41,8 +40,7 @@ public class DashAbility : Ability
         }
     }
 
-
-    public override void FixedUpdate()
+    public override void Update()
     {
         if(caster != null)
         {

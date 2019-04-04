@@ -5,12 +5,12 @@ public class PlayerFire : MonoBehaviour
     [SerializeField] private Ability selectedAbility;
 
 
-
     private void Update()
     {
         UseAbility();
-        selectedAbility.FixedUpdate();
+        selectedAbility.Update();
     }
+
 
     private void UseAbility()
     {

@@ -11,5 +11,5 @@ public abstract class Ability : ScriptableObject
 
     public abstract void TriggerAbility(GameObject caster);
 
-    public virtual void FixedUpdate() { }
+    public virtual void Update() { }
 }
