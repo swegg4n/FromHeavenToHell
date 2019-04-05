@@ -30,15 +30,13 @@ public class AnimationController : MonoBehaviour
 
         koeficient = normalizedDirection.y / normalizedDirection.x;
 
-        if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
+        if (koeficient < 1 && koeficient > -1 && normalizedDirection.x > 0)
         {
             animator.SetInteger("AnimationSelector", (int)AnimationSelector.Right);
-
         }
-        else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
+        else if (koeficient < 1 && koeficient > -1 && normalizedDirection.x < 0)
         {
             animator.SetInteger("AnimationSelector", (int)AnimationSelector.Left);
-
         }
         else if((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
         {
