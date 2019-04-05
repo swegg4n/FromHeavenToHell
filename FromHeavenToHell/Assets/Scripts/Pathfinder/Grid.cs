@@ -4,9 +4,6 @@ using UnityEngine.Tilemaps;
 
 public class Grid : MonoBehaviour
 {
-    //public Transform startPosition;
-    public LayerMask wallMask;
-
     public float tileSize;
     public Tilemap groundTileMap;
     public Tilemap wallsTileMap;
@@ -115,8 +112,10 @@ public class Grid : MonoBehaviour
 
     public Node GetNodeFromWorldPoint(Vector3 worldPoint)
     {
-        int xPos = Mathf.RoundToInt(worldPoint.x);
-        int yPos = Mathf.RoundToInt(worldPoint.y);
+        int xPos = Mathf.FloorToInt(worldPoint.x);
+        int yPos = Mathf.FloorToInt(worldPoint.y);
+        //int xPos = Mathf.RoundToInt(worldPoint.x);
+        //int yPos = Mathf.RoundToInt(worldPoint.y);
 
         xPos = Mathf.Clamp(xPos, -16, 15);  //hardcode
         yPos = Mathf.Clamp(yPos, -9, 8);    //hardcode

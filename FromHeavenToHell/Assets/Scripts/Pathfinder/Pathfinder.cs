@@ -3,26 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Pathfindning : MonoBehaviour
+public class Pathfinder : MonoBehaviour
 {
     private Grid gridRef;
 
-    public Transform startPosition;
-    public Transform targetPosition;
+    public Transform startTransform;
+    public Transform targetTransform;
 
     Node startNode;
-    Node targetNode;
+    public Node targetNode;
 
-    Node chosenNode;
+    public Node chosenNode;
 
 
     private void Start()
     {
-        gridRef = GetComponent<Grid>();
-        FindNextNode(new Vector3(-4, 5, 0), new Vector3(-4, 0, 0));
+        gridRef = PlayerManager.instance.gameObject.GetComponent<Grid>();
     }
 
-    private void FindNextNode(Vector3 startPosition, Vector3 targetPosition)
+
+    public void FindNextNode(Vector3 startPosition, Vector3 targetPosition)
     {
         startNode = gridRef.GetNodeFromWorldPoint(startPosition);
         targetNode = gridRef.GetNodeFromWorldPoint(targetPosition);
@@ -44,10 +44,6 @@ public class Pathfindning : MonoBehaviour
         Debug.Log("min hCost " + minHCost);
     }
 
-    private void GoToNextNode(Node nextNode)
-    {
-
-    }
 
     private int GetManhattenDistance(Node nodeA, Node nodeB)
     {

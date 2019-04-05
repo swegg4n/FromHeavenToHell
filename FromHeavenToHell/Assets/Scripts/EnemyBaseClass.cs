@@ -9,6 +9,7 @@ public class EnemyBaseClass : MonoBehaviour
 
     public float SpeedFactor { get { return speedFactor; } }
 
+
     void Start()
     {
         health = 100;
