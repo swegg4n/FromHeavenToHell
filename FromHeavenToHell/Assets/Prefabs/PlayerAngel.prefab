@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 8380152118487039194}
   - component: {fileID: 1349391385369179165}
   - component: {fileID: 431802154322007303}
+  - component: {fileID: 8509966267556373705}
   m_Layer: 8
   m_Name: PlayerAngel
   m_TagString: PlayerAngel
@@ -407,5 +408,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a2c5e2f38e30d546b820727e132791d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8509966267556373705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7963643071853028633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56e118e80579184ab5f1de932b8b0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
