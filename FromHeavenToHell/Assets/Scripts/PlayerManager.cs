@@ -34,8 +34,8 @@ public class PlayerManager : MonoBehaviour
     {
         Instantiate(playerAngel);
         Instantiate(playerDemon);
-        playerAngelUsingMouseAndKeyboard = true;
-        playerDemonUsingMouseAndKeyboard = false;
+        playerAngelUsingMouseAndKeyboard = false;
+        playerDemonUsingMouseAndKeyboard = true;
     }
 
     // Update is called once per frame
