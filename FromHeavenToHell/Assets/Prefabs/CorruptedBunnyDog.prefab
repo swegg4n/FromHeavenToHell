@@ -158,9 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63101a459468da489a451002cfc83ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &8974269370495757786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,8 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e7444bb3318aa44aa41b7b6c591a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {fileID: 0}
-  targetPosition: {fileID: 0}
 --- !u!1 &5771654109456557581
 GameObject:
   m_ObjectHideFlags: 0

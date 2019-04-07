@@ -4,11 +4,12 @@ using UnityEngine.Tilemaps;
 
 public class Grid : MonoBehaviour
 {
-    public float tileSize;
-    public Tilemap groundTileMap;
-    public Tilemap wallsTileMap;
+    private float cellSize;
 
-    public Node[,] nodeArray;
+    [SerializeField] private Tilemap groundTileMap;
+    [SerializeField] private Tilemap wallsTileMap;
+
+    public Node[,] NodeArray { get; private set; }
 
     private int gridSizeX;
     private int gridSizeY;
@@ -16,7 +17,7 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        tileSize = groundTileMap.cellSize.x;
+        cellSize = groundTileMap.cellSize.x;
         gridSizeX = groundTileMap.size.x;
         gridSizeY = groundTileMap.size.y;
         CreateGrid();
@@ -24,16 +25,16 @@ public class Grid : MonoBehaviour
 
     private void CreateGrid()
     {
-        nodeArray = new Node[gridSizeX, gridSizeY];
+        NodeArray = new Node[gridSizeX, gridSizeY];
         Vector3 firstTilePosition = new Vector3(-16f, -9f, 0);
 
         for (int y = 0; y < gridSizeY; y++)
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * tileSize), (int)(firstTilePosition.y + y * tileSize), 0));
+                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
                 
-                nodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * tileSize, firstTilePosition.y + y * tileSize, 0));
+                NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
             }
         }
     }
@@ -47,61 +48,61 @@ public class Grid : MonoBehaviour
 
         #region Check if neighbor nodes are within range of the 2D array
         //right
-        indexCheckX = node.indexGridX + 1;
-        indexCheckY = node.indexGridY;
+        indexCheckX = node.IndexGridX + 1;
+        indexCheckY = node.IndexGridY;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
                 {
-                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
                 }
             }
         }
 
         //left
-        indexCheckX = node.indexGridX - 1;
-        indexCheckY = node.indexGridY;
+        indexCheckX = node.IndexGridX - 1;
+        indexCheckY = node.IndexGridY;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
                 {
-                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
                 }
             }
         }
 
         //top
-        indexCheckX = node.indexGridX;
-        indexCheckY = node.indexGridY - 1;
+        indexCheckX = node.IndexGridX;
+        indexCheckY = node.IndexGridY - 1;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
                 {
-                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
                 }
             }
         }
 
         //bottom
-        indexCheckX = node.indexGridX;
-        indexCheckY = node.indexGridY + 1;
+        indexCheckX = node.IndexGridX;
+        indexCheckY = node.IndexGridY + 1;
 
         if (indexCheckX >= 0 && indexCheckX < gridSizeX)
         {
             if (indexCheckY >= 0 && indexCheckY < gridSizeY)
             {
-                if (nodeArray[indexCheckX, indexCheckY].isWall == false)
+                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
                 {
-                    neighborList.Add(nodeArray[indexCheckX, indexCheckY]);
+                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
                 }
             }
         }
@@ -114,8 +115,6 @@ public class Grid : MonoBehaviour
     {
         int xPos = Mathf.FloorToInt(worldPoint.x);
         int yPos = Mathf.FloorToInt(worldPoint.y);
-        //int xPos = Mathf.RoundToInt(worldPoint.x);
-        //int yPos = Mathf.RoundToInt(worldPoint.y);
 
         xPos = Mathf.Clamp(xPos, -16, 15);  //hardcode
         yPos = Mathf.Clamp(yPos, -9, 8);    //hardcode
@@ -123,27 +122,24 @@ public class Grid : MonoBehaviour
         int xIndex = xPos + 16; //hardcode
         int yIndex = yPos + 9;  //hardcode
 
-        return nodeArray[xIndex, yIndex];
+        return NodeArray[xIndex, yIndex];
     }
+
+
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(groundTileMap.transform.position, new Vector3(gridSizeX * tileSize, gridSizeY * tileSize, 1));
+        Gizmos.DrawWireCube(groundTileMap.transform.position, new Vector3(gridSizeX * cellSize, gridSizeY * cellSize, 1));
 
-        if (nodeArray != null)
+        if (NodeArray != null)
         {
-            foreach (Node node in nodeArray)
+            foreach (Node node in NodeArray)
             {
-                if (node.isWall == true)
+                if (node.IsWall == true)
                 {
                     Gizmos.color = Color.red;
+                    Gizmos.DrawWireSphere(new Vector3(node.WorldPosition.x + cellSize / 2, node.WorldPosition.y + cellSize / 2, 0), 0.25f);
                 }
-                else
-                {
-                    Gizmos.color = Color.yellow;
-                }
-
-                Gizmos.DrawWireCube(new Vector3(node.worldPosition.x + tileSize / 2, node.worldPosition.y + tileSize / 2, 0), Vector3.one * tileSize / 3);
             }
         }
     }

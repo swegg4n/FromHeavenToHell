@@ -2,21 +2,26 @@
 
 public class Node
 {
-    public int indexGridX;
-    public int indexGridY;
+    public int IndexGridX { get; }
+    public int IndexGridY { get; }
 
-    public bool isWall;
+    public bool IsWall { get; }
 
-    public Vector3 worldPosition;
+    public Vector3 WorldPosition { get; }
 
-    public int hCost { get; set; }
+    public Node ParentNode { get; set; }
+
+    public int GCost { get; set; }
+    public int HCost { get; set; }
+
+    public int FCost { get { return GCost + HCost; } }
 
 
     public Node(int indexGridX, int indexGridY, bool isWall, Vector3 worldPosition)
     {
-        this.indexGridX = indexGridX;
-        this.indexGridY = indexGridY;
-        this.isWall = isWall;
-        this.worldPosition = worldPosition;
+        IndexGridX = indexGridX;
+        IndexGridY = indexGridY;
+        IsWall = isWall;
+        WorldPosition = worldPosition;
     }
 }
