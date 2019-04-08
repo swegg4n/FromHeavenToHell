@@ -39,9 +39,6 @@ public class PlayerManager : MonoBehaviour
     {
         playerAngelInstance = Instantiate(playerAngelPrefab);
         playerDemonInstance = Instantiate(playerDemonPrefab);
-
-        playerAngelUsingMouseAndKeyboard = true;
-        playerDemonUsingMouseAndKeyboard = false;
     }
 
     // Update is called once per frame
@@ -54,8 +51,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(currentPlayerDemon);
-            Destroy(currentPlayerAngel);
+            Destroy(playerDemonInstance);
+            Destroy(playerAngelInstance);
         }
     }
 
