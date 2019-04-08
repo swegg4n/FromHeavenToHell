@@ -33,6 +33,6 @@ public class EnemyBaseClass : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health = health - damage;
+        health -= damage;
     }
 }

@@ -50,6 +50,9 @@ MonoBehaviour:
     type: 3}
   playerAngelPrefab: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
     type: 3}
+  health: 100
+  playerDemonUsingMouse: 1
+  playerAngelUsingMouse: 0
 --- !u!114 &6424370980982477292
 MonoBehaviour:
   m_ObjectHideFlags: 0

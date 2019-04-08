@@ -60,8 +60,7 @@ GameObject:
   - component: {fileID: 5771654108664280123}
   - component: {fileID: 911087324}
   - component: {fileID: 5771654108664280121}
-  - component: {fileID: 2923679538573901416}
-  - component: {fileID: 8974269370495757786}
+  - component: {fileID: 5806607515339031801}
   m_Layer: 10
   m_Name: CorruptedBunnyDog
   m_TagString: Enemy

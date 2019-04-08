@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -22,15 +23,16 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-
     [SerializeField] private GameObject playerDemonPrefab;
     [SerializeField] private GameObject playerAngelPrefab;
 
     public GameObject playerDemonInstance { get; private set; }
     public GameObject playerAngelInstance { get; private set; }
 
-    public bool playerDemonUsingMouseAndKeyboard { get; private set; }
-    public bool playerAngelUsingMouseAndKeyboard { get; private set; }
+    [SerializeField] private int health;
+
+    [SerializeField] private bool playerDemonUsingMouse;
+    [SerializeField] private bool playerAngelUsingMouse;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +47,30 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DeathCheck();
+    }
+
+    void DeathCheck()
+    {
+        if (health <= 0)
+        {
+            Destroy(currentPlayerDemon);
+            Destroy(currentPlayerAngel);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+    }
+
+    public bool GetAngelUsingMouse()
+    {
+        return playerAngelUsingMouse;
+    }
+
+    public bool GetDemonUsingMouse()
+    {
+        return playerDemonUsingMouse;
     }
 }

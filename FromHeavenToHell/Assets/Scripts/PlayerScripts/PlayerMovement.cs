@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (gameObject.tag == "PlayerDemon")
         {
-            if (PlayerManager.instance.playerDemonUsingMouseAndKeyboard == true)
+            if (PlayerManager.instance.GetDemonUsingMouse() == true)
             {
                 GetKeyboardInput();
             }
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (gameObject.tag == "PlayerAngel")
         {
-            if (PlayerManager.instance.playerAngelUsingMouseAndKeyboard == true)
+            if (PlayerManager.instance.GetAngelUsingMouse() == true)
             {
                 GetKeyboardInput();
             }
