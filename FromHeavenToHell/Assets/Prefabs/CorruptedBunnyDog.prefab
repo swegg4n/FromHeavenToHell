@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5771654108664280120}
   - component: {fileID: 5771654108664280123}
   - component: {fileID: 5771654108664280121}
+  - component: {fileID: 5806607515339031801}
   m_Layer: 10
   m_Name: CorruptedBunnyDog
   m_TagString: Enemy
@@ -120,8 +121,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f2cb1e58ae40d49a75c86fb3bb024b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   speedFactor: 0
+--- !u!50 &5806607515339031801
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771654108664280101}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.1
+  m_LinearDrag: 1000
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &5771654109456557581
 GameObject:
   m_ObjectHideFlags: 0

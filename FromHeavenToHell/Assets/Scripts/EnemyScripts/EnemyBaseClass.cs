@@ -9,7 +9,7 @@ public class EnemyBaseClass : MonoBehaviour
 
     void Start()
     {
-        health = 100;
+
     }
 
     void Update()
@@ -27,6 +27,6 @@ public class EnemyBaseClass : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health = health - damage;
+        health -= damage;
     }
 }

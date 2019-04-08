@@ -7,12 +7,16 @@ public class AoeBoxAbility : Ability
     [SerializeField] private float activeDuration;
     [SerializeField] private float timeBetweenTicks;
     [SerializeField] private int range;
+
+    public GameObject caster { get; private set; }
+
     private float timeSinceLastTick;
 
     public override void TriggerAbility(GameObject caster)
     {
-        CooldownController cdController = caster.GetComponent<CooldownController>();
+        this.caster = caster;
 
+        CooldownController cdController = caster.GetComponent<CooldownController>();
 
         if (cdController.CooldownPassed() == true)
         {
@@ -22,7 +26,8 @@ public class AoeBoxAbility : Ability
             Vector2 targetPosition = (Vector2)caster.transform.position + caster.GetComponent<AimIndicator>().direction.normalized * range / GameManager.instance.tileSize;
 
             var aoeBox = Instantiate(abilityPrefab, targetPosition, Quaternion.Euler(0, 0, degAngle));
-            Destroy(aoeBox, activeDuration);
+
+            aoeBox.GetComponent<AoeBehaviour>().aoeAbility = this;
 
             cdController.ResetCooldown(cooldown);
         }
@@ -30,12 +35,16 @@ public class AoeBoxAbility : Ability
 
     public override void Update()
     {
-        timeSinceLastTick += Time.deltaTime;
 
-        if(timeSinceLastTick > timeBetweenTicks)
-        {
-            //Gör damage genom damagemanagern
-            timeSinceLastTick = 0;
-        }
+    }
+
+    public float GetTimeBetweenTicks()
+    {
+        return timeBetweenTicks;
+    }
+
+    public float GetActiveDuration()
+    {
+        return activeDuration;
     }
 }

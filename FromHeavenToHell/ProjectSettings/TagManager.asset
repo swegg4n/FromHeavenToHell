@@ -9,6 +9,8 @@ TagManager:
   - PlayerAngel
   - Wall
   - TopWall
+  - AOE
+  - Projectile
   layers:
   - Default
   - TransparentFX
