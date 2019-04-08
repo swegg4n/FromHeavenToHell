@@ -56,7 +56,7 @@ public class AnimationController : MonoBehaviour
 
     public void CheckIfMoving()
     {
-        if (GetComponent<Movement>().velocityX != 0 || GetComponent<Movement>().velocityY != 0)
+        if (GetComponent<PlayerMovement>().velocityX != 0 || GetComponent<PlayerMovement>().velocityY != 0)
         {
             animator.SetBool("IsMoving", true);
         }
