@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6424370980982477282}
   - component: {fileID: 6424370980982477293}
   - component: {fileID: 6424370980982477292}
+  - component: {fileID: 440901390}
+  - component: {fileID: 1159868883982822843}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2948e5040ad6f714bb411043b5d47654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDemon: {fileID: 3292446865433229567, guid: 4bc67d522bf31a3479aa2832b49d7b63,
+  playerDemonPrefab: {fileID: 3292446865433229567, guid: 4bc67d522bf31a3479aa2832b49d7b63,
     type: 3}
-  playerAngel: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
+  playerAngelPrefab: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
     type: 3}
 --- !u!114 &6424370980982477292
 MonoBehaviour:
@@ -60,5 +62,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867171ba376a7f44abc8616785f13f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawn: 0
-  nrOfEnemiesToSpawn: 0
+  timeBetweenSpawn: 1
+  delay: 1
+  nrOfEnemiesToSpawn: 1
+  groundTileMap: {fileID: 0}
+  wallTilemap: {fileID: 0}
+  topWallTilemap: {fileID: 0}
+  spawnIndicator: {fileID: 7335792222528850430, guid: 6e87183079f60194d9fe1513258203e4,
+    type: 3}
+  enemy: {fileID: 5771654108664280101, guid: 72996831fa2e53d4283ca460b88163e7, type: 3}
+--- !u!114 &440901390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424370980982477283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcad6263ce05b1449a2e3fd7055d95d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTileMap: {fileID: 0}
+  wallTileMap: {fileID: 0}
+  topTileMap: {fileID: 0}
+--- !u!114 &1159868883982822843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424370980982477283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c9740201e5c35488789fe14dd2bdfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTileMap: {fileID: 0}
+  wallsTileMap: {fileID: 0}

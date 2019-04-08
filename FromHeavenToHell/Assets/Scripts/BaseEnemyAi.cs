@@ -10,17 +10,39 @@ public class BaseEnemyAi : MonoBehaviour
 
     void Start()
     {
-        player1 = PlayerManager.instance.player1;
-        player2 = PlayerManager.instance.player2;
+        player1 = PlayerManager.instance.playerAngelInstance;
+        player2 = PlayerManager.instance.playerDemonInstance;
+
+        GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
     }
 
     private void Update()
     {
-        GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
+        if (GetComponent<Pathfinder>().FinalPath != null)
+        {
+            if (GetComponent<Rigidbody2D>().velocity != Vector2.zero && GetComponent<Pathfinder>().FinalPath.Count > 0)
+            {
+                if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
+                    GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
+                {
+                    GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
+                }
+            }
+            else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            {
+                GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
+            }
 
+            MoveToNextTile();
+        }
+
+    }
+
+    private void MoveToNextTile()
+    {
         if (GetComponent<Pathfinder>().FinalPath.Count > 0)
         {
-            direction = (GetComponent<Pathfinder>().FinalPath[0].WorldPosition - transform.position);
+            direction = GetComponent<Pathfinder>().FinalPath[0].WorldPosition - transform.position;
             direction = new Vector3(direction.x + 0.5f, direction.y + 0.5f, 0);
 
             GetComponent<Rigidbody2D>().velocity = direction.normalized * GetComponent<EnemyBaseClass>().SpeedFactor;

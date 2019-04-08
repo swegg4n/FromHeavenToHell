@@ -23,8 +23,11 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
 
-    [SerializeField] private GameObject playerDemon;
-    [SerializeField] private GameObject playerAngel;
+    [SerializeField] private GameObject playerDemonPrefab;
+    [SerializeField] private GameObject playerAngelPrefab;
+
+    public GameObject playerDemonInstance { get; private set; }
+    public GameObject playerAngelInstance { get; private set; }
 
     public bool playerDemonUsingMouseAndKeyboard { get; private set; }
     public bool playerAngelUsingMouseAndKeyboard { get; private set; }
@@ -32,8 +35,9 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(playerAngel);
-        Instantiate(playerDemon);
+        playerAngelInstance = Instantiate(playerAngelPrefab);
+        playerDemonInstance = Instantiate(playerDemonPrefab);
+
         playerAngelUsingMouseAndKeyboard = true;
         playerDemonUsingMouseAndKeyboard = false;
     }

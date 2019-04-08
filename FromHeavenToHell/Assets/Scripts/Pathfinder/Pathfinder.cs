@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    private Grid gridRef;
+    private NodeGrid gridRef;
 
     private Node startNode;
     private Node targetNode;
@@ -13,9 +13,9 @@ public class Pathfinder : MonoBehaviour
     public List<Node> FinalPath { get; private set; }
 
 
-    private void Start()
+    private void Awake()
     {
-        gridRef = PlayerManager.instance.gameObject.GetComponent<Grid>();
+        gridRef = GameManager.instance.gameObject.GetComponent<NodeGrid>();
     }
 
     public void FindPath(Vector3 startPosition, Vector3 targetPosition)
