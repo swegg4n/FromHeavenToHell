@@ -222,6 +222,7 @@ MonoBehaviour:
   addForceSpeed: 0
   useVelocity: 1
   useAddForce: 0
+  tileMap: {fileID: 0}
 --- !u!50 &3292446865433229566
 Rigidbody2D:
   serializedVersion: 4

@@ -4,8 +4,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
 
-    private float velocityX;
-    private float velocityY;
+    public float velocityX { get; private set; }
+    public float velocityY { get; private set; }
 
     [SerializeField] private float velocitySpeed;
     [SerializeField] private float addForceSpeed;
