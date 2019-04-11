@@ -31,6 +31,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int health;
 
+    [SerializeField] private float teleportCooldown;
+    private bool teleportCooldownReady;
+    private float counter;
+    public bool PlayerDemonTeleport { get; set; }
+    public bool PlayerAngelTeleport { get; set; }
+
     [SerializeField] private bool playerDemonUsingMouse;
     [SerializeField] private bool playerAngelUsingMouse;
 
@@ -39,12 +45,31 @@ public class PlayerManager : MonoBehaviour
     {
         playerAngelInstance = Instantiate(playerAngelPrefab);
         playerDemonInstance = Instantiate(playerDemonPrefab);
+        PlayerDemonTeleport = false;
+        PlayerAngelTeleport = false;
+        teleportCooldownReady = true;
+    }
+
+    public void TeleportPlayers(Vector3 position)
+    {
+        if(PlayerAngelTeleport == true && PlayerDemonTeleport == true && teleportCooldownReady == true)
+        {
+            playerAngelInstance.transform.position = position;
+            playerDemonInstance.transform.position = position;
+            teleportCooldownReady = false;
+            counter = 0;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         DeathCheck();
+        counter += Time.deltaTime;
+        if(counter > teleportCooldown)
+        {
+            teleportCooldownReady = true;
+        }
     }
 
     void DeathCheck()

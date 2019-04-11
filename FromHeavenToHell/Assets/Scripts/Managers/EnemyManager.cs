@@ -31,7 +31,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
-    [SerializeField] private Tilemap wallTilemap;
+    [SerializeField] private Tilemap wallTilemap; // Ska hämta dessa från gameManager
     [SerializeField] private Tilemap topWallTilemap;
 
     [SerializeField] private GameObject spawnIndicator;
