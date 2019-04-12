@@ -8970,5 +8970,15 @@ PrefabInstance:
       propertyPath: wallsTileMap
       value: 
       objectReference: {fileID: 2044348485}
+    - target: {fileID: 6424370980982477293, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: playerAngelUsingMouse
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424370980982477293, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: playerDemonUsingMouse
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}

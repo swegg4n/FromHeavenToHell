@@ -60,7 +60,9 @@ GameObject:
   - component: {fileID: 5771654108664280123}
   - component: {fileID: 911087324}
   - component: {fileID: 5771654108664280121}
-  - component: {fileID: 5806607515339031801}
+  - component: {fileID: 2923679538573901416}
+  - component: {fileID: 8974269370495757786}
+  - component: {fileID: 4136670896416800463}
   m_Layer: 10
   m_Name: CorruptedBunnyDog
   m_TagString: Enemy
@@ -76,8 +78,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5771654108664280101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.09, y: 2.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4333669571657872541}
   m_Father: {fileID: 0}
@@ -192,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   speedFactor: 50
+  ability: {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
 --- !u!114 &2923679538573901416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63101a459468da489a451002cfc83ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyIgnoreLayerMask:
+    serializedVersion: 2
+    m_Bits: 4919
 --- !u!114 &8974269370495757786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,5 +220,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72e7444bb3318aa44aa41b7b6c591a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4136670896416800463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771654108664280101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2c5e2f38e30d546b820727e132791d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

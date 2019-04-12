@@ -32,12 +32,12 @@ public class AoeBehaviour : MonoBehaviour
                 if (other.tag == "Enemy")
                 {
                     Debug.Log("2");
-                    other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.GetDamage());
+                    other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage);
                 }
                 else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
                 {
                     Debug.Log("3");
-                    PlayerManager.instance.TakeDamage(aoeAbility.GetDamage());
+                    PlayerManager.instance.TakeDamage(aoeAbility.Damage);
                 }
             }
             timeSinceLastTick = 0;

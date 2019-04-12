@@ -7,14 +7,13 @@ public abstract class Ability : ScriptableObject
     [SerializeField] private Sprite abilityIcon;
     [SerializeField] private AudioClip abilitySound;
     [SerializeField] private int damage;
+    public int Damage { get { return damage; } }
+
+    //Det avståndet från vilket abilityn är optimal att användas
+    public float optimalRange;
 
 
     public abstract void TriggerAbility(GameObject caster);
 
     public virtual void Update() { }
-
-    public int GetDamage()
-    {
-        return damage;
-    }
 }

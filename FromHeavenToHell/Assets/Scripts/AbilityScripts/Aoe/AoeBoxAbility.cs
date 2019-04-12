@@ -12,6 +12,7 @@ public class AoeBoxAbility : Ability
 
     private float timeSinceLastTick;
 
+
     public override void TriggerAbility(GameObject caster)
     {
         this.caster = caster;
@@ -20,7 +21,9 @@ public class AoeBoxAbility : Ability
 
         if (cdController.CooldownPassed() == true)
         {
-            float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);//Konverterar vector2 till vinkel
+            //Konverterar vector2 till vinkel (skriven i radianer)
+            float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);
+            //Konverterar vinkel skriven i radianer till vinkel skriven i grader
             float degAngle = radAngle / (2 * Mathf.PI) * 360;
 
             Vector2 targetPosition = (Vector2)caster.transform.position + caster.GetComponent<AimIndicator>().direction.normalized * range / GameManager.instance.tileSize;
@@ -31,11 +34,6 @@ public class AoeBoxAbility : Ability
 
             cdController.ResetCooldown(cooldown);
         }
-    }
-
-    public override void Update()
-    {
-
     }
 
     public float GetTimeBetweenTicks()
