@@ -23,6 +23,9 @@ public class NodeGrid : MonoBehaviour
         CreateGrid();
     }
 
+    /// <summary>
+    /// Skapar noder för alla tiles i rummet, lägger de i en 2d array
+    /// </summary>
     private void CreateGrid()
     {
         NodeArray = new Node[gridSizeX, gridSizeY];
@@ -39,6 +42,9 @@ public class NodeGrid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Får tag på alla noder brevid noden som skickas in
+    /// </summary>
     public List<Node> GetNeighboringNodes(Node node)
     {
         List<Node> neighborList = new List<Node>();
@@ -111,6 +117,9 @@ public class NodeGrid : MonoBehaviour
         return neighborList;
     }
 
+    /// <summary>
+    /// Returnerar noden som finns närmast den inskickade positionen
+    /// </summary>
     public Node GetNodeFromWorldPoint(Vector3 worldPoint)
     {
         int xPos = Mathf.FloorToInt(worldPoint.x);

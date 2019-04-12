@@ -5,23 +5,26 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    private NodeGrid gridRef;
+    private NodeGrid nodeGrid;
 
     private Node startNode;
     private Node targetNode;
 
-    public List<Node> FinalPath { get; private set; }
+    public List<Node> FinalPath { get; private set; }       //Den närmsta vägen från start till mål
 
 
     private void Awake()
     {
-        gridRef = GameManager.instance.gameObject.GetComponent<NodeGrid>();
+        nodeGrid = GameManager.instance.gameObject.GetComponent<NodeGrid>();
     }
 
+    /// <summary>
+    /// Hittar nästa, bästa nod att röra sig till för alla noder som leder till målet
+    /// </summary>
     public void FindPath(Vector3 startPosition, Vector3 targetPosition)
     {
-        startNode = gridRef.GetNodeFromWorldPoint(startPosition);
-        targetNode = gridRef.GetNodeFromWorldPoint(targetPosition);
+        startNode = nodeGrid.GetNodeFromWorldPoint(startPosition);
+        targetNode = nodeGrid.GetNodeFromWorldPoint(targetPosition);
 
         List<Node> openList = new List<Node>();
         HashSet<Node> closedList = new HashSet<Node>();
@@ -47,7 +50,7 @@ public class Pathfinder : MonoBehaviour
                 GetFinalPath(startNode, targetNode);
             }
 
-            foreach (Node neighborNode in gridRef.GetNeighboringNodes(currentNode))
+            foreach (Node neighborNode in nodeGrid.GetNeighboringNodes(currentNode))
             {
                 if (neighborNode.IsWall == true || closedList.Contains(neighborNode) == true)
                 {
@@ -72,6 +75,9 @@ public class Pathfinder : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Går igenom alla bästa noder och lägger de i en lista som håller hela vägens noder
+    /// </summary>
     private void GetFinalPath(Node startNode, Node endNode)
     {
         FinalPath = new List<Node>();
@@ -106,7 +112,7 @@ public class Pathfinder : MonoBehaviour
             Gizmos.DrawCube(new Vector3(targetNode.WorldPosition.x + 0.5f, targetNode.WorldPosition.y + 0.5f, 0), Vector3.one / 3);
 
 
-            foreach (Node node in gridRef.NodeArray)
+            foreach (Node node in nodeGrid.NodeArray)
             {
                 if (FinalPath.Contains(node) == true)
                 {

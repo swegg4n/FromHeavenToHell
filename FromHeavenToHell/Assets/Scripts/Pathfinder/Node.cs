@@ -14,7 +14,7 @@ public class Node
     public int GCost { get; set; }
     public int HCost { get; set; }
 
-    public int FCost { get { return GCost + HCost; } }
+    public int FCost { get { return GCost + HCost; } }      //Totala kostnaden för att röra sig till noden (läge = bättre)
 
 
     public Node(int indexGridX, int indexGridY, bool isWall, Vector3 worldPosition)
