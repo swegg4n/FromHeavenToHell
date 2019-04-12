@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,12 +12,12 @@ public class Room : MonoBehaviour
     private Tilemap topTileMap;
     private Tilemap teleportTileMap;
 
-    private Room aboveRoom;
-    private Room rightRoom;
-    private Room leftRoom;
-    private Room bottomRoom;
+    public GameObject aboveRoom { get; private set; }
+    public GameObject rightRoom { get; private set; }
+    public GameObject leftRoom { get; private set; }
+    public GameObject belowRoom { get; private set; }
 
-    List<Vector3> teleportPosList;
+    private List<Vector2> teleportPosList;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class Room : MonoBehaviour
         {
             if (t.tag == "Ground")
             {
-                
+
                 groundTileMap = t;
             }
             else if (t.tag == "Wall")
@@ -42,7 +43,7 @@ public class Room : MonoBehaviour
             }
         }
 
-        teleportPosList = new List<Vector3>();
+        teleportPosList = new List<Vector2>();
 
         for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
         {
@@ -58,7 +59,28 @@ public class Room : MonoBehaviour
             }
 
         }
+
+        aboveRoom = CheckSorrundingRoom(Vector2.up);
+        belowRoom = CheckSorrundingRoom(Vector2.down);
+        rightRoom = CheckSorrundingRoom(Vector2.right);
+        leftRoom = CheckSorrundingRoom(Vector2.left);
     }
+
+    private GameObject CheckSorrundingRoom(Vector2 direction)
+    {
+        RaycastHit2D[] rayCheck = Physics2D.RaycastAll(transform.position, direction);
+
+        foreach (RaycastHit2D hit in rayCheck)
+        {
+            if (!wallTileMap.HasTile(Vector3Int.FloorToInt(hit.point)))
+            {
+                return hit.rigidbody.gameObject.transform.parent.gameObject;
+            }
+        }
+
+        return null;
+    }
+
     public bool CheckGroundTileAtPosition(Vector3 position)
     {
         if (groundTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
@@ -123,6 +145,7 @@ public class Room : MonoBehaviour
 
 
     }
+
     public bool CheckOnlyGroundTile(Vector3 targetPosition)
     {
         if (CheckWallTileAtPosition(Vector3Int.FloorToInt(targetPosition)) == false
@@ -134,9 +157,7 @@ public class Room : MonoBehaviour
         return false;
     }
 
-
-
-    public List<Vector3> GetTeleportPos()
+    public List<Vector2> GetTeleportPos()
     {
         return teleportPosList;
     }

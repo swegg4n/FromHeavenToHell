@@ -6,8 +6,8 @@ public class NodeGrid : MonoBehaviour
 {
     private float cellSize;
 
-    [SerializeField] private Tilemap groundTileMap;
-    [SerializeField] private Tilemap wallsTileMap;
+    private Tilemap groundTileMap;
+    private Tilemap wallTileMap;
 
     public Node[,] NodeArray { get; private set; }
 
@@ -15,8 +15,11 @@ public class NodeGrid : MonoBehaviour
     private int gridSizeY;
 
 
-    private void Awake()
+    private void Start()
     {
+        groundTileMap = GameManager.instance.GetTileMap("Ground");
+        wallTileMap = GameManager.instance.GetTileMap("Wall");
+
         cellSize = groundTileMap.cellSize.x;
         gridSizeX = groundTileMap.size.x;
         gridSizeY = groundTileMap.size.y;
@@ -32,7 +35,7 @@ public class NodeGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
+                bool isWall = wallTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
                 
                 NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
             }
@@ -124,8 +127,6 @@ public class NodeGrid : MonoBehaviour
 
         return NodeArray[xIndex, yIndex];
     }
-
-
 
     private void OnDrawGizmos()
     {

@@ -28,11 +28,11 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private int nrOfEnemiesToSpawn;
     private float timeSinceLastSpawn;
 
-    [SerializeField] private Tilemap groundTileMap;
+    private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
-    [SerializeField] private Tilemap wallTilemap; // Ska hämta dessa från gameManager
-    [SerializeField] private Tilemap topWallTilemap;
+    private Tilemap wallTileMap; // Ska hämta dessa från gameManager
+    private Tilemap topWallTileMap;
 
     [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject enemy;
@@ -44,6 +44,10 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        groundTileMap = GameManager.instance.GetTileMap("Ground");
+        wallTileMap = GameManager.instance.GetTileMap("Wall");
+        topWallTileMap = GameManager.instance.GetTileMap("Top");
+
         tilePositionList = new List<Vector3>();
         
         for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
@@ -54,8 +58,8 @@ public class EnemyManager : MonoBehaviour
                 Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
                 place.x += groundTileMap.cellSize.x / 2;
                 if (groundTileMap.HasTile(localPlace) == true
-                    && wallTilemap.HasTile(localPlace) == false
-                    && topWallTilemap.HasTile(localPlace) == false)
+                    && wallTileMap.HasTile(localPlace) == false
+                    && topWallTileMap.HasTile(localPlace) == false)
                 {
                     tilePositionList.Add(place);
                 }

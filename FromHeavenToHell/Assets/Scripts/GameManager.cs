@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject currentRoom;
 
-
     public int tileSize { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -39,7 +38,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetCurrentRoom()
+    {
+
+    }
+
+    public GameObject GetCurrentRoom()
+    {
+        return currentRoom;
     }
 
     public bool CheckGroundTileAtPosition(Vector3 position)

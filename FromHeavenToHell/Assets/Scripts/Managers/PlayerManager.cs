@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private float teleportCooldown;
     private bool teleportCooldownReady;
-    private float counter;
+    private float timeSinceLastTeleport;
     public bool PlayerDemonTeleport { get; set; }
     public bool PlayerAngelTeleport { get; set; }
 
@@ -45,8 +45,6 @@ public class PlayerManager : MonoBehaviour
     {
         playerAngelInstance = Instantiate(playerAngelPrefab);
         playerDemonInstance = Instantiate(playerDemonPrefab);
-        PlayerDemonTeleport = false;
-        PlayerAngelTeleport = false;
         teleportCooldownReady = true;
     }
 
@@ -56,8 +54,9 @@ public class PlayerManager : MonoBehaviour
         {
             playerAngelInstance.transform.position = position;
             playerDemonInstance.transform.position = position;
+
             teleportCooldownReady = false;
-            counter = 0;
+            timeSinceLastTeleport = 0;
         }
     }
 
@@ -65,8 +64,8 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         DeathCheck();
-        counter += Time.deltaTime;
-        if(counter > teleportCooldown)
+        timeSinceLastTeleport += Time.deltaTime;
+        if(timeSinceLastTeleport > teleportCooldown)
         {
             teleportCooldownReady = true;
         }
