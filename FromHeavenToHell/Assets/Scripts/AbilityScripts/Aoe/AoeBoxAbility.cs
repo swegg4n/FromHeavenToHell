@@ -3,8 +3,8 @@
 [CreateAssetMenu(menuName = "Ability/AOE Box Ability")]
 public class AoeBoxAbility : Ability
 {
-    [SerializeField] private float cooldown;
-    [SerializeField] private float activeDuration;
+    [SerializeField] private float cooldown;    ////Tiden användaren måste vänta innan abilityn kan användas. Mäts i sekunder
+    [SerializeField] private float activeDuration;  //Tiden abilityn existerar innan den förstörs. Mäts i sekunder
     [SerializeField] private float timeBetweenTicks;
     [SerializeField] private int range;
 
@@ -12,6 +12,9 @@ public class AoeBoxAbility : Ability
 
     private float timeSinceLastTick;
 
+    /// <summary>
+    /// Det som händer när abilityn används
+    /// </summary>
     public override void TriggerAbility(GameObject caster)
     {
         this.caster = caster;

@@ -3,19 +3,23 @@
 [CreateAssetMenu(menuName = "Ability/Projectile Ability")]
 public class ProjectileAbility : Ability
 {
-    [SerializeField] private float speed;
-    [SerializeField] private int range;
-    [SerializeField] private int knockbackForce;
-    [SerializeField] private float cooldown;
+    [SerializeField] private float speed;   //Projektilens fart. Mäts i ...
+    [SerializeField] private int range;     //Avståndet projektilen kan färdas innan den förstörs. Mäts i ...
+    [SerializeField] private int knockbackForce;    //Kraften projektilen påverkar objekt som kan ta skada. Mäts i ...
+    [SerializeField] private float cooldown;    //Tiden användaren måste vänta innan abilityn kan användas. Mäts i sekunder
     private float offset;
 
-    public GameObject caster { get; private set; }
+    public GameObject caster { get; private set; }  //Objektet som använder abilityn
+
 
     public override void Update()
     {
 
     }
 
+    /// <summary>
+    /// Det som händer när abilityn används
+    /// </summary>
     public override void TriggerAbility(GameObject caster)
     {
         this.caster = caster;

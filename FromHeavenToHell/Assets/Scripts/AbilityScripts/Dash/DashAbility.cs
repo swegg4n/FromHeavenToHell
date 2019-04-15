@@ -5,15 +5,18 @@ public class DashAbility : Ability
 {
     private GameObject caster;
 
-    [SerializeField] private float dashDistance;
-    [SerializeField] private float dashTime;
-    [SerializeField] private float cooldown;
-    private float dashSpeed;
-    private Vector2 dashDirection;
-    private float timeCounter;
-    private bool instantDash;
+    [SerializeField] private float dashDistance;    //Distansen användaren ska förflyttas. Mäts i ...
+    [SerializeField] private float dashTime;    //Tiden under vilken användaren ska förflyttas. Mäts i sekunder
+    [SerializeField] private float cooldown;    //Tiden användaren måste vänta innan abilityn kan användas. Mäts i sekunder 
+    private float dashSpeed;    //Farten användaren ska förflyttas med. Mäts i ...
+    private Vector2 dashDirection;  //Riktningen för förflyttning
+    private float timeCounter;  //
+    private bool instantDash;   //Ifall användaren ska teleporteras direkt till mål eller förflyttas över tid
 
-
+    /// <summary>
+    /// Metod som används för att aktivera abilities
+    /// </summary>
+    /// <param name="caster">Objektet som använder abilityn</param>
     public override void TriggerAbility(GameObject caster)
     {
         CooldownController cdController = caster.GetComponent<CooldownController>();
@@ -51,6 +54,10 @@ public class DashAbility : Ability
         }
     }
 
+    /// <summary>
+    /// Räknar ut positionen användaren ska förflyttas till
+    /// </summary>
+    /// <returns>Returnerar om positionen är möjlig att förflyttas till (Om det finns ett golv där)</returns>
     private bool InstantDash()
     {
         Vector3 targetPosition = caster.transform.position + (Vector3)dashDirection * dashDistance / GameManager.instance.tileSize;
@@ -62,6 +69,9 @@ public class DashAbility : Ability
         return false;
     }
 
+    /// <summary>
+    /// Förflyttar användaren över tid
+    /// </summary>
     private void NormalDash()
     {
         if (timeCounter < dashTime)

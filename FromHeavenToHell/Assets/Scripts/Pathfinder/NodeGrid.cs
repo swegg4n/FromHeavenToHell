@@ -9,10 +9,10 @@ public class NodeGrid : MonoBehaviour
     [SerializeField] private Tilemap groundTileMap;
     [SerializeField] private Tilemap wallsTileMap;
 
-    public Node[,] NodeArray { get; private set; }
+    public Node[,] NodeArray { get; private set; }  //2D-array som håller alla banans noder
 
-    private int gridSizeX;
-    private int gridSizeY;
+    private int gridSizeX;  //Banans bredd (antal noder i bredd)
+    private int gridSizeY;  //Banans bredd, antal noder i bredd)
 
 
     private void Awake()
@@ -132,25 +132,6 @@ public class NodeGrid : MonoBehaviour
         int yIndex = yPos + 9;  //hardcode
 
         return NodeArray[xIndex, yIndex];
-    }
-
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(groundTileMap.transform.position, new Vector3(gridSizeX * cellSize, gridSizeY * cellSize, 1));
-
-        if (NodeArray != null)
-        {
-            foreach (Node node in NodeArray)
-            {
-                if (node.IsWall == true)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawWireSphere(new Vector3(node.WorldPosition.x + cellSize / 2, node.WorldPosition.y + cellSize / 2, 0), 0.25f);
-                }
-            }
-        }
     }
 
 }

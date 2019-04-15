@@ -2,14 +2,17 @@
 
 public abstract class Ability : ScriptableObject
 {
-    [SerializeField] protected GameObject abilityPrefab;
-    [SerializeField] private string abilityName = "New Ability";
-    [SerializeField] private Sprite abilityIcon;
-    [SerializeField] private AudioClip abilitySound;
-    [SerializeField] private int damage;
+    [SerializeField] protected GameObject abilityPrefab;        //Prefaben som instansieras som abilityn
+    [SerializeField] private string abilityName = "New Ability";    //Abilityns namn
+    [SerializeField] private Sprite abilityIcon;        //Ikon för abilityn
+    [SerializeField] private AudioClip abilitySound;    //Ljud som spelas vid användning av abilityn
+    [SerializeField] private int damage;        //Skada abilityn gör vid träff av ojekt som kan ta skada. Mäts i enheter
 
-
-    public abstract void TriggerAbility(GameObject caster);
+    /// <summary>
+    /// Metod som används för att aktivera abilities
+    /// </summary>
+    /// <param name="caster">Objektet som använder abilityn</param>
+    public abstract void TriggerAbility(GameObject caster); 
 
     public virtual void Update() { }
 

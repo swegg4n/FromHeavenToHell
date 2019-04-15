@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    private NodeGrid nodeGrid;
+    private NodeGrid nodeGrid;  //Klass som håller information om alla noder på banan
 
-    private Node startNode;
-    private Node targetNode;
+    private Node startNode;     //Närmsta noden till starten (objektet som har pathfindern)
+    private Node targetNode;    //Närmsta noden till målet
 
     public List<Node> FinalPath { get; private set; }       //Den närmsta vägen från start till mål
 
@@ -92,39 +92,15 @@ public class Pathfinder : MonoBehaviour
         FinalPath.Reverse();
     }
 
+    /// <summary>
+    /// Avståndet i ett rutmönster där ingen ruta får mätas rakt över (inte fågelvägen)
+    /// </summary>
     private int GetManhattenDistance(Node nodeA, Node nodeB)
     {
         int dX = Mathf.Abs(nodeA.IndexGridX - nodeB.IndexGridX);
         int dY = Mathf.Abs(nodeA.IndexGridY - nodeB.IndexGridY);
 
         return dX + dY;
-    }
-
-
-
-    private void OnDrawGizmos()
-    {
-        if (startNode != null && targetNode != null && FinalPath != null) 
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(new Vector3(startNode.WorldPosition.x + 0.5f, startNode.WorldPosition.y + 0.5f, 0), Vector3.one / 3);
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(new Vector3(targetNode.WorldPosition.x + 0.5f, targetNode.WorldPosition.y + 0.5f, 0), Vector3.one / 3);
-
-
-            foreach (Node node in nodeGrid.NodeArray)
-            {
-                if (FinalPath.Contains(node) == true)
-                {
-                    if (node == startNode || node == targetNode)
-                    {
-                        continue;
-                    }
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawCube(new Vector3(node.WorldPosition.x + 0.5f, node.WorldPosition.y + 0.5f, 0), Vector3.one / 3);
-                }
-            }
-        }
     }
 
 }

@@ -2,10 +2,11 @@
 
 public class CooldownController : MonoBehaviour
 {
-    private float cooldownCountDown;
+    private float cooldownCountDown;    //tiden som måste väntas. Skrivs i sekunder
 
-
-
+    /// <summary>
+    /// Kontrollerar om väntetiden har passerat eller inte
+    /// </summary>
     public bool CooldownPassed()
     {
         if (cooldownCountDown <= 0)
@@ -18,7 +19,9 @@ public class CooldownController : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Räknar ner väntetiden efter hand som tiden går
+    /// </summary>
     private void Update()
     {
         if (cooldownCountDown > 0)
@@ -27,7 +30,10 @@ public class CooldownController : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Återställer väntetiden
+    /// </summary>
+    /// <param name="cooldown">Nya tiden som måste väntas</param>
     public void ResetCooldown(float cooldown)
     {
         cooldownCountDown = cooldown;
