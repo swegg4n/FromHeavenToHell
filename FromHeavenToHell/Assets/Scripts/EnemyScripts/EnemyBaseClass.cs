@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemyBaseClass : MonoBehaviour
 {
     [SerializeField] private int health;
-
     [SerializeField] private float speedFactor;
     public float SpeedFactor { get { return speedFactor; } }
+
+    [SerializeField] private Ability ability;
+    public Ability Ability { get { return ability; } }
 
     
     void Start()
