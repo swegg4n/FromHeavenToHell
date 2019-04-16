@@ -13,15 +13,15 @@ public class BaseEnemyAi : MonoBehaviour
 
     void Start()
     {
-        player1 = PlayerManager.instance.playerAngelInstance;
-        player2 = PlayerManager.instance.playerDemonInstance;
+        player1 = PlayerManager.instance.PlayerAngelInstance;
+        player2 = PlayerManager.instance.PlayerDemonInstance;
 
         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
     }
 
     private void Update()
     {
-        float range = GetComponent<EnemyBaseClass>().Ability.optimalRange / 32f;
+        float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
         /*Vector3*/ aimDirection = GetClosestTargetPosition() - transform.position;
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);

@@ -18,8 +18,8 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
   damage: 50
-  optimalRange: 80
-  speed: 5
-  range: 100
+  optimalRange: 270
+  speed: 7
+  range: 300
   knockbackForce: 0
   cooldown: 1

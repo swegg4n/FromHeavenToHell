@@ -4,30 +4,28 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
 
-    public float velocityX { get; private set; }
-    public float velocityY { get; private set; }
+    public float velocityX { get; private set; }    //Hastigheten i x-led
+    public float velocityY { get; private set; }    //Hastigheten i y-led
 
-    [SerializeField] private float velocitySpeed;
-    [SerializeField] private float addForceSpeed;
+    [SerializeField] private float playerSpeed;     //Spelarens fart
 
-    [SerializeField] private bool useVelocity;
-    [SerializeField] private bool useAddForce;
+    public bool Dashing { get; set; }       //Håller reda på om spelaren håller på att göra en dash
 
-    public bool dashing { get; set; }
 
+    /// <summary>
+    /// Kallas före Start
+    /// </summary>
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
 
-        velocitySpeed = 130f;
-        addForceSpeed = 11f;
+        /*TA BORT EFTER VÄRDEN FÖR SPELAR-PREFAB ÄR IFYLLDA*/
+        playerSpeed = 130f;
 
         rigidBody.mass = 0.1f;
         rigidBody.drag = 1000f;
-
-        useVelocity = true;
+        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
-
 
     void FixedUpdate()
     {
@@ -35,11 +33,14 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    /// <summary>
+    /// Låter spelarna styras på olika sätt beroende på valda styrsätt
+    /// </summary>
     private void GetInput()
     {
         if (gameObject.tag == "PlayerDemon")
         {
-            if (PlayerManager.instance.GetDemonUsingMouse() == true)
+            if (PlayerManager.instance.PlayerDemonUsingMouse == true)
             {
                 GetKeyboardInput();
             }
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (gameObject.tag == "PlayerAngel")
         {
-            if (PlayerManager.instance.GetAngelUsingMouse() == true)
+            if (PlayerManager.instance.PlayerAngelUsingMouse == true)
             {
                 GetKeyboardInput();
             }
@@ -75,14 +76,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (useVelocity == true && dashing == false)
+        if (Dashing == false)
         {
-            rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * velocitySpeed;
-        }
-
-        if (useAddForce == true)
-        {
-            rigidBody.AddForce(new Vector2(velocityX, velocityY).normalized * addForceSpeed, ForceMode2D.Impulse);
+            rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * playerSpeed;
         }
     }
+
 }

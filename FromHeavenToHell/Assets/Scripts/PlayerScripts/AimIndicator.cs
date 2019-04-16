@@ -16,7 +16,7 @@ public class AimIndicator : MonoBehaviour
     {
         if (gameObject.tag == "PlayerDemon")
         {
-            if (PlayerManager.instance.GetDemonUsingMouse() == true)
+            if (PlayerManager.instance.PlayerDemonUsingMouse == true)
             {
                 MoveSightKeyboard();
             }
@@ -27,7 +27,7 @@ public class AimIndicator : MonoBehaviour
         }
         else if(gameObject.tag == "PlayerAngel")
         {
-            if (PlayerManager.instance.GetAngelUsingMouse() == true)
+            if (PlayerManager.instance.PlayerAngelUsingMouse == true)
             {
                 MoveSightKeyboard();
             }

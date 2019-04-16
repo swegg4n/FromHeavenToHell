@@ -23,51 +23,56 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private GameObject playerDemonPrefab;
-    [SerializeField] private GameObject playerAngelPrefab;
+    [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
+    [SerializeField] private GameObject playerAngelPrefab;      //Prefab som ska användas som ängel-spelare
 
-    public GameObject playerDemonInstance { get; private set; }
-    public GameObject playerAngelInstance { get; private set; }
+    public GameObject PlayerDemonInstance { get; private set; }     //Propery för att läsa och skriva till instansen av demon-spelaren
+    public GameObject PlayerAngelInstance { get; private set; }     //Propery för att läsa och skriva till instansen av ängel-spelaren
 
-    [SerializeField] private int health;
+    [SerializeField] private int health;    //Gemensamt liv för spelarna
 
-    [SerializeField] private bool playerDemonUsingMouse;
-    [SerializeField] private bool playerAngelUsingMouse;
+    [SerializeField] private bool playerDemonUsingMouse;        //Indikerar om demon-spelaren ska styras med mus eller inte (kontroll)
+    public bool PlayerDemonUsingMouse { get { return playerDemonUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för demonen
+    [SerializeField] private bool playerAngelUsingMouse;    //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
+    public bool PlayerAngelUsingMouse { get { return playerAngelUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för ängeln
 
-    // Start is called before the first frame update
-    void Start()
+
+    /// <summary>
+    /// Kallas innan första uppdateringen
+    /// </summary>
+    private void Start()
     {
-        playerAngelInstance = Instantiate(playerAngelPrefab);
-        playerDemonInstance = Instantiate(playerDemonPrefab);
+        PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
+        PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Kallas varje frame
+    /// </summary>
+    private void Update()
     {
         DeathCheck();
     }
 
-    void DeathCheck()
+    /// <summary>
+    /// Kontrollerar om spelarnas liv är mindre eller lika med 0.
+    /// </summary>
+    private void DeathCheck()
     {
         if (health <= 0)
         {
-            Destroy(playerDemonInstance);
-            Destroy(playerAngelInstance);
+            Destroy(PlayerDemonInstance);
+            Destroy(PlayerAngelInstance);
         }
     }
 
+    /// <summary>
+    /// Minskar spelarnas liv med så mycket skada någon spelare tog
+    /// </summary>
+    /// <param name="damage">Så mycket skada någon spelare tog</param>
     public void TakeDamage(int damage)
     {
         health -= damage;
     }
 
-    public bool GetAngelUsingMouse()
-    {
-        return playerAngelUsingMouse;
-    }
-
-    public bool GetDemonUsingMouse()
-    {
-        return playerDemonUsingMouse;
-    }
 }

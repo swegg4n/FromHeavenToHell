@@ -12,7 +12,7 @@ public class NodeGrid : MonoBehaviour
     public Node[,] NodeArray { get; private set; }  //2D-array som håller alla banans noder
 
     private int gridSizeX;  //Banans bredd (antal noder i bredd)
-    private int gridSizeY;  //Banans bredd, antal noder i bredd)
+    private int gridSizeY;  //Banans höjd (antal noder i höjd)
 
 
     private void Awake()
