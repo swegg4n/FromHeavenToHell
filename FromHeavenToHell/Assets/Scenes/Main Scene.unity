@@ -8886,7 +8886,7 @@ PrefabInstance:
     - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
         type: 3}
       propertyPath: timeBetweenSpawn
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6424370980982477292, guid: eac1c08022ad78449b659c41f4f70fad,
         type: 3}
@@ -8979,6 +8979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playerDemonUsingMouse
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6424370980982477293, guid: eac1c08022ad78449b659c41f4f70fad,
+        type: 3}
+      propertyPath: health
+      value: 1000000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}

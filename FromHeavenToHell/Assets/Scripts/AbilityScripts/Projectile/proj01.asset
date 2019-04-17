@@ -20,6 +20,6 @@ MonoBehaviour:
   damage: 50
   optimalRange: 270
   speed: 7
-  range: 3000
+  range: 100
   knockbackForce: 0
   cooldown: 1

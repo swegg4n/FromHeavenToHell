@@ -368,10 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435547974a349224aa7e8600f6406d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocitySpeed: 0
-  addForceSpeed: 0
-  useVelocity: 1
-  useAddForce: 0
+  playerSpeed: 0
 --- !u!114 &8380152118487039194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAbility: {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
+  selectedAbility: {fileID: 11400000, guid: 683b58c7d8082d342a96f034fb7b6445, type: 2}
 --- !u!114 &1349391385369179165
 MonoBehaviour:
   m_ObjectHideFlags: 0
