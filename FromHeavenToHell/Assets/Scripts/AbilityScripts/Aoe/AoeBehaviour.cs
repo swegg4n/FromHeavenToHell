@@ -5,13 +5,12 @@ using UnityEngine;
 public class AoeBehaviour : MonoBehaviour
 {
     public AoeBoxAbility aoeAbility { set; get; }
-    private GameObject caster;
+    public GameObject Caster { set; get; }
     private float timeSinceLastTick;
     [SerializeField] private bool selfDamage;
 
     void Start()
     {
-        caster = aoeAbility.caster;
         Destroy(gameObject, aoeAbility.GetActiveDuration());
     }
 
@@ -25,7 +24,7 @@ public class AoeBehaviour : MonoBehaviour
         Debug.Log("TriggerStay");
         if(timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
         {
-            if (caster.tag != other.tag || selfDamage == true || caster == null)
+            if (Caster.tag != other.tag || selfDamage == true || Caster == null)
             {
                 Debug.Log("1");
 

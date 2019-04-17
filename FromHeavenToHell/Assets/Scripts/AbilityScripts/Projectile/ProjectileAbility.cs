@@ -44,7 +44,9 @@ public class ProjectileAbility : Ability
 
             projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
 
-            projectile.GetComponent<ProjectileBehaviour>().projectileAbility = this;
+            projectile.GetComponent<ProjectileBehaviour>().ProjectileAbility = this;
+
+            projectile.GetComponent<ProjectileBehaviour>().Caster = caster;
 
             cdController.ResetCooldown(cooldown);
         }

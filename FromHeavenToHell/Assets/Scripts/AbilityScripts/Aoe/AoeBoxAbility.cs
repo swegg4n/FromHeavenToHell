@@ -35,6 +35,8 @@ public class AoeBoxAbility : Ability
 
             aoeBox.GetComponent<AoeBehaviour>().aoeAbility = this;
 
+            aoeBox.GetComponent<AoeBehaviour>().Caster = caster;
+
             cdController.ResetCooldown(cooldown);
         }
     }
