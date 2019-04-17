@@ -14,7 +14,6 @@ public class EnemyBaseClass : MonoBehaviour
     
     void Start()
     {
-        health = 100;
 
         GetComponent<Rigidbody2D>().mass = 0.1f;
         GetComponent<Rigidbody2D>().drag = 1000f;
