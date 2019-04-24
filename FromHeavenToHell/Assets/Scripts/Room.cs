@@ -19,14 +19,13 @@ public class Room : MonoBehaviour
 
     private List<Vector2> teleportPosList;
 
-    void Start()
+    void Awake()
     {
         Tilemap[] tileMapList = GetComponentsInChildren<Tilemap>();
         foreach (Tilemap t in tileMapList)
         {
             if (t.tag == "Ground")
             {
-
                 groundTileMap = t;
             }
             else if (t.tag == "Wall")
@@ -43,22 +42,22 @@ public class Room : MonoBehaviour
             }
         }
 
-        teleportPosList = new List<Vector2>();
+        //teleportPosList = new List<Vector2>();
 
-        for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
-        {
-            for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
-            {
-                Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
-                Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
-                place.x += groundTileMap.cellSize.x / 2;
-                if (teleportTileMap.HasTile(localPlace) == true)
-                {
-                    teleportPosList.Add(place);
-                }
-            }
+        //for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
+        //{
+        //    for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
+        //    {
+        //        Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
+        //        Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
+        //        place.x += groundTileMap.cellSize.x / 2;
+        //        if (teleportTileMap.HasTile(localPlace) == true)
+        //        {
+        //            teleportPosList.Add(place);
+        //        }
+        //    }
 
-        }
+        //}
 
         aboveRoom = CheckSorrundingRoom(Vector2.up);
         belowRoom = CheckSorrundingRoom(Vector2.down);

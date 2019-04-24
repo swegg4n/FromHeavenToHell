@@ -27,8 +27,8 @@ public class Teleporter : MonoBehaviour
                 PlayerManager.instance.PlayerDemonTeleport = true;
             }
 
-            Vector2 playerAngelPosition = PlayerManager.instance.playerAngelInstance.transform.position;
-            Vector2 playerDemonPosition = PlayerManager.instance.playerDemonInstance.transform.position;
+            Vector2 playerAngelPosition = PlayerManager.instance.PlayerAngelInstance.transform.position;
+            Vector2 playerDemonPosition = PlayerManager.instance.PlayerDemonInstance.transform.position;
 
             //Vector2 positionTeleportTo = currentRoomTeleportPosList[0];
 
@@ -42,7 +42,7 @@ public class Teleporter : MonoBehaviour
             //}
 
 
-            PlayerManager.instance.TeleportPlayers(positionTeleportTo);
+            //PlayerManager.instance.TeleportPlayers(positionTeleportTo);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
