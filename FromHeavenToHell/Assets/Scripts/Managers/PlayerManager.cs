@@ -50,10 +50,13 @@ public class PlayerManager : MonoBehaviour
 
     public void TeleportPlayers(Vector3 position)
     {
-        if(PlayerAngelTeleport == true && PlayerDemonTeleport == true && teleportCooldownReady == true)
+        if(PlayerDemonTeleport == true && PlayerAngelTeleport == true && teleportCooldownReady == true)
         {
             playerAngelInstance.transform.position = position;
             playerDemonInstance.transform.position = position;
+
+            PlayerDemonTeleport = false;
+            PlayerAngelTeleport = false;
 
             teleportCooldownReady = false;
             timeSinceLastTeleport = 0;
@@ -65,6 +68,7 @@ public class PlayerManager : MonoBehaviour
     {
         DeathCheck();
         timeSinceLastTeleport += Time.deltaTime;
+
         if(timeSinceLastTeleport > teleportCooldown)
         {
             teleportCooldownReady = true;

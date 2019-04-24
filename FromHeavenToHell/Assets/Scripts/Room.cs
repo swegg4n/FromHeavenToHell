@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
-
     private Tilemap groundTileMap;
     private Tilemap wallTileMap;
     private Tilemap topTileMap;
@@ -22,11 +21,11 @@ public class Room : MonoBehaviour
     void Start()
     {
         Tilemap[] tileMapList = GetComponentsInChildren<Tilemap>();
+
         foreach (Tilemap t in tileMapList)
         {
             if (t.tag == "Ground")
             {
-
                 groundTileMap = t;
             }
             else if (t.tag == "Wall")
@@ -69,11 +68,31 @@ public class Room : MonoBehaviour
     private GameObject CheckSorrundingRoom(Vector2 direction)
     {
         RaycastHit2D[] rayCheck = Physics2D.RaycastAll(transform.position, direction);
-
+        
         foreach (RaycastHit2D hit in rayCheck)
         {
-            if (!wallTileMap.HasTile(Vector3Int.FloorToInt(hit.point)))
+            Debug.Log("1 ground" + groundTileMap.WorldToCell(hit.point));
+            Debug.Log("1 ground" + hit.point);
+
+            if (wallTileMap.HasTile(new Vector3Int(0, 2, 0)))
             {
+                Debug.Log("Grounddwaiojdaoiwjdaowidjaoiwdjawidjoawjdoajiwdoijawa");
+            }
+
+            if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false 
+                && wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
+                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
+                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
+                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false
+                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false)
+            {
+                Debug.Log("1 hit" + groundTileMap.WorldToCell(hit.point));
+
+                if (wallTileMap.HasTile(Vector3Int.FloorToInt(hit.point)) == false)
+                {
+                    Debug.Log("2 hit");
+                }
+
                 return hit.rigidbody.gameObject.transform.parent.gameObject;
             }
         }
@@ -118,6 +137,41 @@ public class Room : MonoBehaviour
         return false;
     }
     //1
+
+    public Vector2 CheckTeleportInDirecction(Vector2 direction)
+    {
+        foreach (Vector2 tpPos in teleportPosList)
+        {
+            Vector2 normalizedDirection = ((Vector2)transform.parent.transform.position - tpPos).normalized;
+            float koeficient = normalizedDirection.y / normalizedDirection.x;
+
+            if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0 && direction == Vector2.left)
+            {
+                Debug.Log("2");
+                return tpPos;
+            }
+            else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0 && direction == Vector2.right)
+            {
+                Debug.Log("2");
+
+                return tpPos;
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0 && direction == Vector2.down)
+            {
+                Debug.Log("2");
+
+                return tpPos;
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0 && direction == Vector2.up)
+            {
+                Debug.Log("2");
+
+                return tpPos;
+            }
+        }
+
+        return Vector2.zero;
+    }
 
     public Tilemap GetTileMap(string tileMapName)
     {

@@ -167,7 +167,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1021368853
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 100ca8c0fb5f12645851fb9df13769a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -222,7 +222,6 @@ MonoBehaviour:
   addForceSpeed: 0
   useVelocity: 1
   useAddForce: 0
-  tileMap: {fileID: 0}
 --- !u!50 &3292446865433229566
 Rigidbody2D:
   serializedVersion: 4
@@ -233,7 +232,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 3292446865433229567}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 0.1
   m_LinearDrag: 1000
