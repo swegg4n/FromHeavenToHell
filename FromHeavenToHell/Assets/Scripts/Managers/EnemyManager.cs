@@ -29,11 +29,11 @@ public class EnemyManager : MonoBehaviour
 
     private float timeSinceLastSpawn;       //Tiden från förra vågen fiender skapades. Mäts i sekunder
 
-    [SerializeField] private Tilemap groundTileMap;
+    private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
-    [SerializeField] private Tilemap wallTilemap;
-    [SerializeField] private Tilemap topWallTilemap;
+    private Tilemap wallTileMap; // Ska hämta dessa från gameManager
+    private Tilemap topWallTileMap;
 
     [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject enemy;
@@ -54,6 +54,10 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void DetectSpawnpoints()
     {
+        groundTileMap = GameManager.instance.GetTileMap("Ground");
+        wallTileMap = GameManager.instance.GetTileMap("Wall");
+        topWallTileMap = GameManager.instance.GetTileMap("Top");
+
         tilePositionList = new List<Vector3>();
 
         for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)     //Loopar igenom alla tiles i bredd
@@ -68,8 +72,8 @@ public class EnemyManager : MonoBehaviour
 
                 //Kontrollerar så att det finns en golv-tile och ingen vägg- eller top-tile
                 if (groundTileMap.HasTile(localPlace) == true
-                    && wallTilemap.HasTile(localPlace) == false
-                    && topWallTilemap.HasTile(localPlace) == false)
+                    && wallTileMap.HasTile(localPlace) == false
+                    && topWallTileMap.HasTile(localPlace) == false)
                 {
                     tilePositionList.Add(place);    //Lägger till tilen i listan över tillåtna positioner att skapas på
                 }

@@ -6,8 +6,8 @@ public class NodeGrid : MonoBehaviour
 {
     private float cellSize;
 
-    [SerializeField] private Tilemap groundTileMap;
-    [SerializeField] private Tilemap wallsTileMap;
+    private Tilemap groundTileMap;
+    private Tilemap wallTileMap;
 
     public Node[,] NodeArray { get; private set; }  //2D-array som håller alla banans noder
 
@@ -15,8 +15,11 @@ public class NodeGrid : MonoBehaviour
     private int gridSizeY;  //Banans höjd (antal noder i höjd)
 
 
-    private void Awake()
+    private void Start()
     {
+        groundTileMap = GameManager.instance.GetTileMap("Ground");
+        wallTileMap = GameManager.instance.GetTileMap("Wall");
+
         cellSize = groundTileMap.cellSize.x;
         gridSizeX = groundTileMap.size.x;
         gridSizeY = groundTileMap.size.y;
@@ -35,7 +38,7 @@ public class NodeGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = wallsTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
+                bool isWall = wallTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
                 
                 NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
             }
@@ -134,4 +137,20 @@ public class NodeGrid : MonoBehaviour
         return NodeArray[xIndex, yIndex];
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(groundTileMap.transform.position, new Vector3(gridSizeX * cellSize, gridSizeY * cellSize, 1));
+
+        if (NodeArray != null)
+        {
+            foreach (Node node in NodeArray)
+            {
+                if (node.IsWall == true)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawWireSphere(new Vector3(node.WorldPosition.x + cellSize / 2, node.WorldPosition.y + cellSize / 2, 0), 0.25f);
+                }
+            }
+        }
+    }
 }
