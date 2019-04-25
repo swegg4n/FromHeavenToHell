@@ -24,15 +24,25 @@ public class AoeBoxAbility : Ability
 
         if (cdController.CooldownPassed() == true)
         {
+            Vector2 direction;
+
+            if (caster.tag == "PlayerDemon" || caster.tag == "PlayerAngel")
+            {
+                direction = caster.GetComponent<AimIndicator>().direction;
+            }
+            else
+            {
+                direction = caster.GetComponent<BaseEnemyAi>().GetClosestTargetPosition() - caster.transform.position;
+            }
+
             //Konverterar vector2 till vinkel (skriven i radianer)
-            float radAngle = Mathf.Atan2(caster.GetComponent<AimIndicator>().direction.y, caster.GetComponent<AimIndicator>().direction.x);
+            float radAngle = Mathf.Atan2(direction.y, direction.x);
             //Konverterar vinkel skriven i radianer till vinkel skriven i grader
             float degAngle = radAngle / (2 * Mathf.PI) * 360;
 
-            Vector2 targetPosition = (Vector2)caster.transform.position + caster.GetComponent<AimIndicator>().direction.normalized * range / GameManager.instance.tileSize;
+            Vector2 targetPosition = (Vector2)caster.transform.position + direction.normalized * range / GameManager.instance.tileSize;
 
             var aoeBox = Instantiate(abilityPrefab, targetPosition, Quaternion.Euler(0, 0, degAngle));
-
             aoeBox.GetComponent<AoeBehaviour>().aoeAbility = this;
 
             aoeBox.GetComponent<AoeBehaviour>().Caster = caster;
