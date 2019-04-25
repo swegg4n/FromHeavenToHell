@@ -9,7 +9,7 @@ public class EnemyBaseClass : MonoBehaviour
     public float SpeedFactor { get { return speedFactor; } }
 
     [SerializeField] private Ability ability;
-    public Ability Ability { get { return ability; } }
+    public Ability Ability { get; protected set; }
 
     
     void Start()
@@ -19,12 +19,12 @@ public class EnemyBaseClass : MonoBehaviour
         //GetComponent<Rigidbody2D>().drag = 1000f;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         DeathCheck();
     }
 
-    void DeathCheck()
+    protected void DeathCheck()
     {
         if(health <= 0)
         {

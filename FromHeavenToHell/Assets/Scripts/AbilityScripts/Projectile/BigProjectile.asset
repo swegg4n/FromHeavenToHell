@@ -9,16 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3fec321c6d444f4a8c7ec66e7485cb7, type: 3}
-  m_Name: AoeBoss
+  m_Script: {fileID: 11500000, guid: d175b3a0d7fd89f4986817b95cd87536, type: 3}
+  m_Name: BigProjectile
   m_EditorClassIdentifier: 
-  abilityPrefab: {fileID: 0}
+  abilityPrefab: {fileID: 9202687485556323905, guid: 25c02660514a5c64d9cddbb6af93e9d0,
+    type: 3}
   abilityName: New Ability
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 50
+  damage: 200
   optimalRange: 300
-  cooldown: 0
-  activeDuration: 10
-  timeBetweenTicks: 2
-  range: 500
+  speed: 1
+  range: 200
+  knockbackForce: 0
+  cooldown: 3
+  nrOfProjectiles: 1
+  spread: 0
