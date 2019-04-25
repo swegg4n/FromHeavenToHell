@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
+public enum TileTypes { Ground, Wall, TopWall, Teleport }
+
 
 public class Room : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class Room : MonoBehaviour
     public GameObject belowRoom { get; private set; }
 
     private List<Vector2> teleportPosList;
+
+    public Tuple<Vector2Int,Vector2Int> roomBounds { get; private set; }
+
 
     void Awake()
     {
@@ -41,6 +46,9 @@ public class Room : MonoBehaviour
                 teleportTileMap = t;
             }
         }
+
+        roomBounds = CalculateBoundsXY();
+
 
         //teleportPosList = new List<Vector2>();
 
@@ -78,6 +86,14 @@ public class Room : MonoBehaviour
         }
 
         return null;
+    }
+
+
+    private Tuple<Vector2Int,Vector2Int> CalculateBoundsXY()
+    {
+        return new Tuple<Vector2Int, Vector2Int>
+            (new Vector2Int(groundTileMap.cellBounds.xMin, groundTileMap.cellBounds.xMax),
+            new Vector2Int(groundTileMap.cellBounds.yMin, groundTileMap.cellBounds.yMax));
     }
 
     public bool CheckGroundTileAtPosition(Vector3 position)
@@ -118,31 +134,25 @@ public class Room : MonoBehaviour
     }
     //1
 
-    public Tilemap GetTileMap(string tileMapName)
+    public Tilemap GetTileMap(TileTypes tileType)
     {
-        if (tileMapName == "Ground")
+        switch (tileType)
         {
-            return groundTileMap;
-        }
-        else if (tileMapName == "Wall")
-        {
-            return wallTileMap;
-        }
-        else if (tileMapName == "Top")
-        {
-            return topTileMap;
-        }
-        //test till teleporten 
-        else if (tileMapName == "Teleport")
-        {
-            return teleportTileMap;
-        }
-        else
-        {
-            return null;
-        }
+            case TileTypes.Ground:
+                return groundTileMap;
 
+            case TileTypes.Wall:
+                return wallTileMap;
 
+            case TileTypes.TopWall:
+                return topTileMap;
+
+            case TileTypes.Teleport:
+                return teleportTileMap;
+
+            default:
+                return null;
+        }
     }
 
     public bool CheckOnlyGroundTile(Vector3 targetPosition)

@@ -14,11 +14,11 @@ public class NodeGrid : MonoBehaviour
     private void Start()
     {
         cellSize = 1;
-        gridSizeX = 32;
-        gridSizeY = 18;
+        gridSizeX = Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x) + Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y);
+        gridSizeY = Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x) + Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y);
 
         CreateGrid();
-    }
+    }   
 
     /// <summary>
     /// Skapar noder för alla tiles i rummet, lägger de i en 2d array
@@ -26,7 +26,9 @@ public class NodeGrid : MonoBehaviour
     private void CreateGrid()
     {
         NodeArray = new Node[gridSizeX, gridSizeY];
-        Vector3 firstTilePosition = new Vector3(-16f, -9f, 0);
+        Vector3Int firstTilePosition = new Vector3Int(
+            GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x, 
+            GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x, 0);  
 
         for (int y = 0; y < gridSizeY; y++)
         {
@@ -81,28 +83,13 @@ public class NodeGrid : MonoBehaviour
         int xPos = Mathf.FloorToInt(worldPoint.x);
         int yPos = Mathf.FloorToInt(worldPoint.y);
 
-        xPos = Mathf.Clamp(xPos, -16, 15);  //hardcode
-        yPos = Mathf.Clamp(yPos, -9, 8);    //hardcode
+        xPos = Mathf.Clamp(xPos, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y - 1);  //hardcode
+        yPos = Mathf.Clamp(yPos, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y - 1);    //hardcode
 
-        int xIndex = xPos + 16; //hardcode
-        int yIndex = yPos + 9;  //hardcode
+        int xIndex = xPos + GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y;
+        int yIndex = yPos + GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y;
 
         return NodeArray[xIndex, yIndex];
     }
 
-
-    private void OnDrawGizmos()
-    {
-        if (NodeArray != null)
-        {
-            foreach (Node node in NodeArray)
-            {
-                if (node.IsWall == true)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawWireSphere(new Vector3(node.WorldPosition.x + cellSize / 2, node.WorldPosition.y + cellSize / 2, 0), 0.25f);
-                }
-            }
-        }
-    }
 }

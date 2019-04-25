@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         //return false;
         return currentRoom.GetComponent<Room>().CheckTopTileAtPosition(position);
     }
-    public Tilemap GetTileMap(string tileMapName)
+    public Tilemap GetTileMap(TileTypes tileType)
     {
         //if(tileMapName == "Ground")
         //{
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         //{
         //    return null;
         //}
-        return currentRoom.GetComponent<Room>().GetTileMap(tileMapName);
+        return currentRoom.GetComponent<Room>().GetTileMap(tileType);
     }
     public bool CheckOnlyGroundTile(Vector3 targetPosition)
     {

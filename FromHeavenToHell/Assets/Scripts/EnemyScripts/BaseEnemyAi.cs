@@ -10,6 +10,8 @@ public class BaseEnemyAi : MonoBehaviour
 
     [SerializeField] private LayerMask enemyIgnoreLayerMask;
 
+    private const float enemyFireSpace = 0.25f;
+
 
     void Start()
     {
@@ -21,10 +23,10 @@ public class BaseEnemyAi : MonoBehaviour
 
     private void Update()
     {
-        float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
+        float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / GameManager.instance.tileSize;
         /*Vector3*/ aimDirection = GetClosestTargetPosition() - transform.position;
 
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, enemyFireSpace, aimDirection, range, enemyIgnoreLayerMask);
 
         if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
         {
@@ -72,7 +74,7 @@ public class BaseEnemyAi : MonoBehaviour
     /// Räknar ut vilken spelare som är närmst fienden
     /// </summary>
     /// <returns>Returnerar positionen för denna spelare som en Vector3</returns>
-    private Vector3 GetClosestTargetPosition()
+    public Vector3 GetClosestTargetPosition()
     {
         if (Vector2.Distance(player1.GetComponent<Transform>().position, transform.position) <=
                     Vector2.Distance(player2.GetComponent<Transform>().position, transform.position))

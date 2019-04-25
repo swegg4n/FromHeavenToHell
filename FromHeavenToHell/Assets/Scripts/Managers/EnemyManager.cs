@@ -29,11 +29,11 @@ public class EnemyManager : MonoBehaviour
 
     private float timeSinceLastSpawn;       //Tiden från förra vågen fiender skapades. Mäts i sekunder
 
-    private Tilemap groundTileMap;
+    //private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
-    private Tilemap wallTileMap; // Ska hämta dessa från gameManager
-    private Tilemap topWallTileMap;
+    //private Tilemap wallTileMap; // Ska hämta dessa från gameManager
+    //private Tilemap topWallTileMap;
 
     [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject enemy;
@@ -54,15 +54,16 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void DetectSpawnpoints()
     {
-        groundTileMap = GameManager.instance.GetTileMap("Ground");
-        wallTileMap = GameManager.instance.GetTileMap("Wall");
-        topWallTileMap = GameManager.instance.GetTileMap("Top");
+       // groundTileMap = GameManager.instance.GetTileMap("Ground");
+       // wallTileMap = GameManager.instance.GetTileMap("Wall");
+       // topWallTileMap = GameManager.instance.GetTileMap("Top");
 
         tilePositionList = new List<Vector3>();
+        Tilemap groundTileMap = GameManager.instance.GetCurrentRoom().GetComponent<Room>().GetTileMap(TileTypes.Ground);
 
-        for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)     //Loopar igenom alla tiles i bredd
+        for (int x = GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x; x < GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y; x++)     //Loopar igenom alla tiles i bredd
         {
-            for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)     //Loopar igenom alla tiles i höjd
+            for (int y = GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x; y < GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y; y++)     //Loopar igenom alla tiles i höjd
             {
                 Vector3Int localPlace = new Vector3Int(x, y, 0);    //Tiles local-position
                 Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, 0));   //Tilens world-position
@@ -71,14 +72,13 @@ public class EnemyManager : MonoBehaviour
                 place.y += groundTileMap.cellSize.y / 2;    //Centrerar spawn-positionen i höjd
 
                 //Kontrollerar så att det finns en golv-tile och ingen vägg- eller top-tile
-                if (groundTileMap.HasTile(localPlace) == true
-                    && wallTileMap.HasTile(localPlace) == false
-                    && topWallTileMap.HasTile(localPlace) == false)
+                if (GameManager.instance.GetCurrentRoom().GetComponent<Room>().CheckOnlyGroundTile(localPlace))
                 {
                     tilePositionList.Add(place);    //Lägger till tilen i listan över tillåtna positioner att skapas på
                 }
             }
         }
+
     }
 
     /// <summary>
