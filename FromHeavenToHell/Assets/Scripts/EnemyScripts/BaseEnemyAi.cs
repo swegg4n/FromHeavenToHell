@@ -62,7 +62,6 @@ public class BaseEnemyAi : MonoBehaviour
         if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
         {
             GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
-            //return;
         }
     }
 

@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3fec321c6d444f4a8c7ec66e7485cb7, type: 3}
-  m_Name: aoeClose01
+  m_Script: {fileID: 11500000, guid: d175b3a0d7fd89f4986817b95cd87536, type: 3}
+  m_Name: BossSpreadingProjectiles
   m_EditorClassIdentifier: 
-  abilityPrefab: {fileID: 6951397747203795610, guid: bd75108432a63f44683d29b40a644a24,
+  abilityPrefab: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
     type: 3}
-  abilityName: 02
+  abilityName: 01
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 20
-  optimalRange: 300
-  cooldown: 2
-  activeDuration: 2
-  timeBetweenTicks: 2
-  range: 80
+  damage: 50
+  optimalRange: 800
+  speed: 5
+  range: 800
+  knockbackForce: 0
+  cooldown: 1
+  nrOfProjectiles: 30
+  spread: 250

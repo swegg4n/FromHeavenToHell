@@ -177,7 +177,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &5771654108664280121
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyIgnoreLayerMask:
     serializedVersion: 2
-    m_Bits: 4919
+    m_Bits: 4407
   stationary: 1
 --- !u!114 &8974269370495757786
 MonoBehaviour:

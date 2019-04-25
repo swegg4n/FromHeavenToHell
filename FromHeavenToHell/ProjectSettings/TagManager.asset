@@ -57,6 +57,12 @@ TagManager:
   - name: Teleport
     uniqueID: 1445490619
     locked: 0
+  - name: AOE
+    uniqueID: 2071665185
+    locked: 0
+  - name: Projectile
+    uniqueID: 1672218159
+    locked: 0
   - name: Walls
     uniqueID: 2168224427
     locked: 0

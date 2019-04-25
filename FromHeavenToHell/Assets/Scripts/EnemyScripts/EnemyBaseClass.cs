@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBaseClass : MonoBehaviour
 {
-    [SerializeField] private int health;
+    [SerializeField] protected int health;
     [SerializeField] private float speedFactor;
     public float SpeedFactor { get { return speedFactor; } }
 
@@ -32,8 +32,9 @@ public class EnemyBaseClass : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
+        Debug.Log(health);
     }
 }

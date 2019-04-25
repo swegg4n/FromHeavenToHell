@@ -17,7 +17,7 @@ public class AoeBehaviour : MonoBehaviour
 
     void Update()
     {
-        if(resetClock == true)
+        if (resetClock == true)
         {
             timeSinceLastTick = 0;
             resetClock = false;
@@ -26,23 +26,31 @@ public class AoeBehaviour : MonoBehaviour
         timeSinceLastTick += Time.deltaTime;
     }
 
-    protected virtual void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if(timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
+        if (timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
         {
-            if (Caster.tag != other.tag || selfDamage == true || Caster == null)
+            if(Caster == null)
             {
-                if (other.tag == "Enemy")
-                {
-                    Debug.Log("Hit" + timeSinceLastTick);
-                    other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage);
-                }
-                else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
-                {
-                    PlayerManager.instance.TakeDamage(aoeAbility.Damage);
-                }
+                TakeDamage(other);
+            }
+            else if (Caster.tag != other.tag || selfDamage == true)
+            {
+                TakeDamage(other);
             }
             resetClock = true;
+        }
+    }
+
+    private void TakeDamage(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage);
+        }
+        else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
+        {
+            PlayerManager.instance.TakeDamage(aoeAbility.Damage);
         }
     }
 }
