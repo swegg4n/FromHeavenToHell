@@ -2,7 +2,7 @@
 
 public class BaseEnemyAi : MonoBehaviour
 {
-    private Vector3 direction;
+    private Vector3 direction;  //riktningen fienden ska gå
 
     private GameObject player1;
     private GameObject player2;
@@ -18,9 +18,11 @@ public class BaseEnemyAi : MonoBehaviour
 
     private void Update()
     {
+        //Om pathfindern har räknat ut en väg för fienden att gå
         if (GetComponent<Pathfinder>().FinalPath != null)
         {
-            if (GetComponent<Rigidbody2D>().velocity != Vector2.zero && GetComponent<Pathfinder>().FinalPath.Count > 0)
+            //om fienden inte nått sitt mål
+            if (GetComponent<Pathfinder>().FinalPath.Count > 0)
             {
                 if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
                     GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
@@ -28,7 +30,8 @@ public class BaseEnemyAi : MonoBehaviour
                     GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                 }
             }
-            else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            //om fienden nått sitt mål och står still, se om det finns en ny väg att gå
+            else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)  
             {
                 GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
             }
@@ -38,6 +41,9 @@ public class BaseEnemyAi : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Flyttar fienden till positionen för nästa nod i fiendens finalPath som räknats ut av pathfindern
+    /// </summary>
     private void MoveToNextTile()
     {
         if (GetComponent<Pathfinder>().FinalPath.Count > 0)
@@ -49,6 +55,10 @@ public class BaseEnemyAi : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Räknar ut vilken spelare som är närmst fienden
+    /// </summary>
+    /// <returns>Returnerar positionen för denna spelare som en Vector3</returns>
     private Vector3 GetClosestTargetPosition()
     {
         if (Vector2.Distance(player1.GetComponent<Transform>().position, transform.position) <=

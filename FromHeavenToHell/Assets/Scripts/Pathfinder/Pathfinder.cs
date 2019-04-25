@@ -26,9 +26,9 @@ public class Pathfinder : MonoBehaviour
         startNode = nodeGrid.GetNodeFromWorldPoint(startPosition);
         targetNode = nodeGrid.GetNodeFromWorldPoint(targetPosition);
 
-        List<Node> openList = new List<Node>();
-        HashSet<Node> closedList = new HashSet<Node>();
-
+        List<Node> openList = new List<Node>();     //Lista med alla noder som inte sökts igenom
+        HashSet<Node> closedList = new HashSet<Node>();     //HashSet med alla noder som redan har sökts igenom. 
+                                                            //Används för att inte söka igenom samma nod flera gånger
         openList.Add(startNode);
 
         while (openList.Count > 0)
@@ -45,19 +45,22 @@ public class Pathfinder : MonoBehaviour
             openList.Remove(currentNode);
             closedList.Add(currentNode);
 
-            if (currentNode == targetNode)
+            if (currentNode == targetNode)      //om målet är nått
             {
                 GetFinalPath(startNode, targetNode);
             }
 
+            //går igenom alla grann-noder för att se vad det kostar att röra sig till de
             foreach (Node neighborNode in nodeGrid.GetNeighboringNodes(currentNode))
             {
+                //om noden är en vägg eller om den redan sökts igenom, hoppa över den (=går inte att gå till den)
                 if (neighborNode.IsWall == true || closedList.Contains(neighborNode) == true)
                 {
                     continue;
                 }
 
-                int moveCost = currentNode.GCost + GetManhattenDistance(currentNode, neighborNode);     //FCost för granne
+                //räknar ut fCost för noden med (gcost + hCost)
+                int moveCost = currentNode.GCost + GetManhattenDistance(currentNode, neighborNode);
 
                 if (moveCost < neighborNode.GCost || openList.Contains(neighborNode) == false)
                 {
@@ -83,13 +86,14 @@ public class Pathfinder : MonoBehaviour
         FinalPath = new List<Node>();
         Node currentNode = endNode;
 
+        //går igenom den slutgiltiga vägen baklänges och lägger till de i en lista (target -> start)
         while (currentNode != startNode)
         {
             FinalPath.Add(currentNode);
             currentNode = currentNode.ParentNode;
         }
 
-        FinalPath.Reverse();
+        FinalPath.Reverse();    //Vänder på listan för att få noderna i rätt ordning (start -> target)
     }
 
     /// <summary>
