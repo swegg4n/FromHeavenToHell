@@ -18,10 +18,10 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
   damage: 50
-  optimalRange: 180
+  optimalRange: 300
   speed: 7
   range: 100
   knockbackForce: 0
   cooldown: 1
   nrOfProjectiles: 10
-  spread: 50
+  spread: 160

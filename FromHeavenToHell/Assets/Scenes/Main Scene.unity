@@ -123,12 +123,11 @@ GameObject:
   - component: {fileID: 249747944}
   - component: {fileID: 249747943}
   - component: {fileID: 249747942}
-  - component: {fileID: 249747940}
   - component: {fileID: 249747945}
-  - component: {fileID: 249747941}
   - component: {fileID: 249747946}
+  - component: {fileID: 249747940}
   m_Layer: 10
-  m_Name: Bob
+  m_Name: Bobelina
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,26 +142,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 249747939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 028aa83c0a50cec44bdbb22cd9250ae3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileAbility: {fileID: 0}
-  aoeAbility: {fileID: 0}
---- !u!114 &249747941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249747939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f2cb1e58ae40d49a75c86fb3bb024b, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf341d6c61754e42b5c665e060cc948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
-  speedFactor: 0
-  ability: {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
+  speedFactor: 50
+  ability: {fileID: 11400000, guid: 69721c8aeaffd7a4abb341b7759d64f6, type: 2}
+  abilityList:
+  - {fileID: 11400000, guid: a96d32030b2d38b4c8a9cb0d436f4a7a, type: 2}
+  - {fileID: 11400000, guid: 755a2c677d904ea4dbc5bee98739c406, type: 2}
+  - {fileID: 11400000, guid: 69721c8aeaffd7a4abb341b7759d64f6, type: 2}
+  switchingAbilityInterval: 1
 --- !u!212 &249747942
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -245,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249747939}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.77, y: 5, z: 0}
+  m_LocalPosition: {x: 0.23, y: 5, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 0}
   m_Children: []
   m_Father: {fileID: 1100818448}
