@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class NodeGrid : MonoBehaviour
 {
-    private float cellSize;
-
-    private Tilemap groundTileMap;
-    private Tilemap wallTileMap;
-
     public Node[,] NodeArray { get; private set; }  //2D-array som håller alla banans noder
+
+    private float cellSize;
 
     private int gridSizeX;  //Banans bredd (antal noder i bredd)
     private int gridSizeY;  //Banans höjd (antal noder i höjd)
@@ -17,12 +13,10 @@ public class NodeGrid : MonoBehaviour
 
     private void Start()
     {
-        groundTileMap = GameManager.instance.GetTileMap("Ground");
-        wallTileMap = GameManager.instance.GetTileMap("Wall");
+        cellSize = 1;
+        gridSizeX = 32;
+        gridSizeY = 18;
 
-        cellSize = groundTileMap.cellSize.x;
-        gridSizeX = groundTileMap.size.x;
-        gridSizeY = groundTileMap.size.y;
         CreateGrid();
     }
 
@@ -38,84 +32,43 @@ public class NodeGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = wallTileMap.HasTile(new Vector3Int((int)(firstTilePosition.x + x * cellSize), (int)(firstTilePosition.y + y * cellSize), 0));
-                
+                bool isWall = GameManager.instance.GetCurrentRoom().GetComponent<Room>().CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
+
                 NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
             }
         }
     }
 
     /// <summary>
-    /// Får tag på alla noder brevid noden som skickas in
+    /// Får tag på alla noder brevid noden som skickas in (upp, ner, höger, vänster)
     /// </summary>
     public List<Node> GetNeighboringNodes(Node node)
     {
         List<Node> neighborList = new List<Node>();
 
-        int indexCheckX;
-        int indexCheckY;
-
-        #region Check if neighbor nodes are within range of the 2D array
-        //right
-        indexCheckX = node.IndexGridX + 1;
-        indexCheckY = node.IndexGridY;
-
-        if (indexCheckX >= 0 && indexCheckX < gridSizeX)
+        for (int y = -1; y <= 1; y++)
         {
-            if (indexCheckY >= 0 && indexCheckY < gridSizeY)
+            for (int x = -1; x <= 1; x++)
             {
-                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
+                if (Mathf.Abs(x) == Mathf.Abs(y))
                 {
-                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
+                    continue;
                 }
+
+                int indexCheckX = node.IndexGridX + x;
+                int indexCheckY = node.IndexGridY + y;
+
+                if (indexCheckX >= 0 && indexCheckX < gridSizeX && 
+                    indexCheckY >= 0 && indexCheckY < gridSizeY)
+                {
+                    if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
+                    {
+                        neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
+                    }
+                }
+
             }
         }
-
-        //left
-        indexCheckX = node.IndexGridX - 1;
-        indexCheckY = node.IndexGridY;
-
-        if (indexCheckX >= 0 && indexCheckX < gridSizeX)
-        {
-            if (indexCheckY >= 0 && indexCheckY < gridSizeY)
-            {
-                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
-                {
-                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
-                }
-            }
-        }
-
-        //top
-        indexCheckX = node.IndexGridX;
-        indexCheckY = node.IndexGridY - 1;
-
-        if (indexCheckX >= 0 && indexCheckX < gridSizeX)
-        {
-            if (indexCheckY >= 0 && indexCheckY < gridSizeY)
-            {
-                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
-                {
-                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
-                }
-            }
-        }
-
-        //bottom
-        indexCheckX = node.IndexGridX;
-        indexCheckY = node.IndexGridY + 1;
-
-        if (indexCheckX >= 0 && indexCheckX < gridSizeX)
-        {
-            if (indexCheckY >= 0 && indexCheckY < gridSizeY)
-            {
-                if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
-                {
-                    neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
-                }
-            }
-        }
-        #endregion
 
         return neighborList;
     }
@@ -137,10 +90,9 @@ public class NodeGrid : MonoBehaviour
         return NodeArray[xIndex, yIndex];
     }
 
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(groundTileMap.transform.position, new Vector3(gridSizeX * cellSize, gridSizeY * cellSize, 1));
-
         if (NodeArray != null)
         {
             foreach (Node node in NodeArray)
