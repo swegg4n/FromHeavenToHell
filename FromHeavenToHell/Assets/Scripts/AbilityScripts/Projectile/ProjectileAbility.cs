@@ -12,10 +12,6 @@ public class ProjectileAbility : Ability
     public GameObject caster { get; private set; }  //Objektet som använder abilityn
 
 
-    public override void Update()
-    {
-
-    }
 
     /// <summary>
     /// Det som händer när abilityn används
@@ -31,24 +27,37 @@ public class ProjectileAbility : Ability
 
         if (cdController.CooldownPassed() == true)
         {
+            Vector2 direction;
+
+            if (caster.tag == "PlayerDemon" || caster.tag == "PlayerAngel")
+            {
+                direction = caster.GetComponent<AimIndicator>().direction;
+            }
+            else
+            {
+                direction = caster.GetComponent<BaseEnemyAi>().GetClosestTargetPosition() - caster.transform.position;
+            }
+
             var projectile = Instantiate(abilityPrefab,
-                (Vector2)caster.transform.position + offset * caster.GetComponent<AimIndicator>().direction.normalized,
+                (Vector2)caster.transform.position + offset * direction.normalized,
                 Quaternion.identity);
 
-            projectile.GetComponent<Rigidbody2D>().velocity = caster.GetComponent<AimIndicator>().direction.normalized * speed;
+            projectile.GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
 
-            projectile.GetComponent<ProjectileBehaviour>().projectileAbility = this;
+            projectile.GetComponent<ProjectileBehaviour>().ProjectileAbility = this;
+
+            projectile.GetComponent<ProjectileBehaviour>().Caster = caster;
 
             cdController.ResetCooldown(cooldown);
         }
     }
 
-    public int GetKnockbackForce()
+    public int GetKnockbackForce()  //Ändra till property
     {
         return knockbackForce;
     }
 
-    public int GetRange()
+    public int GetRange()   //Ändra till property
     {
         return range;
     }

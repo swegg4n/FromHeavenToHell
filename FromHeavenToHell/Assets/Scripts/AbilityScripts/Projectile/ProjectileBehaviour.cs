@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour
 {
-    public ProjectileAbility projectileAbility { set; get;}
-    private GameObject caster;
+    public ProjectileAbility ProjectileAbility { set; get;}
+    public GameObject Caster { set; get; }
     private Vector2 startPosition;
 
     void Start()
     {
-        caster = projectileAbility.caster;
-        startPosition = caster.transform.position;
+        startPosition = Caster.transform.position;
     }
 
     void Update()
     {
-        if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.tileSize > projectileAbility.GetRange())
+        if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.tileSize > ProjectileAbility.GetRange())
         {
             Destroy(gameObject);
         }
@@ -24,22 +23,31 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (caster.tag != other.tag || caster == null)
+        if (Caster == null)
         {
-            if (other.tag == "Enemy")
-            {
-                other.GetComponent<EnemyBaseClass>().TakeDamage(projectileAbility.GetDamage());
-                Destroy(gameObject);
-            }
-            else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
-            {
-                PlayerManager.instance.TakeDamage(projectileAbility.GetDamage());
-                Destroy(gameObject);
-            }
-            else if (other.tag == "Wall")
-            {
-                Destroy(gameObject);
-            }
+            HandleCollision(other);
+        }
+        else if(Caster.tag != other.tag)
+        {
+            HandleCollision(other);
+        }
+    }
+
+    private void HandleCollision(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            other.GetComponent<EnemyBaseClass>().TakeDamage(ProjectileAbility.Damage);
+            Destroy(gameObject);
+        }
+        else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
+        {
+            PlayerManager.instance.TakeDamage(ProjectileAbility.Damage);
+            Destroy(gameObject);
+        }
+        else if (other.tag == "Wall")
+        {
+            Destroy(gameObject);
         }
     }
 }

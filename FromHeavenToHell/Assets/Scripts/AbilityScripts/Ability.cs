@@ -7,6 +7,10 @@ public abstract class Ability : ScriptableObject
     [SerializeField] private Sprite abilityIcon;        //Ikon för abilityn
     [SerializeField] private AudioClip abilitySound;    //Ljud som spelas vid användning av abilityn
     [SerializeField] private int damage;        //Skada abilityn gör vid träff av ojekt som kan ta skada. Mäts i enheter
+    public int Damage { get { return damage; } }
+
+    [SerializeField] private float optimalRange;
+    public float OptimalRange { get { return optimalRange; } }
 
     /// <summary>
     /// Metod som används för att aktivera abilities
@@ -15,9 +19,4 @@ public abstract class Ability : ScriptableObject
     public abstract void TriggerAbility(GameObject caster); 
 
     public virtual void Update() { }
-
-    public int GetDamage()
-    {
-        return damage;
-    }
 }

@@ -2,23 +2,36 @@
 
 public class BaseEnemyAi : MonoBehaviour
 {
-    private Vector3 direction;  //riktningen fienden ska gå
+    private Vector3 direction;
+    private Vector3 aimDirection;
 
     private GameObject player1;
     private GameObject player2;
 
+    [SerializeField] private LayerMask enemyIgnoreLayerMask;
+
 
     void Start()
     {
-        player1 = PlayerManager.instance.playerAngelInstance;
-        player2 = PlayerManager.instance.playerDemonInstance;
+        player1 = PlayerManager.instance.PlayerAngelInstance;
+        player2 = PlayerManager.instance.PlayerDemonInstance;
 
         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
     }
 
     private void Update()
     {
-        //Om pathfindern har räknat ut en väg för fienden att gå
+        float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
+        /*Vector3*/ aimDirection = GetClosestTargetPosition() - transform.position;
+
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
+
+        if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
+        {
+            GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
+            return;
+        }
+        
         if (GetComponent<Pathfinder>().FinalPath != null)
         {
             //om fienden inte nått sitt mål
@@ -69,6 +82,19 @@ public class BaseEnemyAi : MonoBehaviour
         else
         {
             return player2.transform.position;
+        }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        try
+        {
+            Gizmos.DrawRay(transform.position, aimDirection);
+            Gizmos.DrawWireSphere(transform.position, 0.25f);
+        }
+        catch (System.Exception)
+        {
         }
     }
 

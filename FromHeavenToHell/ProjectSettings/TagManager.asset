@@ -11,6 +11,8 @@ TagManager:
   - TopWall
   - AOE
   - Projectile
+  - Ground
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -50,6 +52,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 4060389441
+    locked: 0
+  - name: Teleport
+    uniqueID: 1445490619
     locked: 0
   - name: Walls
     uniqueID: 2168224427
