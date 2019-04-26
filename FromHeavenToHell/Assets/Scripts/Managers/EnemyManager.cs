@@ -31,6 +31,10 @@ public class EnemyManager : MonoBehaviour
     private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
+    private List<GameObject> enemyList;
+    private List<int> tempIndexList;
+    private List<GameObject> spawnIndicatorList;
+
     private Tilemap wallTileMap; // Ska hämta dessa från gameManager
     private Tilemap topWallTileMap;
 
@@ -44,28 +48,50 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        groundTileMap = GameManager.instance.GetTileMap("Ground");
-        wallTileMap = GameManager.instance.GetTileMap("Wall");
-        topWallTileMap = GameManager.instance.GetTileMap("Top");
+        ResetRoom();
+    }
+
+    public void ResetRoom()
+    {
+        if(enemyList != null)
+        {
+            enemyList.ForEach(Destroy);
+        }
+
+        if(spawnIndicatorList != null)
+        {
+            spawnIndicatorList.ForEach(Destroy);
+        }
+
+        tempIndexList = new List<int>();
+
+        enemyList = new List<GameObject>();
+
+        groundTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap("Ground");
+        wallTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap("Wall");
+        topWallTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap("Top");
 
         tilePositionList = new List<Vector3>();
-        
+
         for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
         {
             for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
             {
-                Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
+                Vector3Int localPlace = new Vector3Int(x, y, 0);
                 Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
                 place.x += groundTileMap.cellSize.x / 2;
+
                 if (groundTileMap.HasTile(localPlace) == true
                     && wallTileMap.HasTile(localPlace) == false
                     && topWallTileMap.HasTile(localPlace) == false)
                 {
+                    Debug.Log("TESTESTEST");
                     tilePositionList.Add(place);
                 }
             }
         }
     }
+
     private void Update()
     {
         timeSinceLastSpawn += Time.deltaTime;
@@ -81,11 +107,13 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator Spawn(int nrOfSpawns, float delay)
     {
-        List<int> tempIndexList = new List<int>();
-        List<GameObject> spawnIndicatorList = new List<GameObject>();
+        tempIndexList = new List<int>();
+        spawnIndicatorList = new List<GameObject>();
+
         for (int i = 0; i < nrOfSpawns; i++)
         {
             tempIndexList.Add(rnd.Next(0, tilePositionList.Count));
+
             spawnIndicatorList.Add(Instantiate(spawnIndicator, tilePositionList[tempIndexList[i]], Quaternion.identity));
         }
 
@@ -93,7 +121,7 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < nrOfSpawns; i++)
         {
-            Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity);
+            enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
             Destroy(spawnIndicatorList[i]);
         }
 

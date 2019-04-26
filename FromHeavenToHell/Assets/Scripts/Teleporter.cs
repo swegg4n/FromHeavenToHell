@@ -7,6 +7,7 @@ using System.Linq;
 public class Teleporter : MonoBehaviour
 {
     private List<Vector2> currentRoomTeleportPosList;
+    private GameObject roomToTeleportTo;
 
     private void Start()
     {
@@ -20,14 +21,14 @@ public class Teleporter : MonoBehaviour
         {
             if (collider.gameObject.tag == "PlayerAngel")
             {
-                Debug.Log("angel ready");
+                Debug.Log("angel in");
 
                 PlayerManager.instance.PlayerAngelTeleport = !PlayerManager.instance.PlayerAngelTeleport;
             }
 
             else if (collider.gameObject.tag == "PlayerDemon")
             {
-                Debug.Log("demon ready");
+                Debug.Log("demon in");
 
                 PlayerManager.instance.PlayerDemonTeleport = !PlayerManager.instance.PlayerDemonTeleport;
             }
@@ -35,31 +36,14 @@ public class Teleporter : MonoBehaviour
             Vector2 playerAngelPosition = PlayerManager.instance.playerAngelInstance.transform.position;
             Vector2 playerDemonPosition = PlayerManager.instance.playerDemonInstance.transform.position;
 
-            Vector2 positionTeleportTo = CheckTeleporter(collider);
+            Vector2? positionTeleportTo = CheckTeleporter(collider);
 
-            PlayerManager.instance.TeleportPlayers(positionTeleportTo);
+            Debug.Log(positionTeleportTo);
 
-            //Debug.Log(GetComponentInParent<Room>().rightRoom);
-            //Debug.Log(GetComponentInParent<Room>().rightRoom.gameObject);
-            //Debug.Log(GetComponentInParent<Room>().rightRoom.gameObject.transform);
-            //Debug.Log(GetComponentInParent<Room>().rightRoom.gameObject.transform.position);
+            PlayerManager.instance.TeleportPlayers(positionTeleportTo, roomToTeleportTo);
 
-
-
-            //Debug.Log("test");
-
-            //if (GetComponent<TilemapCollider2D>().IsTouching(PlayerManager.instance.playerAngelInstance.GetComponent<Collider2D>()))
-            //{
-            //    Debug.Log("tp");
-            //    Vector2 positionTeleportTo = CheckTeleporter(collider);
-
-            //    PlayerManager.instance.TeleportPlayers(positionTeleportTo);
-            //}
+            Debug.Log("Angel " + PlayerManager.instance.PlayerAngelTeleport + "Demon " + PlayerManager.instance.PlayerDemonTeleport);
         }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
     }
 
     //private void OnTriggerExit2D(Collider2D collision)
@@ -80,44 +64,62 @@ public class Teleporter : MonoBehaviour
     //    }
     //}
 
-    private Vector2 CheckTeleporter(Collider2D collider)
+    private Vector2? CheckTeleporter(Collider2D collider)
     {
-        foreach(Vector2 tpPos in currentRoomTeleportPosList)
+        Debug.Log("6" + collider.bounds.center + "Collider" + collider.bounds);
+
+        Vector2 normalizedDirection = (collider.bounds.center - transform.parent.transform.position).normalized;
+        float koeficient = normalizedDirection.y / normalizedDirection.x;
+
+        Debug.Log("4" + koeficient);
+
+        if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
         {
-            Debug.Log("6");
+            Debug.Log("A1");
 
-            //IF SATSEN HÄNDER INTE!!!
-            if (collider.OverlapPoint(tpPos))
+            roomToTeleportTo = GetComponentInParent<Room>().rightRoom;
+
+            if(GetComponentInParent<Room>().rightRoom != null)
             {
-                Vector2 normalizedDirection = (tpPos - (Vector2)transform.parent.transform.position).normalized;
-                float koeficient = normalizedDirection.y / normalizedDirection.x;
-
-                Debug.Log("4");
-                    
-                if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
-                {
-                    Debug.Log("1");
-                    return GetComponentInParent<Room>().rightRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.right);
-                }
-                else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
-                {
-                    Debug.Log("1");
-                    return GetComponentInParent<Room>().leftRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.left);
-                }
-                else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
-                {
-                    Debug.Log("1");
-                    return GetComponentInParent<Room>().aboveRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.up);
-                }
-                else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
-                {
-                    Debug.Log("1");
-                    return GetComponentInParent<Room>().belowRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.down);
-                }
+                return GetComponentInParent<Room>().rightRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.right);
             }
         }
+        else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
+        {
+            Debug.Log("A2");
+
+            roomToTeleportTo = GetComponentInParent<Room>().leftRoom;
+
+            if(GetComponentInParent<Room>().leftRoom != null)
+            {
+                return GetComponentInParent<Room>().leftRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.left);
+            }
+        }
+        else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
+        {
+            Debug.Log("A3");
+
+            roomToTeleportTo = GetComponentInParent<Room>().aboveRoom;
+
+            if (GetComponentInParent<Room>().aboveRoom != null)
+            {
+                return GetComponentInParent<Room>().aboveRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.up);
+            }
+        }
+        else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
+        {
+            Debug.Log("A4");
+
+            roomToTeleportTo = GetComponentInParent<Room>().belowRoom;
+
+            if (GetComponentInParent<Room>().belowRoom != null)
+            {
+                return GetComponentInParent<Room>().belowRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.down);
+            }
+        }
+
         Debug.Log("5");
-        return Vector2.zero;
+        return null;
     }
 
     // Update is called once per frame

@@ -17,8 +17,8 @@ public class NodeGrid : MonoBehaviour
 
     private void Start()
     {
-        groundTileMap = GameManager.instance.GetTileMap("Ground");
-        wallTileMap = GameManager.instance.GetTileMap("Wall");
+        groundTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap("Ground");
+        wallTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap("Wall");
 
         cellSize = groundTileMap.cellSize.x;
         gridSizeX = groundTileMap.size.x;

@@ -42,27 +42,39 @@ public class Room : MonoBehaviour
             }
         }
 
+        Debug.Log(tileMapList.Length + " iakdakwiawdikawd " + teleportTileMap + "name" + gameObject.name);
+
         teleportPosList = new List<Vector2>();
 
-        for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
+        for (int x = teleportTileMap.cellBounds.xMin; x < teleportTileMap.cellBounds.xMax; x++)
         {
-            for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
+            for (int y = teleportTileMap.cellBounds.yMin; y < teleportTileMap.cellBounds.yMax; y++)
             {
-                Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
-                Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
-                place.x += groundTileMap.cellSize.x / 2;
+                Vector3Int localPlace = new Vector3Int(x, y, 0);
+
+                Vector3 place = teleportTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
+
+                place.x += teleportTileMap.cellSize.x / 2;
+
+                if(gameObject.name == "HeavenRoomUp")
+                {
+                    Debug.Log(localPlace + "  " + place);
+                }
+
                 if (teleportTileMap.HasTile(localPlace) == true)
                 {
+                    Debug.Log("HEJSANSVEJSAN" + gameObject.name);
                     teleportPosList.Add(place);
                 }
             }
-
         }
 
         aboveRoom = CheckSorrundingRoom(Vector2.up);
         belowRoom = CheckSorrundingRoom(Vector2.down);
         rightRoom = CheckSorrundingRoom(Vector2.right);
         leftRoom = CheckSorrundingRoom(Vector2.left);
+
+        Debug.Log("TPLIST" + teleportPosList.Count);
     }
 
     private GameObject CheckSorrundingRoom(Vector2 direction)
@@ -71,14 +83,6 @@ public class Room : MonoBehaviour
         
         foreach (RaycastHit2D hit in rayCheck)
         {
-            Debug.Log("1 ground" + groundTileMap.WorldToCell(hit.point));
-            Debug.Log("1 ground" + hit.point);
-
-            if (wallTileMap.HasTile(new Vector3Int(0, 2, 0)))
-            {
-                Debug.Log("Grounddwaiojdaoiwjdaowidjaoiwdjawidjoawjdoajiwdoijawa");
-            }
-
             if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false 
                 && wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
                 && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
@@ -86,13 +90,6 @@ public class Room : MonoBehaviour
                 && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false
                 && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false)
             {
-                Debug.Log("1 hit" + groundTileMap.WorldToCell(hit.point));
-
-                if (wallTileMap.HasTile(Vector3Int.FloorToInt(hit.point)) == false)
-                {
-                    Debug.Log("2 hit");
-                }
-
                 return hit.rigidbody.gameObject.transform.parent.gameObject;
             }
         }
@@ -140,31 +137,35 @@ public class Room : MonoBehaviour
 
     public Vector2 CheckTeleportInDirecction(Vector2 direction)
     {
+        Debug.Log("B tpPos" + teleportPosList.Count);
+
         foreach (Vector2 tpPos in teleportPosList)
         {
-            Vector2 normalizedDirection = ((Vector2)transform.parent.transform.position - tpPos).normalized;
+            Vector2 normalizedDirection = (tpPos - (Vector2)transform.position).normalized;
             float koeficient = normalizedDirection.y / normalizedDirection.x;
+
+            Debug.Log("B koeficient" + koeficient + "  " + direction + "  " + normalizedDirection);
 
             if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0 && direction == Vector2.left)
             {
-                Debug.Log("2");
+                Debug.Log("B");
                 return tpPos;
             }
             else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0 && direction == Vector2.right)
             {
-                Debug.Log("2");
+                Debug.Log("B");
 
                 return tpPos;
             }
             else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0 && direction == Vector2.down)
             {
-                Debug.Log("2");
+                Debug.Log("B");
 
                 return tpPos;
             }
             else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0 && direction == Vector2.up)
             {
-                Debug.Log("2");
+                Debug.Log("B");
 
                 return tpPos;
             }
@@ -187,7 +188,6 @@ public class Room : MonoBehaviour
         {
             return topTileMap;
         }
-        //test till teleporten 
         else if (tileMapName == "Teleport")
         {
             return teleportTileMap;
