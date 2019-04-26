@@ -14,8 +14,8 @@ public class NodeGrid : MonoBehaviour
     private void Start()
     {
         cellSize = 1;
-        gridSizeX = Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x) + Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y);
-        gridSizeY = Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x) + Mathf.Abs(GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y);
+        gridSizeX = Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x) + Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y);
+        gridSizeY = Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x) + Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y);
 
         CreateGrid();
     }   
@@ -27,14 +27,14 @@ public class NodeGrid : MonoBehaviour
     {
         NodeArray = new Node[gridSizeX, gridSizeY];
         Vector3Int firstTilePosition = new Vector3Int(
-            GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x, 
-            GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x, 0);  
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x, 
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, 0);  
 
         for (int y = 0; y < gridSizeY; y++)
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = GameManager.instance.GetCurrentRoom().GetComponent<Room>().CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
+                bool isWall = GameManager.instance.CurrentRoom.GetComponent<Room>().CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
 
                 NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
             }
@@ -83,11 +83,11 @@ public class NodeGrid : MonoBehaviour
         int xPos = Mathf.FloorToInt(worldPoint.x);
         int yPos = Mathf.FloorToInt(worldPoint.y);
 
-        xPos = Mathf.Clamp(xPos, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y - 1);  //hardcode
-        yPos = Mathf.Clamp(yPos, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x, GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y - 1);    //hardcode
+        xPos = Mathf.Clamp(xPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y - 1);  //hardcode
+        yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y - 1);    //hardcode
 
-        int xIndex = xPos + GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y;
-        int yIndex = yPos + GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y;
+        int xIndex = xPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y;
+        int yIndex = yPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y;
 
         return NodeArray[xIndex, yIndex];
     }

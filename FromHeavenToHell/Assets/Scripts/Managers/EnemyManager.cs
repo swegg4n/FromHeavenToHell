@@ -32,8 +32,12 @@ public class EnemyManager : MonoBehaviour
     //private Tilemap groundTileMap;
     private List<Vector3> tilePositionList;
 
-    //private Tilemap wallTileMap; // Ska hämta dessa från gameManager
-    //private Tilemap topWallTileMap;
+    private List<GameObject> enemyList;
+    private List<int> tempIndexList;
+    private List<GameObject> spawnIndicatorList;
+
+    private Tilemap wallTileMap; // Ska hämta dessa från gameManager
+    private Tilemap topWallTileMap;
 
     [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject enemy;
@@ -46,24 +50,37 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        DetectSpawnpoints();
+        ResetRoom();
     }
 
     /// <summary>
     /// Skapar en lista med tillåtna spawnpositioner
     /// </summary>
-    private void DetectSpawnpoints()
+
+    public void ResetRoom()
     {
-       // groundTileMap = GameManager.instance.GetTileMap("Ground");
-       // wallTileMap = GameManager.instance.GetTileMap("Wall");
-       // topWallTileMap = GameManager.instance.GetTileMap("Top");
+        tilePositionList = new List<Vector3>();
+        Tilemap groundTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap(TileTypes.Ground);
+
+        if (enemyList != null)
+        {
+            enemyList.ForEach(Destroy);
+        }
+
+        if(spawnIndicatorList != null)
+        {
+            spawnIndicatorList.ForEach(Destroy);
+        }
+
+        tempIndexList = new List<int>();
+
+        enemyList = new List<GameObject>();
 
         tilePositionList = new List<Vector3>();
-        Tilemap groundTileMap = GameManager.instance.GetCurrentRoom().GetComponent<Room>().GetTileMap(TileTypes.Ground);
 
-        for (int x = GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.x; x < GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item1.y; x++)     //Loopar igenom alla tiles i bredd
+        for (int x = GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x; x < GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y; x++)     //Loopar igenom alla tiles i bredd
         {
-            for (int y = GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.x; y < GameManager.instance.GetCurrentRoom().GetComponent<Room>().roomBounds.Item2.y; y++)     //Loopar igenom alla tiles i höjd
+            for (int y = GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x; y < GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y; y++)     //Loopar igenom alla tiles i höjd
             {
                 Vector3Int localPlace = new Vector3Int(x, y, 0);    //Tiles local-position
                 Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, 0));   //Tilens world-position
@@ -72,7 +89,7 @@ public class EnemyManager : MonoBehaviour
                 place.y += groundTileMap.cellSize.y / 2;    //Centrerar spawn-positionen i höjd
 
                 //Kontrollerar så att det finns en golv-tile och ingen vägg- eller top-tile
-                if (GameManager.instance.GetCurrentRoom().GetComponent<Room>().CheckOnlyGroundTile(localPlace))
+                if (GameManager.instance.CurrentRoom.GetComponent<Room>().CheckOnlyGroundTile(localPlace))
                 {
                     tilePositionList.Add(place);    //Lägger till tilen i listan över tillåtna positioner att skapas på
                 }
@@ -109,12 +126,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private IEnumerator Spawn()
     {
-        List<int> tempIndexList = new List<int>();
-        List<GameObject> spawnIndicatorList = new List<GameObject>();
+        tempIndexList = new List<int>();
+        spawnIndicatorList = new List<GameObject>();
 
         for (int i = 0; i < nrOfEnemiesToSpawn; i++)
         {
             tempIndexList.Add(rnd.Next(0, tilePositionList.Count));
+
             spawnIndicatorList.Add(Instantiate(spawnIndicator, tilePositionList[tempIndexList[i]], Quaternion.identity));
         }
 
@@ -122,7 +140,7 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < nrOfEnemiesToSpawn; i++)
         {
-            Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity);
+            enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
             Destroy(spawnIndicatorList[i]);
         }
 

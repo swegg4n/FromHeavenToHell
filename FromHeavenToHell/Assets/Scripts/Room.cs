@@ -8,7 +8,6 @@ public enum TileTypes { Ground, Wall, TopWall, Teleport }
 
 public class Room : MonoBehaviour
 {
-
     private Tilemap groundTileMap;
     private Tilemap wallTileMap;
     private Tilemap topTileMap;
@@ -27,6 +26,7 @@ public class Room : MonoBehaviour
     void Awake()
     {
         Tilemap[] tileMapList = GetComponentsInChildren<Tilemap>();
+
         foreach (Tilemap t in tileMapList)
         {
             if (t.tag == "Ground")
@@ -49,23 +49,22 @@ public class Room : MonoBehaviour
 
         roomBounds = CalculateBoundsXY();
 
+        for (int x = teleportTileMap.cellBounds.xMin; x < teleportTileMap.cellBounds.xMax; x++)
+        {
+            for (int y = teleportTileMap.cellBounds.yMin; y < teleportTileMap.cellBounds.yMax; y++)
+            {
+                Vector3Int localPlace = new Vector3Int(x, y, 0);
 
-        //teleportPosList = new List<Vector2>();
+                Vector3 place = teleportTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
 
-        //for (int x = groundTileMap.cellBounds.xMin; x < groundTileMap.cellBounds.xMax; x++)
-        //{
-        //    for (int y = groundTileMap.cellBounds.yMin; y < groundTileMap.cellBounds.yMax; y++)
-        //    {
-        //        Vector3Int localPlace = new Vector3Int(x, y, (int)groundTileMap.transform.position.y);
-        //        Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, localPlace.z));
-        //        place.x += groundTileMap.cellSize.x / 2;
-        //        if (teleportTileMap.HasTile(localPlace) == true)
-        //        {
-        //            teleportPosList.Add(place);
-        //        }
-        //    }
+                place.x += teleportTileMap.cellSize.x / 2;
 
-        //}
+                if (teleportTileMap.HasTile(localPlace) == true)
+                {
+                    teleportPosList.Add(place);
+                }
+            }
+        }
 
         aboveRoom = CheckSorrundingRoom(Vector2.up);
         belowRoom = CheckSorrundingRoom(Vector2.down);
@@ -76,10 +75,15 @@ public class Room : MonoBehaviour
     private GameObject CheckSorrundingRoom(Vector2 direction)
     {
         RaycastHit2D[] rayCheck = Physics2D.RaycastAll(transform.position, direction);
-
+        
         foreach (RaycastHit2D hit in rayCheck)
         {
-            if (!wallTileMap.HasTile(Vector3Int.FloorToInt(hit.point)))
+            if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false 
+                && wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
+                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
+                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
+                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false
+                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false)
             {
                 return hit.rigidbody.gameObject.transform.parent.gameObject;
             }
@@ -153,6 +157,34 @@ public class Room : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public Vector2 CheckTeleportInDirecction(Vector2 direction)
+    {
+        foreach (Vector2 tpPos in teleportPosList)
+        {
+            Vector2 normalizedDirection = (tpPos - (Vector2)transform.position).normalized;
+            float koeficient = normalizedDirection.y / normalizedDirection.x;
+
+            if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0 && direction == Vector2.left)
+            {
+                return tpPos;
+            }
+            else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0 && direction == Vector2.right)
+            {
+                return tpPos;
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0 && direction == Vector2.down)
+            {
+                return tpPos;
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0 && direction == Vector2.up)
+            {
+                return tpPos;
+            }
+        }
+
+        return Vector2.zero;
     }
 
     public bool CheckOnlyGroundTile(Vector3 targetPosition)

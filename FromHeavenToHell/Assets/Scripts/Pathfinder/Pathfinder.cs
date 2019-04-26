@@ -75,7 +75,6 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
-
     }
 
     /// <summary>

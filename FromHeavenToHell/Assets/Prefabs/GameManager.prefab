@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6424370980982477293}
   - component: {fileID: 6424370980982477292}
   - component: {fileID: 440901390}
-  - component: {fileID: 1159868883982822843}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -50,9 +49,10 @@ MonoBehaviour:
     type: 3}
   playerAngelPrefab: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
     type: 3}
-  health: 10000
-  playerDemonUsingMouse: 1
-  playerAngelUsingMouse: 0
+  health: 100
+  teleportCooldown: 5
+  playerDemonUsingMouse: 0
+  playerAngelUsingMouse: 1
 --- !u!114 &6424370980982477292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,20 +86,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bcad6263ce05b1449a2e3fd7055d95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundTileMap: {fileID: 0}
-  wallTileMap: {fileID: 0}
-  topTileMap: {fileID: 0}
---- !u!114 &1159868883982822843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6424370980982477283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c9740201e5c35488789fe14dd2bdfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundTileMap: {fileID: 0}
-  wallsTileMap: {fileID: 0}
+  currentRoom: {fileID: 0}

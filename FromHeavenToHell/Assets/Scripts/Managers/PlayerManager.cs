@@ -53,12 +53,20 @@ public class PlayerManager : MonoBehaviour
         teleportCooldownReady = true;
     }
 
-    public void TeleportPlayers(Vector3 position)
+    public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
-        if(PlayerAngelTeleport == true && PlayerDemonTeleport == true && teleportCooldownReady == true)
+        if(PlayerDemonTeleport == true && PlayerAngelTeleport == true && teleportCooldownReady == true
+            && position != null)
         {
-            PlayerAngelInstance.transform.position = position;
-            PlayerDemonInstance.transform.position = position;
+            PlayerAngelInstance.transform.position = (Vector3)position;
+            PlayerDemonInstance.transform.position = (Vector3)position;
+
+            GameManager.instance.CurrentRoom = roomToTeleportTo;
+
+            EnemyManager.instance.ResetRoom();
+
+            PlayerDemonTeleport = false;
+            PlayerAngelTeleport = false;
 
             teleportCooldownReady = false;
             timeSinceLastTeleport = 0;
@@ -71,7 +79,9 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         DeathCheck();
+
         timeSinceLastTeleport += Time.deltaTime;
+
         if(timeSinceLastTeleport > teleportCooldown)
         {
             teleportCooldownReady = true;

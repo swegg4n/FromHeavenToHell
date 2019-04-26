@@ -61,7 +61,8 @@ public class DashAbility : Ability
     private bool InstantDash()
     {
         Vector3 targetPosition = caster.transform.position + (Vector3)dashDirection * dashDistance / GameManager.instance.tileSize;
-        if (GameManager.instance.CheckOnlyGroundTile(targetPosition) == true)
+
+        if (GameManager.instance.CurrentRoom.GetComponent<Room>().CheckOnlyGroundTile(targetPosition) == true)
         {
             caster.transform.position = targetPosition;
             return true;
