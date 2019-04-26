@@ -69,7 +69,6 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void GetFinalPath(Node startNode, Node endNode)

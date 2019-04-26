@@ -85,7 +85,6 @@ public class EnemyManager : MonoBehaviour
                     && wallTileMap.HasTile(localPlace) == false
                     && topWallTileMap.HasTile(localPlace) == false)
                 {
-                    Debug.Log("TESTESTEST");
                     tilePositionList.Add(place);
                 }
             }

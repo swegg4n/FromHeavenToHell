@@ -42,8 +42,6 @@ public class Room : MonoBehaviour
             }
         }
 
-        Debug.Log(tileMapList.Length + " iakdakwiawdikawd " + teleportTileMap + "name" + gameObject.name);
-
         teleportPosList = new List<Vector2>();
 
         for (int x = teleportTileMap.cellBounds.xMin; x < teleportTileMap.cellBounds.xMax; x++)
@@ -56,14 +54,8 @@ public class Room : MonoBehaviour
 
                 place.x += teleportTileMap.cellSize.x / 2;
 
-                if(gameObject.name == "HeavenRoomUp")
-                {
-                    Debug.Log(localPlace + "  " + place);
-                }
-
                 if (teleportTileMap.HasTile(localPlace) == true)
                 {
-                    Debug.Log("HEJSANSVEJSAN" + gameObject.name);
                     teleportPosList.Add(place);
                 }
             }
@@ -73,8 +65,6 @@ public class Room : MonoBehaviour
         belowRoom = CheckSorrundingRoom(Vector2.down);
         rightRoom = CheckSorrundingRoom(Vector2.right);
         leftRoom = CheckSorrundingRoom(Vector2.left);
-
-        Debug.Log("TPLIST" + teleportPosList.Count);
     }
 
     private GameObject CheckSorrundingRoom(Vector2 direction)
@@ -137,36 +127,25 @@ public class Room : MonoBehaviour
 
     public Vector2 CheckTeleportInDirecction(Vector2 direction)
     {
-        Debug.Log("B tpPos" + teleportPosList.Count);
-
         foreach (Vector2 tpPos in teleportPosList)
         {
             Vector2 normalizedDirection = (tpPos - (Vector2)transform.position).normalized;
             float koeficient = normalizedDirection.y / normalizedDirection.x;
 
-            Debug.Log("B koeficient" + koeficient + "  " + direction + "  " + normalizedDirection);
-
             if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0 && direction == Vector2.left)
             {
-                Debug.Log("B");
                 return tpPos;
             }
             else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0 && direction == Vector2.right)
             {
-                Debug.Log("B");
-
                 return tpPos;
             }
             else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0 && direction == Vector2.down)
             {
-                Debug.Log("B");
-
                 return tpPos;
             }
             else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0 && direction == Vector2.up)
             {
-                Debug.Log("B");
-
                 return tpPos;
             }
         }
