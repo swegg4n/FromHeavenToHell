@@ -25,6 +25,8 @@ public class Room : MonoBehaviour
 
     void Awake()
     {
+        teleportPosList = new List<Vector2>();
+
         Tilemap[] tileMapList = GetComponentsInChildren<Tilemap>();
 
         foreach (Tilemap t in tileMapList)
