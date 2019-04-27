@@ -4,20 +4,25 @@ using UnityEngine;
 public class ObjectiveController : MonoBehaviour
 {
     [SerializeField] private Objective objective;//temp serializeField, ska fås från rummet (currentRoom.objective  typ)
-    private bool objectiveCompleted;
+    public bool ObjectiveCompleted { get; private set; }
 
     private int killCount;
     private float timePassed;
 
 
+    private void Awake()
+    {
+        ObjectiveCompleted = true;
+    }
+
     /// <summary>
     /// Resettar objektivet
     /// Ska kallas vid varje rum-byte
     /// </summary>
-    private void StartObjective()
+    public void StartObjective()
     {
         /*set objective from room*/
-        objectiveCompleted = false;
+        ObjectiveCompleted = false;
         killCount = 0;
         timePassed = 0;
 
@@ -29,7 +34,7 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (objective.IsSurviveObjective == true && objectiveCompleted == false)
+        if (objective.IsSurviveObjective == true && ObjectiveCompleted == false)
         {
             if (timePassed < objective.SurvivalTime)
             {
@@ -41,6 +46,15 @@ public class ObjectiveController : MonoBehaviour
                 ValidateCompletion();
             }
         }
+    }
+            
+    /// <summary>
+    /// Lägger till en dödad till antal dödade fiender
+    /// </summary>
+    public void AddKill()
+    {
+        killCount++;
+        Debug.Log($"You Have {killCount} kills");
     }
 
     /// <summary>
@@ -72,8 +86,9 @@ public class ObjectiveController : MonoBehaviour
 
         if (killCompleted == true && survivalCompleted == true)
         {
-            objectiveCompleted = true;
+            ObjectiveCompleted = true;
             Debug.Log("OBJECTIVE COMPLETED!");
+
         }
     }
 

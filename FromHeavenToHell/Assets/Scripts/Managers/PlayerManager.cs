@@ -36,9 +36,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private bool playerAngelUsingMouse;    //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
     public bool PlayerAngelUsingMouse { get { return playerAngelUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för ängeln
 
+    /*
     [SerializeField] private float teleportCooldown;
     private bool teleportCooldownReady;
     private float timeSinceLastTeleport;
+    */
     public bool PlayerDemonTeleport { get; set; }
     public bool PlayerAngelTeleport { get; set; }
 
@@ -50,14 +52,16 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
-        teleportCooldownReady = true;
+        //teleportCooldownReady = true;
     }
 
     public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
-        if(PlayerDemonTeleport == true && PlayerAngelTeleport == true && teleportCooldownReady == true
+        if (PlayerDemonTeleport == true && PlayerAngelTeleport == true && GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true /*&& teleportCooldownReady == true*/
             && position != null)
         {
+            GameManager.instance.GetComponent<ObjectiveController>().StartObjective();
+
             PlayerAngelInstance.transform.position = (Vector3)position;
             PlayerDemonInstance.transform.position = (Vector3)position;
 
@@ -68,8 +72,8 @@ public class PlayerManager : MonoBehaviour
             PlayerDemonTeleport = false;
             PlayerAngelTeleport = false;
 
-            teleportCooldownReady = false;
-            timeSinceLastTeleport = 0;
+            //teleportCooldownReady = false;
+            //timeSinceLastTeleport = 0;
         }
     }
 
@@ -80,12 +84,14 @@ public class PlayerManager : MonoBehaviour
     {
         DeathCheck();
 
+        /*
         timeSinceLastTeleport += Time.deltaTime;
 
         if(timeSinceLastTeleport > teleportCooldown)
         {
             teleportCooldownReady = true;
         }
+        */
     }
 
     /// <summary>

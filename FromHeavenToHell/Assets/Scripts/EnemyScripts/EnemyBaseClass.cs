@@ -11,10 +11,9 @@ public class EnemyBaseClass : MonoBehaviour
     [SerializeField] private Ability ability;
     public Ability Ability { get { return ability; } }
 
-    
+
     void Start()
     {
-
         GetComponent<Rigidbody2D>().mass = 0.1f;
         GetComponent<Rigidbody2D>().drag = 1000f;
     }
@@ -26,9 +25,10 @@ public class EnemyBaseClass : MonoBehaviour
 
     void DeathCheck()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
+            GameManager.instance.GetComponent<ObjectiveController>().AddKill();
         }
     }
 
