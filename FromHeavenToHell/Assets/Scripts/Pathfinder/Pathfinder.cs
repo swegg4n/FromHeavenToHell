@@ -106,4 +106,20 @@ public class Pathfinder : MonoBehaviour
         return dX + dY;
     }
 
+
+    private void OnDrawGizmos()
+    {
+        try
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(new Vector3(startNode.WorldPosition.x + 0.5f, startNode.WorldPosition.y + 0.5f, startNode.WorldPosition.z), new Vector3(0.5f, 0.5f, 0.5f));
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(new Vector3(targetNode.WorldPosition.x + 0.5f, targetNode.WorldPosition.y + 0.5f, targetNode.WorldPosition.z), new Vector3(0.5f, 0.5f, 0.5f));
+        }
+        catch (System.Exception)
+        {
+        }
+    }
+
 }

@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private Camera playersCamera;
+
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
     [SerializeField] private GameObject playerAngelPrefab;      //Prefab som ska användas som ängel-spelare
 
@@ -60,14 +62,19 @@ public class PlayerManager : MonoBehaviour
         if (PlayerDemonTeleport == true && PlayerAngelTeleport == true && GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true /*&& teleportCooldownReady == true*/
             && position != null)
         {
-            GameManager.instance.GetComponent<ObjectiveController>().StartObjective();
+            GameManager.instance.CurrentRoom = roomToTeleportTo;
+
+            EnemyManager.instance.ResetRoom();
+
+            GameManager.instance.CurrentRoom.GetComponent<Room>().CalculateBoundsXY();
+            GetComponent<NodeGrid>().CreateGrid();
 
             PlayerAngelInstance.transform.position = (Vector3)position;
             PlayerDemonInstance.transform.position = (Vector3)position;
 
-            GameManager.instance.CurrentRoom = roomToTeleportTo;
+            playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.position.x, GameManager.instance.CurrentRoom.transform.position.y, playersCamera.transform.position.z);
 
-            EnemyManager.instance.ResetRoom();
+            GetComponent<ObjectiveController>().StartObjective();
 
             PlayerDemonTeleport = false;
             PlayerAngelTeleport = false;

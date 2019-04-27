@@ -39,7 +39,7 @@ public class ObjectiveController : MonoBehaviour
             if (timePassed < objective.SurvivalTime)
             {
                 timePassed += Time.deltaTime;
-                Debug.Log(timePassed);
+                //Debug.Log(timePassed);
             }
             else
             {

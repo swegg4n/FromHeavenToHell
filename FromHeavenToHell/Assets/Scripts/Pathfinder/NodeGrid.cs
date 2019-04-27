@@ -11,24 +11,25 @@ public class NodeGrid : MonoBehaviour
     private int gridSizeY;  //Banans höjd (antal noder i höjd)
 
 
-    private void Start()
+    private void Awake()
     {
-        cellSize = 1;
-        gridSizeX = Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x) + Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y);
-        gridSizeY = Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x) + Mathf.Abs(GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y);
-
         CreateGrid();
-    }   
+    }
 
     /// <summary>
     /// Skapar noder för alla tiles i rummet, lägger de i en 2d array
     /// </summary>
-    private void CreateGrid()
+    public void CreateGrid()
     {
+        cellSize = 1;
+        gridSizeX = GameManager.instance.CurrentRoom.GetComponent<Room>().GetRoomSize().x;
+        gridSizeY = GameManager.instance.CurrentRoom.GetComponent<Room>().GetRoomSize().y;
+
+
         NodeArray = new Node[gridSizeX, gridSizeY];
         Vector3Int firstTilePosition = new Vector3Int(
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x, 
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, 0);  
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, 0);
 
         for (int y = 0; y < gridSizeY; y++)
         {
@@ -36,7 +37,8 @@ public class NodeGrid : MonoBehaviour
             {
                 bool isWall = GameManager.instance.CurrentRoom.GetComponent<Room>().CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
 
-                NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
+                NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize + GameManager.instance.CurrentRoom.transform.position.x
+                    , firstTilePosition.y + y * cellSize + GameManager.instance.CurrentRoom.transform.position.y, 0));
             }
         }
     }
@@ -60,7 +62,7 @@ public class NodeGrid : MonoBehaviour
                 int indexCheckX = node.IndexGridX + x;
                 int indexCheckY = node.IndexGridY + y;
 
-                if (indexCheckX >= 0 && indexCheckX < gridSizeX && 
+                if (indexCheckX >= 0 && indexCheckX < gridSizeX &&
                     indexCheckY >= 0 && indexCheckY < gridSizeY)
                 {
                     if (NodeArray[indexCheckX, indexCheckY].IsWall == false)
@@ -80,16 +82,45 @@ public class NodeGrid : MonoBehaviour
     /// </summary>
     public Node GetNodeFromWorldPoint(Vector3 worldPoint)
     {
-        int xPos = Mathf.FloorToInt(worldPoint.x);
-        int yPos = Mathf.FloorToInt(worldPoint.y);
+        int xPos = Mathf.FloorToInt(worldPoint.x - (int)GameManager.instance.CurrentRoom.transform.position.x);
+        int yPos = Mathf.FloorToInt(worldPoint.y - (int)GameManager.instance.CurrentRoom.transform.position.y);
 
-        xPos = Mathf.Clamp(xPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y - 1);  //hardcode
-        yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y - 1);    //hardcode
+        xPos = Mathf.Clamp(xPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y - 1);
+
+        yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y - 1);
+        
 
         int xIndex = xPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y;
         int yIndex = yPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y;
 
         return NodeArray[xIndex, yIndex];
+    }
+
+
+    private void OnDrawGizmos() //THROW AWAY CODE
+    {
+        try
+        {
+            foreach (var node in NodeArray)
+            {
+                if (node.IsWall == true)
+                {
+                    Gizmos.color = Color.red;
+                }
+                else
+                {
+                    Gizmos.color = Color.green;
+
+                }
+                Gizmos.DrawWireCube(new Vector3(node.WorldPosition.x + 0.5f, node.WorldPosition.y + 0.5f, node.WorldPosition.z), new Vector3(0.5f, 0.5f, 0.5f));
+            }
+        }
+        catch (System.Exception)
+        {
+
+        }
     }
 
 }

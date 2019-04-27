@@ -20,7 +20,7 @@ public class Room : MonoBehaviour
 
     private List<Vector2> teleportPosList;
 
-    public Tuple<Vector2Int,Vector2Int> roomBounds { get; private set; }
+    public Tuple<Vector2Int, Vector2Int> roomBounds { get; private set; }
 
 
     void Awake()
@@ -77,10 +77,10 @@ public class Room : MonoBehaviour
     private GameObject CheckSorrundingRoom(Vector2 direction)
     {
         RaycastHit2D[] rayCheck = Physics2D.RaycastAll(transform.position, direction);
-        
+
         foreach (RaycastHit2D hit in rayCheck)
         {
-            if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false 
+            if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
                 && wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
                 && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
                 && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
@@ -95,11 +95,24 @@ public class Room : MonoBehaviour
     }
 
 
-    private Tuple<Vector2Int,Vector2Int> CalculateBoundsXY()
+    public Tuple<Vector2Int, Vector2Int> CalculateBoundsXY()    //<(worldMinX, worldMaxX), (worldMinY, worldMaxY)>
     {
+        Vector2 localMinXY = new Vector2(groundTileMap.localBounds.min.x, groundTileMap.localBounds.min.y);
+        Vector2 localMaxXY = new Vector2(groundTileMap.localBounds.max.x, groundTileMap.localBounds.max.y);
+
+        Vector2Int worldMinXY = new Vector2Int((int)localMinXY.x, (int)localMinXY.y);
+        Vector2Int worldMaxXY = new Vector2Int((int)localMaxXY.x, (int)localMaxXY.y);
+
         return new Tuple<Vector2Int, Vector2Int>
-            (new Vector2Int(groundTileMap.cellBounds.xMin, groundTileMap.cellBounds.xMax),
-            new Vector2Int(groundTileMap.cellBounds.yMin, groundTileMap.cellBounds.yMax));
+            (new Vector2Int(worldMinXY.x, worldMaxXY.x), new Vector2Int(worldMinXY.y, worldMaxXY.y));
+    }
+
+    public Vector2Int GetRoomSize()
+    {
+        int roomSizeX = roomBounds.Item1.y - roomBounds.Item1.x;
+        int roomSizeY = roomBounds.Item2.y - roomBounds.Item2.x;
+
+        return new Vector2Int(roomSizeX, roomSizeY);
     }
 
     public bool CheckGroundTileAtPosition(Vector3 position)
