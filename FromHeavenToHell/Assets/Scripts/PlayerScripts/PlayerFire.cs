@@ -14,6 +14,7 @@ public class PlayerFire : MonoBehaviour
 
     private void UseAbility()
     {
+        /*
         if (gameObject.tag == "PlayerDemon")
         {
             if ((PlayerManager.instance.PlayerDemonUsingMouse == true && Input.GetButton("MouseLeftClick") == true)
@@ -30,6 +31,7 @@ public class PlayerFire : MonoBehaviour
                 selectedAbility.TriggerAbility(gameObject);
             }
         }
+        */
     }
 
 }

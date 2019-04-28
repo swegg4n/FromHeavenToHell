@@ -20,19 +20,22 @@ public class PlayerMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
 
         /*TA BORT EFTER VÄRDEN FÖR SPELAR-PREFAB ÄR IFYLLDA*/
+        /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         playerSpeed = 130f;
 
         rigidBody.mass = 0.1f;
         rigidBody.drag = 1000f;
-        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     }
 
     void FixedUpdate()
     {
-        GetInput();
+        //GetInput();
         MovePlayer();
     }
 
+    #region old
+    /*
     /// <summary>
     /// Låter spelarna styras på olika sätt beroende på valda styrsätt
     /// </summary>
@@ -73,11 +76,24 @@ public class PlayerMovement : MonoBehaviour
         velocityX = Input.GetAxisRaw("Horizontal" + player);
         velocityY = Input.GetAxisRaw("Vertical" + player);
     }
+    */
+    #endregion
 
     private void MovePlayer()
     {
         if (Dashing == false)
         {
+            if (PlayerManager.instance.PlayerDemonHorizontalAxis == null || PlayerManager.instance.PlayerAngelHorizontalAxis == null ||
+                PlayerManager.instance.PlayerDemonVerticalAxis == null || PlayerManager.instance.PlayerAngelVerticalAxis == null)
+            {
+                return;
+            }
+
+            bool isDemon = (tag == "PlayerDemon");
+
+            velocityX = Input.GetAxisRaw(isDemon ? PlayerManager.instance.PlayerDemonHorizontalAxis : PlayerManager.instance.PlayerAngelHorizontalAxis);
+            velocityY = Input.GetAxisRaw(isDemon ? PlayerManager.instance.PlayerDemonVerticalAxis : PlayerManager.instance.PlayerAngelVerticalAxis);
+
             rigidBody.velocity = new Vector2(velocityX, velocityY).normalized * playerSpeed;
         }
     }

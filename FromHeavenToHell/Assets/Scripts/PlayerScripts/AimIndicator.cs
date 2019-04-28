@@ -14,6 +14,9 @@ public class AimIndicator : MonoBehaviour
 
     void Update()
     {
+
+        #region old
+        /*
         if (gameObject.tag == "PlayerDemon")
         {
             if (PlayerManager.instance.PlayerDemonUsingMouse == true)
@@ -35,7 +38,8 @@ public class AimIndicator : MonoBehaviour
             {
                 MoveSightJoystick("P2");
             }
-        }
+        }*/ 
+        #endregion
     }
 
     private void MoveSightKeyboard()

@@ -25,6 +25,14 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Camera playersCamera;
 
+
+    public string PlayerDemonHorizontalAxis { get; private set; }
+    public string PlayerDemonVerticalAxis { get; private set; }
+
+    public string PlayerAngelHorizontalAxis { get; private set; }
+    public string PlayerAngelVerticalAxis { get; private set; }
+
+
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
     [SerializeField] private GameObject playerAngelPrefab;      //Prefab som ska användas som ängel-spelare
 
@@ -33,10 +41,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int health;    //Gemensamt liv för spelarna
 
+    /*
     [SerializeField] private bool playerDemonUsingMouse;        //Indikerar om demon-spelaren ska styras med mus eller inte (kontroll)
     public bool PlayerDemonUsingMouse { get { return playerDemonUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för demonen
     [SerializeField] private bool playerAngelUsingMouse;    //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
     public bool PlayerAngelUsingMouse { get { return playerAngelUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för ängeln
+    */
 
     /*
     [SerializeField] private float teleportCooldown;
@@ -54,6 +64,15 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
+
+
+        PlayerDemonHorizontalAxis = InputSetup.instance.PlayerDemonHorizontalAxis;
+        PlayerDemonVerticalAxis = InputSetup.instance.PlayerDemonVerticalAxis;
+
+        PlayerAngelHorizontalAxis = InputSetup.instance.PlayerAngelHorizontalAxis;
+        PlayerAngelVerticalAxis = InputSetup.instance.PlayerAngelVerticalAxis;
+
+
         //teleportCooldownReady = true;
     }
 
