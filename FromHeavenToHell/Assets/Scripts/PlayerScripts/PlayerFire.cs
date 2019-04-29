@@ -7,31 +7,33 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
-        UseAbility();
+        CheckFireInput();
         selectedAbility.Update();
     }
 
 
-    private void UseAbility()
+    private void CheckFireInput()
     {
-        /*
-        if (gameObject.tag == "PlayerDemon")
+        switch (gameObject.tag)
         {
-            if ((PlayerManager.instance.PlayerDemonUsingMouse == true && Input.GetButton("MouseLeftClick") == true)
-                || (PlayerManager.instance.PlayerDemonUsingMouse == false && Input.GetButton("R1P1") == true))
-            {
-                selectedAbility.TriggerAbility(gameObject);
-            }
+            case "PlayerDemon":
+                {
+                    if (Input.GetButton(PlayerManager.instance.PlayerDemonFire) && selectedAbility != null)
+                    {
+                        selectedAbility.TriggerAbility(gameObject);
+                    }
+                }
+                break;
+
+            case "PlayerAngel":
+                {
+                    if (Input.GetButton(PlayerManager.instance.PlayerAngelFire) && selectedAbility != null)
+                    {
+                        selectedAbility.TriggerAbility(gameObject);
+                    }
+                }
+                break;
         }
-        else if (gameObject.tag == "PlayerAngel")
-        {
-            if ((PlayerManager.instance.PlayerAngelUsingMouse == true && Input.GetButton("MouseLeftClick") == true)
-                || (PlayerManager.instance.PlayerAngelUsingMouse == false && Input.GetButton("R1P2") == true))
-            {
-                selectedAbility.TriggerAbility(gameObject);
-            }
-        }
-        */
     }
 
 }

@@ -28,9 +28,15 @@ public class PlayerManager : MonoBehaviour
 
     public string PlayerDemonHorizontalAxis { get; private set; }
     public string PlayerDemonVerticalAxis { get; private set; }
+    public string PlayerDemonHorizontalAimAxis { get; private set; }
+    public string PlayerDemonVerticalAimAxis { get; private set; }
+    public string PlayerDemonFire { get; private set; }
 
     public string PlayerAngelHorizontalAxis { get; private set; }
     public string PlayerAngelVerticalAxis { get; private set; }
+    public string PlayerAngelHorizontalAimAxis { get; private set; }
+    public string PlayerAngelVerticalAimAxis { get; private set; }
+    public string PlayerAngelFire { get; private set; }
 
 
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
@@ -68,9 +74,15 @@ public class PlayerManager : MonoBehaviour
 
         PlayerDemonHorizontalAxis = InputSetup.instance.PlayerDemonHorizontalAxis;
         PlayerDemonVerticalAxis = InputSetup.instance.PlayerDemonVerticalAxis;
+        PlayerDemonHorizontalAimAxis = InputSetup.instance.PlayerDemonHorizontalAimAxis;
+        PlayerDemonVerticalAimAxis = InputSetup.instance.PlayerDemonVerticalAimAxis;
+        PlayerDemonFire = InputSetup.instance.PlayerDemonFire;
 
         PlayerAngelHorizontalAxis = InputSetup.instance.PlayerAngelHorizontalAxis;
         PlayerAngelVerticalAxis = InputSetup.instance.PlayerAngelVerticalAxis;
+        PlayerAngelHorizontalAimAxis = InputSetup.instance.PlayerAngelHorizontalAimAxis;
+        PlayerAngelVerticalAimAxis = InputSetup.instance.PlayerAngelVerticalAimAxis;
+        PlayerAngelFire = InputSetup.instance.PlayerAngelFire;
 
 
         //teleportCooldownReady = true;

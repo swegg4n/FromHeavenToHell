@@ -10,11 +10,21 @@ public class InputSetup : MonoBehaviour
 
 
     #region Input
+    /*Demon Inputs*/
     public string PlayerDemonHorizontalAxis { get; private set; }
     public string PlayerDemonVerticalAxis { get; private set; }
+    public string PlayerDemonHorizontalAimAxis { get; private set; }
+    public string PlayerDemonVerticalAimAxis { get; private set; }
+    public string PlayerDemonFire { get; private set; }
+    /*---*/
 
+    /*Angel Inputs*/
     public string PlayerAngelHorizontalAxis { get; private set; }
     public string PlayerAngelVerticalAxis { get; private set; }
+    public string PlayerAngelHorizontalAimAxis { get; private set; }
+    public string PlayerAngelVerticalAimAxis { get; private set; }
+    public string PlayerAngelFire { get; private set; }
+    /*---*/
     #endregion
 
 
@@ -94,6 +104,9 @@ public class InputSetup : MonoBehaviour
                     {
                         PlayerDemonHorizontalAxis = "HorizontalMouse";
                         PlayerDemonVerticalAxis = "VerticalMouse";
+                        //Dont set aimHorizontalAxis to anything
+                        //Dont set aimVerticalAxis to anything
+                        PlayerDemonFire = "MouseLeftClick";
 
                         keyboardJoined = true;
 
@@ -103,6 +116,9 @@ public class InputSetup : MonoBehaviour
                     {
                         PlayerDemonHorizontalAxis = $"HorizontalP{controller}";
                         PlayerDemonVerticalAxis = $"VerticalP{controller}";
+                        PlayerDemonHorizontalAimAxis = $"HorizontalRightStickP{controller}";
+                        PlayerDemonVerticalAimAxis = $"VerticalRightStickP{controller}";
+                        PlayerDemonFire = $"R1P{controller}";
 
                         controllerJoined[controller - 1] = true;
 
@@ -119,6 +135,9 @@ public class InputSetup : MonoBehaviour
                     {
                         PlayerAngelHorizontalAxis = "HorizontalMouse";
                         PlayerAngelVerticalAxis = "VerticalMouse";
+                        //Dont set aimHorizontalAxis to anything
+                        //Dont set aimVerticalAxis to anything
+                        PlayerDemonFire = "MouseLeftClick";
 
                         keyboardJoined = true;
 
@@ -128,6 +147,9 @@ public class InputSetup : MonoBehaviour
                     {
                         PlayerAngelHorizontalAxis = $"HorizontalP{controller}";
                         PlayerAngelVerticalAxis = $"VerticalP{controller}";
+                        PlayerAngelHorizontalAimAxis = $"HorizontalRightStickP{controller}";
+                        PlayerAngelVerticalAimAxis = $"VerticalRightStickP{controller}";
+                        PlayerAngelFire = $"R1P{controller}";
 
                         controllerJoined[controller - 1] = true;
 
