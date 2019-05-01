@@ -501,7 +501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafc171434118c1448d55dd21838a50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objective: {fileID: 11400000, guid: 7481cc5d6ba781344abc29e44b8a2118, type: 2}
 --- !u!114 &1661170917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,51 +542,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].X
-      value: -10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
-      value: -60000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].X
-      value: 10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
-      value: -60000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].X
-      value: 9999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: -50000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].X
-      value: -10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 136978884348920259, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: -50000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907487067463935923, guid: 83857a98e22a53340bee14471ed66d4a,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2907487067497043303, guid: 83857a98e22a53340bee14471ed66d4a,
         type: 3}
       propertyPath: m_Name
@@ -667,6 +621,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2450615271309730694, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
+        type: 3}
+      propertyPath: m_Name
+      value: HeavenRoom_001_B
+      objectReference: {fileID: 0}
     - target: {fileID: 1762620737309199843, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -722,51 +681,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2450615271309730694, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_Name
-      value: HeavenRoom_001_B
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].X
-      value: -10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
-      value: 60000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].X
-      value: 9999999
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
-      value: 60000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].X
-      value: 10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: 70000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].X
-      value: -10000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4489551634854924130, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: 70000000
-      objectReference: {fileID: 0}
     - target: {fileID: 4940300703593947973, guid: 3ed9fb99340d4d54f916a4056bb0bab3,
         type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
@@ -792,6 +706,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4733338773154863037, guid: 5967e7c6079db524b9477f579d28198d,
+        type: 3}
+      propertyPath: m_Name
+      value: HeavenRoom_001_L
+      objectReference: {fileID: 0}
     - target: {fileID: 725203149284000040, guid: 5967e7c6079db524b9477f579d28198d,
         type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
@@ -802,31 +721,6 @@ PrefabInstance:
       propertyPath: m_TileSpriteArray.Array.data[2].m_Data
       value: 
       objectReference: {fileID: 319612472}
-    - target: {fileID: 4733338773154863037, guid: 5967e7c6079db524b9477f579d28198d,
-        type: 3}
-      propertyPath: m_Name
-      value: HeavenRoom_001_L
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915911295279270077, guid: 5967e7c6079db524b9477f579d28198d,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915911295279270077, guid: 5967e7c6079db524b9477f579d28198d,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].X
-      value: 140000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915911295279270077, guid: 5967e7c6079db524b9477f579d28198d,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
-      value: 20000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4915911295279270077, guid: 5967e7c6079db524b9477f579d28198d,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].X
-      value: 130000000
-      objectReference: {fileID: 0}
     - target: {fileID: 6888700861912854813, guid: 5967e7c6079db524b9477f579d28198d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -891,6 +785,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 933795865608711388, guid: 871bc11a599a2ad44abf003e530bcffb,
+        type: 3}
+      propertyPath: m_Name
+      value: StartRoom
+      objectReference: {fileID: 0}
     - target: {fileID: 933795865305594947, guid: 871bc11a599a2ad44abf003e530bcffb,
         type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_Data
@@ -955,11 +854,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 933795865608711388, guid: 871bc11a599a2ad44abf003e530bcffb,
-        type: 3}
-      propertyPath: m_Name
-      value: StartRoom
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 871bc11a599a2ad44abf003e530bcffb, type: 3}
@@ -1115,26 +1009,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3160820695009202250, guid: a908b78ce3b58664ea9fe521e2ec7e58,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].X
-      value: -140000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3160820695009202250, guid: a908b78ce3b58664ea9fe521e2ec7e58,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3160820695009202250, guid: a908b78ce3b58664ea9fe521e2ec7e58,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].X
-      value: -130000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3160820695009202250, guid: a908b78ce3b58664ea9fe521e2ec7e58,
-        type: 3}
-      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
-      value: 20000000
-      objectReference: {fileID: 0}
     - target: {fileID: 4037545150920064869, guid: a908b78ce3b58664ea9fe521e2ec7e58,
         type: 3}
       propertyPath: m_Name

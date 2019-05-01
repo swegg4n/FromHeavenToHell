@@ -6,7 +6,6 @@ public class Teleporter : MonoBehaviour
     private List<Vector2> currentRoomTeleportPosList;
     private GameObject roomToTeleportTo;
 
-
     /// <summary>
     /// Sätter att spelaren som går in i denna collider kan teleportera
     /// </summary>
@@ -32,13 +31,7 @@ public class Teleporter : MonoBehaviour
                 break;
         }
 
-        //Om båda spelarna kan teleportera och de befinner sig på samma teleport-tiles
-        if (PlayerManager.instance.PlayerDemonCanTeleport == true && PlayerManager.instance.PlayerAngelCanTeleport == true &&
-            Vector2.Distance(PlayerManager.instance.PlayerDemonInstance.transform.position, PlayerManager.instance.PlayerAngelInstance.transform.position) <= 3)
-        {
-            Vector2? positionTeleportTo = CheckTeleporter(collider);
-            PlayerManager.instance.TeleportPlayers(positionTeleportTo, roomToTeleportTo);
-        }
+        Teleport(collider);
     }
 
     /// <summary>
@@ -62,6 +55,20 @@ public class Teleporter : MonoBehaviour
                     Debug.Log("Angel Out");
                 }
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Checks if players can teleport, calculates where players should be teleported and initiates a teleport
+    /// </summary>
+    public void Teleport(Collider2D collider)
+    {
+        ///Om båda spelarna kan teleportera och de befinner sig på samma teleport-tiles
+        if (PlayerManager.instance.PlayerDemonCanTeleport == true && PlayerManager.instance.PlayerAngelCanTeleport == true &&
+            Vector2.Distance(PlayerManager.instance.PlayerDemonInstance.transform.position, PlayerManager.instance.PlayerAngelInstance.transform.position) <= 3)
+        {
+            Vector2? positionTeleportTo = CheckTeleporter(collider);
+            PlayerManager.instance.TeleportPlayers(positionTeleportTo, roomToTeleportTo);
         }
     }
 

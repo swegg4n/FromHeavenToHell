@@ -8,6 +8,9 @@ public enum TileTypes { Ground, Wall, TopWall, Teleport }
 
 public class Room : MonoBehaviour
 {
+    [SerializeField] private Objective objective;
+    public Objective Objective { get { return objective; } }
+
     private Tilemap groundTileMap;
     private Tilemap wallTileMap;
     private Tilemap topTileMap;

@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObjectiveController : MonoBehaviour
 {
-    [SerializeField] private Objective objective;//temp serializeField, ska fås från rummet (currentRoom.objective  typ)
+    private Objective objective;
+
     public bool ObjectiveCompleted { get; private set; }
 
     private int killCount;
@@ -12,7 +12,7 @@ public class ObjectiveController : MonoBehaviour
 
     private void Awake()
     {
-        ObjectiveCompleted = true;
+        StartObjective();
     }
 
     /// <summary>
@@ -21,7 +21,13 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     public void StartObjective()
     {
-        /*set objective from room*/
+        objective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;    //Får objektivet från rummet
+
+        if (objective == null)
+        {
+            Debug.LogError($"{GameManager.instance.CurrentRoom.name} has no objective! Assign an objective to the Room-script");
+        }
+
         ObjectiveCompleted = false;
         killCount = 0;
         timePassed = 0;
@@ -39,7 +45,6 @@ public class ObjectiveController : MonoBehaviour
             if (timePassed < objective.SurvivalTime)
             {
                 timePassed += Time.deltaTime;
-                //Debug.Log(timePassed);
             }
             else
             {
@@ -47,14 +52,14 @@ public class ObjectiveController : MonoBehaviour
             }
         }
     }
-            
+
     /// <summary>
     /// Lägger till en dödad till antal dödade fiender
     /// </summary>
     public void AddKill()
     {
         killCount++;
-        Debug.Log($"You Have {killCount} kills");
+        Debug.Log($"{killCount}/{objective.KillCount} kills");
     }
 
     /// <summary>
@@ -88,7 +93,6 @@ public class ObjectiveController : MonoBehaviour
         {
             ObjectiveCompleted = true;
             Debug.Log("OBJECTIVE COMPLETED!");
-
         }
     }
 
