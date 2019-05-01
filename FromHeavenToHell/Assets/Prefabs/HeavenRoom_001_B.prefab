@@ -1497,7 +1497,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3597541920516124940}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1526,7 +1526,7 @@ CompositeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
   m_GenerationType: 0
-  m_EdgeRadius: 0.05
+  m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 4066744236226747695}
     m_ColliderPaths:
@@ -1715,7 +1715,6 @@ GameObject:
   - component: {fileID: 6046715315288416505}
   - component: {fileID: 1864356541005723257}
   - component: {fileID: 8342357242485890783}
-  - component: {fileID: 4489551634854924130}
   m_Layer: 0
   m_Name: Tilemap_Teleport
   m_TagString: Teleport
@@ -1965,7 +1964,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
 --- !u!114 &1864356541005723257
 MonoBehaviour:
@@ -1987,7 +1986,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5819731357367481392}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2000,41 +1999,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 7
---- !u!66 &4489551634854924130
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5819731357367481392}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 6046715315288416505}
-    m_ColliderPaths:
-    - - X: 10000000
-        Y: 70000000
-      - X: -10000000
-        Y: 70000000
-      - X: -10000000
-        Y: 60000000
-      - X: 9999999
-        Y: 60000000
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 1, y: 7}
-      - {x: -1, y: 7}
-      - {x: -1, y: 6}
-      - {x: 0.99999994, y: 6}
-  m_VertexDistance: 0.0005
 --- !u!1 &6210767725577633546
 GameObject:
   m_ObjectHideFlags: 0

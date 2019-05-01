@@ -35,16 +35,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private bool playerDemonUsingMouse;        //Indikerar om demon-spelaren ska styras med mus eller inte (kontroll)
     public bool PlayerDemonUsingMouse { get { return playerDemonUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för demonen
-    [SerializeField] private bool playerAngelUsingMouse;    //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
+    [SerializeField] private bool playerAngelUsingMouse;        //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
     public bool PlayerAngelUsingMouse { get { return playerAngelUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för ängeln
 
-    /*
-    [SerializeField] private float teleportCooldown;
-    private bool teleportCooldownReady;
-    private float timeSinceLastTeleport;
-    */
-    public bool PlayerDemonTeleport { get; set; }
-    public bool PlayerAngelTeleport { get; set; }
+
+    public bool PlayerDemonCanTeleport { get; set; }
+    public bool PlayerAngelCanTeleport { get; set; }
 
 
     /// <summary>
@@ -54,13 +50,11 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
-        //teleportCooldownReady = true;
     }
 
     public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
-        if (PlayerDemonTeleport == true && PlayerAngelTeleport == true && GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true /*&& teleportCooldownReady == true*/
-            && position != null)
+        if (GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true && position != null)
         {
             GameManager.instance.CurrentRoom = roomToTeleportTo;
 
@@ -75,12 +69,6 @@ public class PlayerManager : MonoBehaviour
             playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.position.x, GameManager.instance.CurrentRoom.transform.position.y, playersCamera.transform.position.z);
 
             GetComponent<ObjectiveController>().StartObjective();
-
-            PlayerDemonTeleport = false;
-            PlayerAngelTeleport = false;
-
-            //teleportCooldownReady = false;
-            //timeSinceLastTeleport = 0;
         }
     }
 
@@ -90,15 +78,6 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         DeathCheck();
-
-        /*
-        timeSinceLastTeleport += Time.deltaTime;
-
-        if(timeSinceLastTeleport > teleportCooldown)
-        {
-            teleportCooldownReady = true;
-        }
-        */
     }
 
     /// <summary>

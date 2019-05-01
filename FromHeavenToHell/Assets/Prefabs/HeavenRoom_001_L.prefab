@@ -1526,7 +1526,7 @@ CompositeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
   m_GenerationType: 0
-  m_EdgeRadius: 0.05
+  m_EdgeRadius: 0
   m_ColliderPaths:
   - m_Collider: {fileID: 2139679519992002576}
     m_ColliderPaths:
@@ -7057,7 +7057,6 @@ GameObject:
   - component: {fileID: 7047124825040060320}
   - component: {fileID: 6825150137310405159}
   - component: {fileID: 253047510052948721}
-  - component: {fileID: 4915911295279270077}
   m_Layer: 0
   m_Name: Tilemap_Teleport
   m_TagString: Teleport
@@ -7307,7 +7306,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
 --- !u!114 &6825150137310405159
 MonoBehaviour:
@@ -7329,7 +7328,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6436594694929120426}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -7342,41 +7341,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 7
---- !u!66 &4915911295279270077
-CompositeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6436594694929120426}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 7047124825040060320}
-    m_ColliderPaths:
-    - - X: 140000000
-        Y: 20000000
-      - X: 130000000
-        Y: 20000000
-      - X: 130000000
-        Y: 0
-      - X: 140000000
-        Y: 0
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 14, y: 2}
-      - {x: 13, y: 2}
-      - {x: 13, y: 0}
-      - {x: 14, y: 0}
-  m_VertexDistance: 0.0005
 --- !u!1 &9061588954454891763
 GameObject:
   m_ObjectHideFlags: 0

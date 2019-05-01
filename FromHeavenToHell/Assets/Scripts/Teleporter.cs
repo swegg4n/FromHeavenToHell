@@ -1,66 +1,69 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System.Linq;
 
 public class Teleporter : MonoBehaviour
 {
     private List<Vector2> currentRoomTeleportPosList;
     private GameObject roomToTeleportTo;
 
-    private void Start()
-    {
-    }
 
+    /// <summary>
+    /// Sätter att spelaren som går in i denna collider kan teleportera
+    /// </summary>
+    /// <param name="collider">Collidern på objektet som går in i teleport-tilen</param>
     private void OnTriggerEnter2D(Collider2D collider)
     {
         currentRoomTeleportPosList = GetComponentInParent<Room>().GetTeleportPos();
 
-        if (collider.gameObject.tag == "PlayerAngel" || collider.gameObject.tag == "PlayerDemon")
+        switch (collider.transform.tag)
         {
-            if (collider.gameObject.tag == "PlayerAngel")
-            {
-                Debug.Log("angel in");
+            case "PlayerDemon":     //Om spelaren är demonen
+                {
+                    PlayerManager.instance.PlayerDemonCanTeleport = true;   //Sätter att demonen kan teleportera
+                    Debug.Log("Demon In");
+                }
+                break;
 
-                PlayerManager.instance.PlayerAngelTeleport = !PlayerManager.instance.PlayerAngelTeleport;
-            }
+            case "PlayerAngel":     //Om spelaren är ängeln
+                {
+                    PlayerManager.instance.PlayerAngelCanTeleport = true;   //Sätter att ängeln kan teleportera
+                    Debug.Log("Angel In");
+                }
+                break;
+        }
 
-            else if (collider.gameObject.tag == "PlayerDemon")
-            {
-                Debug.Log("demon in");
-
-                PlayerManager.instance.PlayerDemonTeleport = !PlayerManager.instance.PlayerDemonTeleport;
-            }
-
-            Vector2 playerAngelPosition = PlayerManager.instance.PlayerAngelInstance.transform.position;
-            Vector2 playerDemonPosition = PlayerManager.instance.PlayerDemonInstance.transform.position;
-
+        //Om båda spelarna kan teleportera och de befinner sig på samma teleport-tiles
+        if (PlayerManager.instance.PlayerDemonCanTeleport == true && PlayerManager.instance.PlayerAngelCanTeleport == true &&
+            Vector2.Distance(PlayerManager.instance.PlayerDemonInstance.transform.position, PlayerManager.instance.PlayerAngelInstance.transform.position) <= 3)
+        {
             Vector2? positionTeleportTo = CheckTeleporter(collider);
-
-            Debug.Log(positionTeleportTo);
-
             PlayerManager.instance.TeleportPlayers(positionTeleportTo, roomToTeleportTo);
         }
     }
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    Debug.Log("exit");
+    /// <summary>
+    /// Sätter att spelaren som går ut ur denna collider INTE kan teleportera
+    /// </summary>
+    /// <param name="collider">Collidern på objektet som går ut ur teleport-tilen</param>
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        switch (collider.transform.tag)
+        {
+            case "PlayerDemon":     //Om spelaren är demonen
+                {
+                    PlayerManager.instance.PlayerDemonCanTeleport = false;      //Sätter att demonen INTE kan teleportera
+                    Debug.Log("Demon Out");
+                }
+                break;
 
-    //    if (collision.gameObject.tag == "PlayerAngel")
-    //    {
-    //        Debug.Log("angel exit");
-
-    //        PlayerManager.instance.PlayerAngelTeleport = false;
-    //    }
-    //    else if(collision.gameObject.tag == "PlayerDemon")
-    //    {
-    //        Debug.Log("demon exit");
-
-    //        PlayerManager.instance.PlayerDemonTeleport = false;
-    //    }
-    //}
+            case "PlayerAngel":     //Om spelaren är ängeln
+                {
+                    PlayerManager.instance.PlayerAngelCanTeleport = false;      //Sätter att ängeln INTE kan teleportera
+                    Debug.Log("Angel Out");
+                }
+                break;
+        }
+    }
 
     private Vector2? CheckTeleporter(Collider2D collider)
     {
@@ -77,7 +80,7 @@ public class Teleporter : MonoBehaviour
 
             roomToTeleportTo = GetComponentInParent<Room>().rightRoom;
 
-            if(GetComponentInParent<Room>().rightRoom != null)
+            if (GetComponentInParent<Room>().rightRoom != null)
             {
                 return GetComponentInParent<Room>().rightRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.right);
             }
@@ -88,7 +91,7 @@ public class Teleporter : MonoBehaviour
 
             roomToTeleportTo = GetComponentInParent<Room>().leftRoom;
 
-            if(GetComponentInParent<Room>().leftRoom != null)
+            if (GetComponentInParent<Room>().leftRoom != null)
             {
                 return GetComponentInParent<Room>().leftRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.left);
             }
@@ -120,9 +123,4 @@ public class Teleporter : MonoBehaviour
         return null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
 }
