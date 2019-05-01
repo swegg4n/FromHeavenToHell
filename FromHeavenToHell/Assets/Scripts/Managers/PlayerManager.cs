@@ -47,16 +47,8 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int health;    //Gemensamt liv för spelarna
 
-    /*
-    [SerializeField] private bool playerDemonUsingMouse;        //Indikerar om demon-spelaren ska styras med mus eller inte (kontroll)
-    public bool PlayerDemonUsingMouse { get { return playerDemonUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för demonen
-    [SerializeField] private bool playerAngelUsingMouse;        //Indikerar om ängel-spelaren ska styras med mus eller inte (kontroll)
-    public bool PlayerAngelUsingMouse { get { return playerAngelUsingMouse; } }     //Property för att från andra klasser få vilket styrsätt som används för ängeln
-    */
-
-
-    public bool PlayerDemonCanTeleport { get; set; }
-    public bool PlayerAngelCanTeleport { get; set; }
+    public bool PlayerDemonCanTeleport { get; set; }    //Håller reda på om demonen står på en teleport-tile eller inte
+    public bool PlayerAngelCanTeleport { get; set; }    //Håller reda på om ängeln står på en teleport-tile eller inte
 
 
     /// <summary>
@@ -67,37 +59,47 @@ public class PlayerManager : MonoBehaviour
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
 
-
+        ///Inputs för demonen
         PlayerDemonHorizontalAxis = InputSetup.instance.PlayerDemonHorizontalAxis;
         PlayerDemonVerticalAxis = InputSetup.instance.PlayerDemonVerticalAxis;
         PlayerDemonHorizontalAimAxis = InputSetup.instance.PlayerDemonHorizontalAimAxis;
         PlayerDemonVerticalAimAxis = InputSetup.instance.PlayerDemonVerticalAimAxis;
         PlayerDemonFire = InputSetup.instance.PlayerDemonFire;
 
+        ///Inputs för ängeln
         PlayerAngelHorizontalAxis = InputSetup.instance.PlayerAngelHorizontalAxis;
         PlayerAngelVerticalAxis = InputSetup.instance.PlayerAngelVerticalAxis;
         PlayerAngelHorizontalAimAxis = InputSetup.instance.PlayerAngelHorizontalAimAxis;
         PlayerAngelVerticalAimAxis = InputSetup.instance.PlayerAngelVerticalAimAxis;
         PlayerAngelFire = InputSetup.instance.PlayerAngelFire;
+
+        Destroy(InputSetup.instance.gameObject);
     }
 
+    /// <summary>
+    /// Teleporterar spelarna till ett rum
+    /// </summary>
+    /// <param name="position">Den uträknade positionen spelarna ska teleporteras till</param>
+    /// <param name="roomToTeleportTo">Rummet som spelarna ska befinna sig i</param>
     public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
+        ///Kontrollerar så att objektivet är avklarat och spelarna har en position att teleportera till
         if (GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true && position != null)
         {
-            GameManager.instance.CurrentRoom = roomToTeleportTo;
+            GameManager.instance.CurrentRoom = roomToTeleportTo;    //Sätter det aktiva rummet till det nya rummet
 
-            EnemyManager.instance.ResetRoom();
+            EnemyManager.instance.ResetRoom();  //Tar bort alla fienders spawn-positioner och räknar ut de nya spawn-positionerna för rummet
 
-            GameManager.instance.CurrentRoom.GetComponent<Room>().CalculateBoundsXY();
-            GetComponent<NodeGrid>().CreateGrid();
+            GameManager.instance.CurrentRoom.GetComponent<Room>().CalculateBoundsXY();  //Räknar ut hur stort rummet är
+            GetComponent<NodeGrid>().CreateGrid();  //Skapar ett nytt rutnät av noder som används av A* (pathfinder)
 
-            PlayerAngelInstance.transform.position = (Vector3)position;
-            PlayerDemonInstance.transform.position = (Vector3)position;
+            PlayerDemonInstance.transform.position = (Vector3)position;     //Flyttar demonen till nya positionen
+            PlayerAngelInstance.transform.position = (Vector3)position;     //Flyttar ängeln till nya positionen
 
+            //Flyttar kameran till nya rummet
             playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.position.x, GameManager.instance.CurrentRoom.transform.position.y, playersCamera.transform.position.z);
 
-            GetComponent<ObjectiveController>().StartObjective();
+            GetComponent<ObjectiveController>().StartObjective();   //Startar objektivet
         }
     }
 

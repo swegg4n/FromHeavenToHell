@@ -87,7 +87,7 @@ public class InputSetup : MonoBehaviour
         }
         else if (playerDemonJoined == true && playerAngelJoined == true)
         {
-            /*TEMP*/
+            /*TEMP - vill nog ha en "gå vidare"-knapp sen som gör detta*/
             UnityEngine.SceneManagement.SceneManager.LoadScene(1);
             enabled = false;
         }
@@ -137,7 +137,7 @@ public class InputSetup : MonoBehaviour
                         PlayerAngelVerticalAxis = "VerticalMouse";
                         //Dont set aimHorizontalAxis to anything
                         //Dont set aimVerticalAxis to anything
-                        PlayerDemonFire = "MouseLeftClick";
+                        PlayerAngelFire = "MouseLeftClick";
 
                         keyboardJoined = true;
 
