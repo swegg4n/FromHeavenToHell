@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyBaseClass : MonoBehaviour
 {
-    [SerializeField] private int health;
+    [SerializeField] protected int health;
     [SerializeField] private float speedFactor;
     public float SpeedFactor { get { return speedFactor; } }
 
     [SerializeField] private Ability ability;
-    public Ability Ability { get { return ability; } }
+    public Ability Ability { get; protected set; }
 
 
     void Start()
@@ -18,12 +18,12 @@ public class EnemyBaseClass : MonoBehaviour
         GetComponent<Rigidbody2D>().drag = 1000f;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         DeathCheck();
     }
 
-    void DeathCheck()
+    protected void DeathCheck()
     {
         if (health <= 0)
         {
@@ -32,8 +32,9 @@ public class EnemyBaseClass : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
+        Debug.Log(health);
     }
 }

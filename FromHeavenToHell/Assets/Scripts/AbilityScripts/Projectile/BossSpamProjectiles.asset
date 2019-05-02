@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d175b3a0d7fd89f4986817b95cd87536, type: 3}
-  m_Name: proj01
+  m_Name: BossSpamProjectiles
   m_EditorClassIdentifier: 
-  abilityPrefab: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
+  abilityPrefab: {fileID: 9202687485556323905, guid: 4136f39ec70a977428a88667ac201081,
     type: 3}
-  abilityName: 01
+  abilityName: New Ability
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 50
-  optimalRange: 270
-  speed: 7
-  range: 100
+  damage: 20
+  optimalRange: 800
+  speed: 10
+  range: 800
   knockbackForce: 0
-  cooldown: 1
+  cooldown: 0.2
+  nrOfProjectiles: 1
+  spread: 0

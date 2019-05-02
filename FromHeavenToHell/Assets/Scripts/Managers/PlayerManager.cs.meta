@@ -8,7 +8,7 @@ MonoImporter:
       type: 3}
   - playerAngel: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
       type: 3}
-  executionOrder: 0
+  executionOrder: -50
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
