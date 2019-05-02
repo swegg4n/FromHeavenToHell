@@ -23,11 +23,10 @@ public class BaseEnemyAi : MonoBehaviour
         if (stationary == false)
         {
             GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
-
         }
     }
 
-    protected virtual void Update()
+    void Update()
     {
         /*Vector3*/
         CheckIfHitAndFire();
@@ -35,7 +34,7 @@ public class BaseEnemyAi : MonoBehaviour
         {
             if (GetComponent<Pathfinder>().FinalPath != null)
             {
-                if (GetComponent<Rigidbody2D>().velocity != Vector2.zero && GetComponent<Pathfinder>().FinalPath.Count > 0)
+                if (GetComponent<Pathfinder>().FinalPath.Count > 0)
                 {
                     if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
                         GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
@@ -43,17 +42,13 @@ public class BaseEnemyAi : MonoBehaviour
                         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                     }
                 }
-                else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+                else if(GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                 {
                     GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
+                    Debug.Log(GetClosestTargetPosition());
                 }
+                MoveToNextTile();                
             }
-            //om fienden nått sitt mål och står still, se om det finns en ny väg att gå
-            else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)  
-            {
-                GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
-            }
-            MoveToNextTile();
         }
 
     }
@@ -69,6 +64,7 @@ public class BaseEnemyAi : MonoBehaviour
         {
 
         }
+
         float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);

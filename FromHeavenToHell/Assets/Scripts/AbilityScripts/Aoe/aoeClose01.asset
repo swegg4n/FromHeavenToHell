@@ -18,7 +18,7 @@ MonoBehaviour:
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
   damage: 20
-  optimalRange: 300
+  optimalRange: 200
   cooldown: 2
   activeDuration: 2
   timeBetweenTicks: 2

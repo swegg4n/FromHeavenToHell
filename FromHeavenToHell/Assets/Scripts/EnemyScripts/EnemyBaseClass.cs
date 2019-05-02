@@ -16,6 +16,7 @@ public class EnemyBaseClass : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().mass = 0.1f;
         GetComponent<Rigidbody2D>().drag = 1000f;
+        Ability = ability;
     }
 
     protected virtual void Update()
