@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class BaseEnemyAi : MonoBehaviour
 {
@@ -54,7 +55,14 @@ public class BaseEnemyAi : MonoBehaviour
 
     protected virtual void CheckIfHitAndFire()
     {
-        aimDirection = GetClosestTargetPosition() - transform.position;
+        try
+        {
+            aimDirection = GetClosestTargetPosition() - transform.position;
+
+        }catch(Exception e)
+        {
+
+        }
         float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
@@ -78,6 +86,7 @@ public class BaseEnemyAi : MonoBehaviour
 
     public Vector3 GetClosestTargetPosition()
     {
+
         if (Vector2.Distance(player1.GetComponent<Transform>().position, transform.position) <=
                     Vector2.Distance(player2.GetComponent<Transform>().position, transform.position))
         {
@@ -87,6 +96,7 @@ public class BaseEnemyAi : MonoBehaviour
         {
             return player2.transform.position;
         }
+
     }
 
 
