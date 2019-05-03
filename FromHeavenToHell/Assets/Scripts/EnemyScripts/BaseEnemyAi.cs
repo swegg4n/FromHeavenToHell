@@ -45,7 +45,6 @@ public class BaseEnemyAi : MonoBehaviour
                 else if(GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                 {
                     GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
-                    Debug.Log(GetClosestTargetPosition());
                 }
                 MoveToNextTile();                
             }
@@ -59,20 +58,19 @@ public class BaseEnemyAi : MonoBehaviour
         try
         {
             aimDirection = GetClosestTargetPosition() - transform.position;
+            float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
+            if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
+            {
+                GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
+            }
 
         }catch(Exception e)
         {
-
         }
 
-        float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
 
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
 
-        if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
-        {
-            GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
-        }
     }
     private void MoveToNextTile()
     {

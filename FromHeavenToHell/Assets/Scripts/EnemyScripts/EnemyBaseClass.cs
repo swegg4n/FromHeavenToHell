@@ -36,6 +36,5 @@ public class EnemyBaseClass : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log(health);
     }
 }

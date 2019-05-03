@@ -25,6 +25,13 @@ public class Room : MonoBehaviour
 
     public Tuple<Vector2Int, Vector2Int> roomBounds { get; private set; }
 
+    [SerializeField] private float timeBetweenSpawn;    //Tiden det tar mellan varje våg av fiender skapas. Mäts i sekunder
+    public float TimeBetweenSpawn { get { return timeBetweenSpawn; } }
+    [SerializeField] private float delay;       //Tiden det tar från att platsen en fiende ska skapas på visas till att fienden skapas. Mäts i sekunder
+    public float Delay { get { return delay; } }
+    [SerializeField] private int nrOfEnemiesToSpawn;    //Antal fiender som ska skapas i varje våg
+    public int NrOfEnemiesToSpawn { get { return nrOfEnemiesToSpawn; } }
+
 
     void Awake()
     {
