@@ -6,8 +6,9 @@ public class ObjectiveController : MonoBehaviour
 
     public bool ObjectiveCompleted { get; private set; }
 
-    private int killCount;
-    private float timePassed;
+    public int KillCount { get; private set; }
+
+    public float TimePassed { get; private set; }
 
 
     private void Awake()
@@ -29,8 +30,8 @@ public class ObjectiveController : MonoBehaviour
         }
 
         ObjectiveCompleted = false;
-        killCount = 0;
-        timePassed = 0;
+        KillCount = 0;
+        TimePassed = 0;
 
         ValidateCompletion();
     }
@@ -42,9 +43,9 @@ public class ObjectiveController : MonoBehaviour
     {
         if (objective.IsSurviveObjective == true && ObjectiveCompleted == false)
         {
-            if (timePassed < objective.SurvivalTime)
+            if (TimePassed < objective.SurvivalTime)
             {
-                timePassed += Time.deltaTime;
+                TimePassed += Time.deltaTime;
             }
             else
             {
@@ -58,8 +59,8 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     public void AddKill()
     {
-        killCount++;
-        Debug.Log($"{killCount}/{objective.KillCount} kills");
+        KillCount++;
+        Debug.Log($"{KillCount}/{objective.KillCount} kills");
     }
 
     /// <summary>
@@ -70,7 +71,7 @@ public class ObjectiveController : MonoBehaviour
         bool killCompleted;
         bool survivalCompleted;
 
-        if (objective.IsKillObjective == false || killCount >= objective.KillCount)  //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
+        if (objective.IsKillObjective == false || KillCount >= objective.KillCount)  //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
         {
             killCompleted = true;
         }
@@ -79,7 +80,7 @@ public class ObjectiveController : MonoBehaviour
             killCompleted = false;
         }
 
-        if (objective.IsSurviveObjective == false || timePassed >= objective.SurvivalTime)   //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
+        if (objective.IsSurviveObjective == false || TimePassed >= objective.SurvivalTime)   //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
         {
             survivalCompleted = true;
         }
