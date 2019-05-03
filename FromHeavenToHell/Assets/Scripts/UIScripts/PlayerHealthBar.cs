@@ -13,17 +13,14 @@ public class PlayerHealthBar : MonoBehaviour
     {
         maxHp = PlayerManager.instance.GetHealth();
         GetComponent<Slider>().maxValue = maxHp;
-        GetComponent<Slider>().value = maxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //healthBarSlider.value = PlayerManager.instance.GetHealth();
-        GetComponent<Slider>().value -= 1;
+        GetComponent<Slider>().value = PlayerManager.instance.GetHealth();
 
-        //healthPercentage = PlayerManager.instance.GetHealth() / maxHp;
-        healthPercentage = GetComponent<Slider>().value / maxHp;
+        healthPercentage = PlayerManager.instance.GetHealth() / (float)maxHp;
 
         if(healthPercentage > 0.5f)
         {
@@ -36,6 +33,6 @@ public class PlayerHealthBar : MonoBehaviour
             greenColorPercentage = healthPercentage * 2;
         }
 
-        GetComponent<Slider>().fillRect.GetComponent<Image>().color = new Color(redColorPercentage, greenColorPercentage, 0);
+        gameObject.GetComponent<Slider>().fillRect.GetComponent<Image>().color = new Color(redColorPercentage, greenColorPercentage, 0, 0.5f);
     }
 }
