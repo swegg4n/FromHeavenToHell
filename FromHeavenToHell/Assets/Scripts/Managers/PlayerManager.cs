@@ -25,7 +25,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Camera playersCamera;
 
-
     public string PlayerDemonHorizontalAxis { get; private set; }
     public string PlayerDemonVerticalAxis { get; private set; }
     public string PlayerDemonHorizontalAimAxis { get; private set; }
@@ -132,4 +131,8 @@ public class PlayerManager : MonoBehaviour
         health -= damage;
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
 }
