@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -23,9 +24,9 @@ public class EnemyManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private float timeBetweenSpawn;    //Tiden det tar mellan varje våg av fiender skapas. Mäts i sekunder
-    [SerializeField] private float delay;       //Tiden det tar från att platsen en fiende ska skapas på visas till att fienden skapas. Mäts i sekunder
-    [SerializeField] private int nrOfEnemiesToSpawn;    //Antal fiender som ska skapas i varje våg
+    private float timeBetweenSpawn;    //Tiden det tar mellan varje våg av fiender skapas. Mäts i sekunder
+    private float delay;       //Tiden det tar från att platsen en fiende ska skapas på visas till att fienden skapas. Mäts i sekunder
+    private int nrOfEnemiesToSpawn;    //Antal fiender som ska skapas i varje våg
 
     private float timeSinceLastSpawn;       //Tiden från förra vågen fiender skapades. Mäts i sekunder
 
@@ -59,25 +60,14 @@ public class EnemyManager : MonoBehaviour
 
     public void ResetRoom()
     {
-        tilePositionList = new List<Vector3>();
+        ResetVariabels();
+        SpawnPositions();
+
+    }
+
+    private void SpawnPositions()
+    {
         Tilemap groundTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap(TileTypes.Ground);
-
-        if (enemyList != null)
-        {
-            enemyList.ForEach(Destroy);
-        }
-
-        if(spawnIndicatorList != null)
-        {
-            spawnIndicatorList.ForEach(Destroy);
-        }
-
-        tempIndexList = new List<int>();
-
-        enemyList = new List<GameObject>();
-
-        tilePositionList = new List<Vector3>();
-
 
         int roomSizeX = GameManager.instance.CurrentRoom.GetComponent<Room>().GetRoomSize().x;
         int roomSizeY = GameManager.instance.CurrentRoom.GetComponent<Room>().GetRoomSize().y;
@@ -100,7 +90,29 @@ public class EnemyManager : MonoBehaviour
                 }
             }
         }
+    }
 
+    private void ResetVariabels()
+    {
+        nrOfEnemiesToSpawn = GameManager.instance.CurrentRoom.GetComponent<Room>().NrOfEnemiesToSpawn;
+        delay = GameManager.instance.CurrentRoom.GetComponent<Room>().Delay;
+        timeBetweenSpawn = GameManager.instance.CurrentRoom.GetComponent<Room>().TimeBetweenSpawn;
+
+        if (enemyList != null)
+        {
+            enemyList.ForEach(Destroy); //Förstör alla fiender i det gamla rummet
+        }
+
+        if (spawnIndicatorList != null)
+        {
+            spawnIndicatorList.ForEach(Destroy); //Förstör alla spawnindicators i det gamla rummet
+        }
+
+        tempIndexList = new List<int>();
+
+        enemyList = new List<GameObject>();
+
+        tilePositionList = new List<Vector3>();
     }
 
     /// <summary>
@@ -145,8 +157,14 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < nrOfEnemiesToSpawn; i++)
         {
-            enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
-            Destroy(spawnIndicatorList[i]);
+            try
+            {
+                enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
+                Destroy(spawnIndicatorList[i]);
+            }catch(Exception e)
+            {
+
+            }
         }
 
         spawnIndicatorList.Clear();

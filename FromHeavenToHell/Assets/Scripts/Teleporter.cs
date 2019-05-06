@@ -19,14 +19,14 @@ public class Teleporter : MonoBehaviour
             case "PlayerDemon":     //Om spelaren är demonen
                 {
                     PlayerManager.instance.PlayerDemonCanTeleport = true;   //Sätter att demonen kan teleportera
-                    Debug.Log("Demon In");
+                    //Debug.Log("Demon In");
                 }
                 break;
 
             case "PlayerAngel":     //Om spelaren är ängeln
                 {
                     PlayerManager.instance.PlayerAngelCanTeleport = true;   //Sätter att ängeln kan teleportera
-                    Debug.Log("Angel In");
+                    //Debug.Log("Angel In");
                 }
                 break;
         }
@@ -45,14 +45,14 @@ public class Teleporter : MonoBehaviour
             case "PlayerDemon":     //Om spelaren är demonen
                 {
                     PlayerManager.instance.PlayerDemonCanTeleport = false;      //Sätter att demonen INTE kan teleportera
-                    Debug.Log("Demon Out");
+                    //Debug.Log("Demon Out");
                 }
                 break;
 
             case "PlayerAngel":     //Om spelaren är ängeln
                 {
                     PlayerManager.instance.PlayerAngelCanTeleport = false;      //Sätter att ängeln INTE kan teleportera
-                    Debug.Log("Angel Out");
+                    //Debug.Log("Angel Out");
                 }
                 break;
         }
@@ -74,16 +74,16 @@ public class Teleporter : MonoBehaviour
 
     private Vector2? CheckTeleporter(Collider2D collider)
     {
-        Debug.Log("6" + collider.bounds.center + "Collider" + collider.bounds);
+        //Debug.Log("6" + collider.bounds.center + "Collider" + collider.bounds);
 
         Vector2 normalizedDirection = (collider.bounds.center - transform.parent.transform.position).normalized;
         float koeficient = normalizedDirection.y / normalizedDirection.x;
 
-        Debug.Log("4" + koeficient);
+        //Debug.Log("4" + koeficient);
 
         if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
         {
-            Debug.Log("A1");
+           // Debug.Log("A1");
 
             roomToTeleportTo = GetComponentInParent<Room>().rightRoom;
 
@@ -94,7 +94,7 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
         {
-            Debug.Log("A2");
+           // Debug.Log("A2");
 
             roomToTeleportTo = GetComponentInParent<Room>().leftRoom;
 
@@ -105,7 +105,7 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
         {
-            Debug.Log("A3");
+            //Debug.Log("A3");
 
             roomToTeleportTo = GetComponentInParent<Room>().aboveRoom;
 
@@ -116,7 +116,7 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
         {
-            Debug.Log("A4");
+           // Debug.Log("A4");
 
             roomToTeleportTo = GetComponentInParent<Room>().belowRoom;
 
@@ -126,7 +126,7 @@ public class Teleporter : MonoBehaviour
             }
         }
 
-        Debug.Log("5");
+       // Debug.Log("5");
         return null;
     }
 

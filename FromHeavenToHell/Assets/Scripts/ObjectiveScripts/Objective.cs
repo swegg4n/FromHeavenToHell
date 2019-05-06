@@ -9,6 +9,9 @@ public class Objective : ScriptableObject
     [SerializeField] bool isSurviveObjective;       //om detta är ett överlevnads-objektiv
     public bool IsSurviveObjective { get { return isSurviveObjective; } }
 
+    [SerializeField] bool isBossObjective;       //om detta är ett boss-objektiv
+    public bool IsBossObjective { get { return isBossObjective; } }
+
 
     [Tooltip("The amount of enemies required to kill to complete the objective")]
     [SerializeField] private int killCount;       //Antal fiender som måster dödas
