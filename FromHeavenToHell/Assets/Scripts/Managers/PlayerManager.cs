@@ -74,6 +74,27 @@ public class PlayerManager : MonoBehaviour
         PlayerAngelFire = InputSetup.instance.PlayerAngelFire;
 
         Destroy(InputSetup.instance.gameObject);
+
+        StartCoroutine(GameSetup());
+    }
+
+
+    private IEnumerator GameSetup()
+    {
+        yield return new WaitForEndOfFrame();
+
+        PlayerDemonInstance.transform.position = GameManager.instance.CurrentRoom.transform.localPosition;     //Flyttar demonen till nya positionen
+        PlayerAngelInstance.transform.position = GameManager.instance.CurrentRoom.transform.localPosition;     //Flyttar ängeln till nya positionen
+        //Flyttar kameran till nya rummet
+        playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.localPosition.x,
+            GameManager.instance.CurrentRoom.transform.localPosition.y, playersCamera.transform.localPosition.z);
+
+        EnemyManager.instance.ResetRoom();  //Tar bort alla fienders spawn-positioner och räknar ut de nya spawn-positionerna för rummet
+
+        GameManager.instance.CurrentRoom.GetComponent<Room>().CalculateBoundsXY();  //Räknar ut hur stort rummet är
+        GetComponent<NodeGrid>().CreateGrid();  //Skapar ett nytt rutnät av noder som används av A* (pathfinder)
+
+        GetComponent<ObjectiveController>().StartObjective();
     }
 
     /// <summary>
@@ -83,6 +104,7 @@ public class PlayerManager : MonoBehaviour
     /// <param name="roomToTeleportTo">Rummet som spelarna ska befinna sig i</param>
     public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
+        Debug.Log("teleport to" + roomToTeleportTo);
         ///Kontrollerar så att objektivet är avklarat och spelarna har en position att teleportera till
         if (GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true && position != null)
         {
@@ -97,7 +119,8 @@ public class PlayerManager : MonoBehaviour
             PlayerAngelInstance.transform.position = (Vector3)position;     //Flyttar ängeln till nya positionen
 
             //Flyttar kameran till nya rummet
-            playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.position.x, GameManager.instance.CurrentRoom.transform.position.y, playersCamera.transform.position.z);
+            playersCamera.transform.position = new Vector3(GameManager.instance.CurrentRoom.transform.position.x,
+                GameManager.instance.CurrentRoom.transform.position.y, playersCamera.transform.position.z);
 
             GetComponent<ObjectiveController>().StartObjective();   //Startar objektivet
         }

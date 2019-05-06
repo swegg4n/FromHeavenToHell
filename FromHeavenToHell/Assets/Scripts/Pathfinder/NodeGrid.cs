@@ -90,7 +90,7 @@ public class NodeGrid : MonoBehaviour
 
         yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x,
             GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y - 1);
-        
+
 
         int xIndex = xPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y;
         int yIndex = yPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y;

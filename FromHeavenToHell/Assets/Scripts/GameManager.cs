@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +26,8 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private Tilemap topTileMap;
 
     [SerializeField] private GameObject currentRoom;
-    public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } } 
+    public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
+
 
     public int tileSize { get; private set; }
     // Start is called before the first frame update

@@ -76,7 +76,7 @@ public class Teleporter : MonoBehaviour
     {
         //Debug.Log("6" + collider.bounds.center + "Collider" + collider.bounds);
 
-        Vector2 normalizedDirection = (collider.bounds.center - transform.parent.transform.position).normalized;
+        Vector2 normalizedDirection = (collider.bounds.center - transform.parent.transform.localPosition).normalized;
         float koeficient = normalizedDirection.y / normalizedDirection.x;
 
         //Debug.Log("4" + koeficient);

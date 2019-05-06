@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -61,6 +62,13 @@ public class Room : MonoBehaviour
 
         roomBounds = CalculateBoundsXY();
 
+        StartCoroutine(SetUpRoomRelations());
+    }
+
+    private IEnumerator SetUpRoomRelations()
+    {
+        yield return new WaitForSecondsRealtime(1);
+
         for (int x = teleportTileMap.cellBounds.xMin; x < teleportTileMap.cellBounds.xMax; x++)
         {
             for (int y = teleportTileMap.cellBounds.yMin; y < teleportTileMap.cellBounds.yMax; y++)
@@ -86,22 +94,30 @@ public class Room : MonoBehaviour
 
     private GameObject CheckSorrundingRoom(Vector2 direction)
     {
-        RaycastHit2D[] rayCheck = Physics2D.RaycastAll(transform.position, direction);
+        Vector3 rayCastOffset = Vector3.zero;
 
-        foreach (RaycastHit2D hit in rayCheck)
+        if (direction == Vector2.up || direction == Vector2.down)
         {
-            if (wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
-                && wallTileMap.HasTile(wallTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
-                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.up) == false
-                && teleportTileMap.HasTile(teleportTileMap.WorldToCell(hit.point) + Vector3Int.down) == false
-                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false
-                && groundTileMap.HasTile(teleportTileMap.WorldToCell(hit.point)) == false)
-            {
-                return hit.rigidbody.gameObject.transform.parent.gameObject;
-            }
+            rayCastOffset = new Vector3(0, (GetRoomSize().y / 2 + 1) * direction.y + 1, 0);
+        }
+        else if (direction == Vector2.left || direction == Vector2.right)
+        {
+            rayCastOffset = new Vector3((GetRoomSize().x / 2 + 1) * direction.x, 0, 0);
         }
 
-        return null;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + rayCastOffset, direction, 1000);
+        Debug.Log(gameObject.name + " rayCasting from pos: " + transform.position + rayCastOffset + ", Direction: " + direction);
+
+        if (hit == true)
+        {
+            Debug.Log("hit: " + hit.transform.parent.gameObject);
+            return hit.transform.parent.gameObject;
+        }
+        else
+        {
+            Debug.Log("hit: NOTHING");
+            return null;
+        }
     }
 
 
