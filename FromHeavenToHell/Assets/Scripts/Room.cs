@@ -98,11 +98,11 @@ public class Room : MonoBehaviour
 
         if (direction == Vector2.up || direction == Vector2.down)
         {
-            rayCastOffset = new Vector3(0, (GetRoomSize().y / 2 + 1) * direction.y + 1, 0);
+            rayCastOffset = new Vector3(0, GetRoomSize().y * direction.y, 0);
         }
         else if (direction == Vector2.left || direction == Vector2.right)
         {
-            rayCastOffset = new Vector3((GetRoomSize().x / 2 + 1) * direction.x, 0, 0);
+            rayCastOffset = new Vector3(GetRoomSize().x * direction.x, 0, 0);
         }
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position + rayCastOffset, direction, 1000);
@@ -165,7 +165,6 @@ public class Room : MonoBehaviour
         }
         return false;
     }
-
 
 
     //test till teleporten
