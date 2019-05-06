@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class CurrentObjectiveText : MonoBehaviour
 {
+    [SerializeField] Text surviveText, killText, bossText;
+    [SerializeField] Slider bossHealthBar;
+
+    private bool bossHealthBarSet;
+
     Objective currentObjective;
-    Text text;
+
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponent<Text>();
+
     }
 
     // Update is called once per frame
@@ -18,18 +23,51 @@ public class CurrentObjectiveText : MonoBehaviour
     {
         currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
 
-        if(currentObjective.IsKillObjective == true 
-            && currentObjective.IsSurviveObjective == false)
+        Debug.Log(tag + "   " + currentObjective);
+
+        if (currentObjective.IsSurviveObjective == true)
         {
-            text.text = "Current Objective: Kill " + GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount + " Enemies";
-        }
-        else
-        {
-            text.text = "Current Objective: Stay Alive For "
+            Debug.Log(tag);
+            surviveText.text = "Stay Alive For "
             + GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "
             + currentObjective.SurvivalTime +
             " Seconds";
+        }
+        else
+        {
+            surviveText.text = "";
+        }
+
+        if (currentObjective.IsKillObjective == true)
+        {
+            killText.text = "Kill " + GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount + " Enemies";
+        }
+        else
+        {
+            killText.text = "";
+        }
+
+        if(currentObjective.IsBossObjective == true)
+        {
+            if(bossHealthBarSet == false)
+            {
+                Instantiate(bossHealthBar, gameObject.transform);
+                bossHealthBarSet = true;
+            }
+
+            if(GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
+            {
+                bossText.text = "You Killed The Boss!";
+            }
+            else
+            {
+                bossText.text = "Kill The Boss!";
+            }
+        }
+        else
+        {
+            bossText.text = "";
         }
     }
 }

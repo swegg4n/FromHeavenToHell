@@ -37,4 +37,9 @@ public class EnemyBaseClass : MonoBehaviour
     {
         health -= damage;
     }
+
+    public int GetHealth()
+    {
+        return health;
+    }
 }
