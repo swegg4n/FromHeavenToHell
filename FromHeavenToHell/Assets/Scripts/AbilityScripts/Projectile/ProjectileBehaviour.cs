@@ -37,12 +37,12 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<EnemyBaseClass>().TakeDamage(ProjectileAbility.Damage);
+            other.GetComponent<EnemyBaseClass>().TakeDamage(ProjectileAbility.Damage, Caster);
             Destroy(gameObject);
         }
         else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
         {
-            PlayerManager.instance.TakeDamage(ProjectileAbility.Damage);
+            PlayerManager.instance.TakeDamage(ProjectileAbility.Damage, other.gameObject, Caster);
             Destroy(gameObject);
         }
         else if (other.tag == "Wall")

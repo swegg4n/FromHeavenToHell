@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
+using Assets.Classes;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -115,6 +116,15 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void DeathCheck()
     {
+        if (Input.GetKey(KeyCode.P))
+        {
+            health -= 5;
+        }
+        else if (Input.GetKey(KeyCode.O))
+        {
+            health += 5;
+        }
+
         if (health <= 0)
         {
             Destroy(PlayerDemonInstance);
@@ -128,9 +138,34 @@ public class PlayerManager : MonoBehaviour
     /// Minskar spelarnas liv med så mycket skada någon spelare tog
     /// </summary>
     /// <param name="damage">Så mycket skada någon spelare tog</param>
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, GameObject player, GameObject caster)
     {
         health -= damage;
+
+        if(PlayerAngelInstance.CompareTag(player.tag) == true)
+        {
+            if(PlayerAngelInstance.CompareTag(caster.tag) == true)
+            {
+                StatTracker.AngelSelfDamage += damage;
+            }
+            else if(PlayerDemonInstance.CompareTag(caster.tag) == true)
+            {
+                StatTracker.DemonDamageDealtToAngel += damage;
+            }
+            StatTracker.AngelDamageTaken += damage;
+        }
+        else if(PlayerDemonInstance.CompareTag(player.tag) == true)
+        {
+            if (PlayerDemonInstance.CompareTag(caster.tag) == true)
+            {
+                StatTracker.DemonSelfDamage += damage;
+            }
+            else if (PlayerAngelInstance.CompareTag(caster.tag) == true)
+            {
+                StatTracker.AngelDamageDealtToDemon += damage;
+            }
+            StatTracker.DemonDamageTaken += damage;
+        }
     }
 
     public int GetHealth()
