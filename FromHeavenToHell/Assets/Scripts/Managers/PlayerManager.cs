@@ -115,10 +115,13 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void DeathCheck()
     {
+        health-= 4;
         if (health <= 0)
         {
             Destroy(PlayerDemonInstance);
             Destroy(PlayerAngelInstance);
+
+            GameManager.instance.gameLost = true;
         }
     }
 

@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject currentRoom;
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } } 
 
+    public bool gameLost { set; get; }
+    public bool gameWon { set; get; }
+
     public int tileSize { get; private set; }
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(gameLost == true)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        }
+        else if(gameWon == true)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        }
     }
 }
