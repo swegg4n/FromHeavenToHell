@@ -46,11 +46,11 @@ public class AoeBehaviour : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage);
+            other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage, Caster);
         }
         else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
         {
-            PlayerManager.instance.TakeDamage(aoeAbility.Damage);
+            PlayerManager.instance.TakeDamage(aoeAbility.Damage, other.gameObject, Caster);
         }
     }
 }

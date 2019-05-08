@@ -6,11 +6,16 @@ public class ObjectiveController : MonoBehaviour
 
     public bool ObjectiveCompleted { get; private set; }
 
-    private int killCount;
-    private float timePassed;
+    public int KillCount { get; private set; }
 
+    public float TimePassed { get; private set; }
 
-    private void Awake()
+    public bool BossCompleted { get; private set; }
+
+    bool killCompleted;
+    bool survivalCompleted;
+
+    private void Start()
     {
         StartObjective();
     }
@@ -29,8 +34,8 @@ public class ObjectiveController : MonoBehaviour
         }
 
         ObjectiveCompleted = false;
-        killCount = 0;
-        timePassed = 0;
+        KillCount = 0;
+        TimePassed = 0;
 
         ValidateCompletion();
     }
@@ -42,8 +47,14 @@ public class ObjectiveController : MonoBehaviour
     {
         if (ObjectiveCompleted == false)
         {
-            timePassed += Time.deltaTime;
-            ValidateCompletion();
+            if (TimePassed < objective.SurvivalTime)
+            {
+                TimePassed += Time.deltaTime;
+            }
+            else
+            {
+                ValidateCompletion();
+            }
         }
     }
 
@@ -52,8 +63,8 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     public void AddKill()
     {
-        killCount++;
-        Debug.Log($"{killCount}/{objective.KillCount} kills");
+        KillCount++;
+        Debug.Log($"{KillCount}/{objective.KillCount} kills");
     }
 
     /// <summary>
@@ -61,11 +72,7 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     private void ValidateCompletion()
     {
-        bool killCompleted;
-        bool survivalCompleted;
-        bool bossCompleted;
-
-        if (objective.IsKillObjective == false || killCount >= objective.KillCount)  //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
+        if (objective.IsKillObjective == false || KillCount >= objective.KillCount)  //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
         {
             killCompleted = true;
         }
@@ -74,7 +81,7 @@ public class ObjectiveController : MonoBehaviour
             killCompleted = false;
         }
 
-        if (objective.IsSurviveObjective == false || timePassed >= objective.SurvivalTime)   //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
+        if (objective.IsSurviveObjective == false || TimePassed >= objective.SurvivalTime)   //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
         {
             survivalCompleted = true;
         }
@@ -85,15 +92,15 @@ public class ObjectiveController : MonoBehaviour
 
         if(objective.IsBossObjective == false || GameManager.instance.CurrentRoom.GetComponentInChildren<EnemyBaseClass>() == null)
         {
-            bossCompleted = true;
+            BossCompleted = true;
         }
         else
         {
-            bossCompleted = false;
+            BossCompleted = false;
         }
 
 
-        if (killCompleted == true && survivalCompleted == true && bossCompleted)
+        if (killCompleted == true && survivalCompleted == true && BossCompleted)
         {
             ObjectiveCompleted = true;
             Debug.Log("OBJECTIVE COMPLETED!");

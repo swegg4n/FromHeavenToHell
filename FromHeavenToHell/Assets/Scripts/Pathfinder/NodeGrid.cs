@@ -11,7 +11,7 @@ public class NodeGrid : MonoBehaviour
     private int gridSizeY;  //Banans höjd (antal noder i höjd)
 
 
-    private void Awake()
+    private void Start()
     {
         CreateGrid();
     }

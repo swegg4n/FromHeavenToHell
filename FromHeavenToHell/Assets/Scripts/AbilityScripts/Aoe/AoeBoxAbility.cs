@@ -8,7 +8,7 @@ public class AoeBoxAbility : Ability
     [SerializeField] private float timeBetweenTicks;
     [SerializeField] private int range;
 
-    public GameObject caster { get; private set; }
+    public GameObject Caster { get; private set; }
 
     private float timeSinceLastTick;
 
@@ -18,7 +18,7 @@ public class AoeBoxAbility : Ability
     /// </summary>
     public override void TriggerAbility(GameObject caster)
     {
-        this.caster = caster;
+        Caster = caster;
 
         CooldownController cdController = caster.GetComponent<CooldownController>();
 

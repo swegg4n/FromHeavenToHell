@@ -14,25 +14,32 @@ public class PlayerFire : MonoBehaviour
 
     private void CheckFireInput()
     {
-        switch (gameObject.tag)
+        try
         {
-            case "PlayerDemon":
-                {
-                    if (Input.GetButton(PlayerManager.instance.PlayerDemonFire) && selectedAbility != null)
+            switch (gameObject.tag)
+            {
+                case "PlayerDemon":
                     {
-                        selectedAbility.TriggerAbility(gameObject);
+                        if (Input.GetButton(PlayerManager.instance.PlayerDemonFire) && selectedAbility != null)
+                        {
+                            selectedAbility.TriggerAbility(gameObject);
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case "PlayerAngel":
-                {
-                    if (Input.GetButton(PlayerManager.instance.PlayerAngelFire) && selectedAbility != null)
+                case "PlayerAngel":
                     {
-                        selectedAbility.TriggerAbility(gameObject);
+                        if (Input.GetButton(PlayerManager.instance.PlayerAngelFire) && selectedAbility != null)
+                        {
+                            selectedAbility.TriggerAbility(gameObject);
+                        }
                     }
-                }
-                break;
+                    break;
+            }
+        }
+        catch
+        {
+
         }
     }
 

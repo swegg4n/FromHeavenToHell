@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using System;
+using Assets.Classes;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,16 +32,57 @@ public class GameManager : MonoBehaviour
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
 
 
+    public bool gameLost { set; get; }
+    public bool gameWon { set; get; }
+
     public int tileSize { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
-        tileSize = 32; //Vem hårdkodade detta? fyi inte Jonathan eller Oscar
+        tileSize = 32; //Vem hårdkodade detta? Inte Jonathan eller Oscar i all fall...
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(gameLost == true || gameWon || true)
+        {
+            AddCurrentGameStats();
 
+            if (gameLost == true)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+            }
+            else if (gameWon == true)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+            }
+        }
+    }
+    
+    private void AddStats(PlayerPrefKey key, int stat)
+    {
+        int[] statArray = PlayerPrefsX.GetIntArray(key.ToString());
+        int oldArrayLength = PlayerPrefsX.GetIntArray(key.ToString()).Length;
+
+        Array.Resize(ref statArray, oldArrayLength + 1);
+
+        statArray[oldArrayLength] = stat;
+
+        PlayerPrefsX.SetIntArray(key.ToString(), statArray);
+    }
+
+    private void AddCurrentGameStats()
+    {
+        AddStats(PlayerPrefKey.AngelDamageDealtToEnemies, StatTracker.AngelDamageDealtToEnemies);
+        AddStats(PlayerPrefKey.DemonDamageDealtToEnemies, StatTracker.DemonDamageDealtToEnemies);
+        AddStats(PlayerPrefKey.AngelDamageTaken, StatTracker.AngelDamageTaken);
+        AddStats(PlayerPrefKey.DemonDamageTaken, StatTracker.DemonDamageTaken);
+        AddStats(PlayerPrefKey.AngelEnemiesKilled, StatTracker.AngelEnemiesKilled);
+        AddStats(PlayerPrefKey.DemonEnemiesKilled, StatTracker.DemonEnemiesKilled);
+        AddStats(PlayerPrefKey.AngelDamageDealtToDemon, StatTracker.AngelDamageDealtToDemon);
+        AddStats(PlayerPrefKey.DemonDamageDealtToAngel, StatTracker.DemonDamageDealtToAngel);
+        AddStats(PlayerPrefKey.AngelSelfDamage, StatTracker.AngelSelfDamage);
+        AddStats(PlayerPrefKey.DemonSelfDamage, StatTracker.DemonSelfDamage);
     }
 }
