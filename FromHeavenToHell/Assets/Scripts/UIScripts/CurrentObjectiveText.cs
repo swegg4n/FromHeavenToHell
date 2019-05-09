@@ -58,6 +58,7 @@ public class CurrentObjectiveText : MonoBehaviour
 
             if(GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
             {
+                GameManager.instance.gameWon = true;
                 bossText.text = "You Killed The Boss!";
             }
             else
