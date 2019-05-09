@@ -16,4 +16,4 @@ MonoBehaviour:
   isSurviveObjective: 1
   isBossObjective: 0
   killCount: 0
-  survivalTime: 5
+  survivalTime: 25

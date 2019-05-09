@@ -15,5 +15,5 @@ MonoBehaviour:
   isKillObjective: 1
   isSurviveObjective: 0
   isBossObjective: 0
-  killCount: 5
+  killCount: 10
   survivalTime: 0
