@@ -17,7 +17,7 @@ MonoBehaviour:
   abilityName: New Ability
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 20
+  damage: 30
   optimalRange: 800
   speed: 10
   range: 800
