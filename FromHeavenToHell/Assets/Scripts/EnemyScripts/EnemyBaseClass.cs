@@ -9,16 +9,23 @@ public class EnemyBaseClass : MonoBehaviour
     [SerializeField] private float speedFactor;
     public float SpeedFactor { get { return speedFactor; } }
 
-    [SerializeField] private Ability ability;
     public Ability Ability { get; protected set; }
 
     private GameObject lastHitCastedBy;
+
+    [SerializeField] private List<Ability> availableAbilities;
+
 
     void Start()
     {
         GetComponent<Rigidbody2D>().mass = 0.1f;
         GetComponent<Rigidbody2D>().drag = 1000f;
-        Ability = ability;
+
+        if (availableAbilities.Count == 0)
+        {
+            Debug.LogError("Enemies has no ability, assing at least 1 availavle abillity in 'EnemyBaseClass'");
+        }
+        Ability = availableAbilities[Random.Range(0, availableAbilities.Count)];
     }
 
     protected virtual void Update()
