@@ -30,13 +30,13 @@ public class PlayerManager : MonoBehaviour
     public string PlayerDemonVerticalAxis { get; private set; }
     public string PlayerDemonHorizontalAimAxis { get; private set; }
     public string PlayerDemonVerticalAimAxis { get; private set; }
-    public string PlayerDemonFire { get; private set; }
+    public string[] PlayerDemonFire { get; private set; }
 
     public string PlayerAngelHorizontalAxis { get; private set; }
     public string PlayerAngelVerticalAxis { get; private set; }
     public string PlayerAngelHorizontalAimAxis { get; private set; }
     public string PlayerAngelVerticalAimAxis { get; private set; }
-    public string PlayerAngelFire { get; private set; }
+    public string[] PlayerAngelFire { get; private set; }
 
 
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare

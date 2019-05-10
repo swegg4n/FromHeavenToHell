@@ -23,11 +23,9 @@ public class CurrentObjectiveText : MonoBehaviour
     {
         currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
 
-        //Debug.Log(tag + "   " + currentObjective);
 
         if (currentObjective.IsSurviveObjective == true)
         {
-            Debug.Log(tag);
             surviveText.text = "Stay Alive For "
             + GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "

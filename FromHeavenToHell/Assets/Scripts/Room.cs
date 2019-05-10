@@ -106,16 +106,13 @@ public class Room : MonoBehaviour
         }
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position + rayCastOffset, direction, 1000);
-        Debug.Log(gameObject.name + " rayCasting from pos: " + transform.position + rayCastOffset + ", Direction: " + direction);
 
         if (hit == true)
         {
-            Debug.Log("hit: " + hit.transform.parent.gameObject);
             return hit.transform.parent.gameObject;
         }
         else
         {
-            Debug.Log("hit: NOTHING");
             return null;
         }
     }
@@ -229,9 +226,20 @@ public class Room : MonoBehaviour
 
     public bool CheckOnlyGroundTile(Vector3 targetPosition)
     {
-        if (CheckWallTileAtPosition(Vector3Int.FloorToInt(targetPosition)) == false
-            && CheckTopTileAtPosition(Vector3Int.FloorToInt(targetPosition)) == false
-            && CheckGroundTileAtPosition(Vector3Int.FloorToInt(targetPosition)) == true)
+        if (CheckWallTileAtPosition(targetPosition) == false
+            && CheckTopTileAtPosition(targetPosition) == false
+            && CheckGroundTileAtPosition(targetPosition) == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CheckOnlyGroundTileWorldToCell(Vector3 targetPosition)
+    {
+        if (wallTileMap.HasTile(wallTileMap.WorldToCell(targetPosition)) == false
+            && topTileMap.HasTile(wallTileMap.WorldToCell(targetPosition)) == false
+            && groundTileMap.HasTile(wallTileMap.WorldToCell(targetPosition)) == true)
         {
             return true;
         }
