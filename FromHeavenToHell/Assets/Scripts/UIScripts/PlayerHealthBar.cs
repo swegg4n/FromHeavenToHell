@@ -11,16 +11,16 @@ public class PlayerHealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHp = PlayerManager.instance.GetHealth();
+        maxHp = PlayerManager.instance.Health;
         GetComponent<Slider>().maxValue = maxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Slider>().value = PlayerManager.instance.GetHealth();
+        GetComponent<Slider>().value = PlayerManager.instance.Health;
 
-        healthPercentage = PlayerManager.instance.GetHealth() / (float)maxHp;
+        healthPercentage = PlayerManager.instance.Health / (float)maxHp;
 
         if(healthPercentage > 0.5f)
         {

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using System.Collections;
-using Assets.Classes;
-
-namespace Assets.Classes
+﻿namespace Assets.Classes
 {
     static public class StatTracker
     {
@@ -21,7 +12,6 @@ namespace Assets.Classes
         static public int AngelDamageDealtToDemon { set; get; }
         static public int DemonSelfDamage { set; get; }
         static public int AngelSelfDamage { set; get; }
-
-
     }
+
 }

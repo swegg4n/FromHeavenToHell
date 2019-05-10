@@ -296,7 +296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3ba21c01ad7f2b45bd5d44efdd374ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAbility: {fileID: 11400000, guid: e67c97bc5617a204a94088dd0c977ae2, type: 2}
+  abilityList:
+  - {fileID: 11400000, guid: e67c97bc5617a204a94088dd0c977ae2, type: 2}
+  - {fileID: 11400000, guid: 683b58c7d8082d342a96f034fb7b6445, type: 2}
+  - {fileID: 11400000, guid: 3b451312c99a4534186d068b68da8fd9, type: 2}
 --- !u!114 &6855944054570006609
 MonoBehaviour:
   m_ObjectHideFlags: 0
