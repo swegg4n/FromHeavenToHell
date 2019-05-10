@@ -26,7 +26,7 @@ public class BaseEnemyAi : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         CheckIfHitAndFire();
 

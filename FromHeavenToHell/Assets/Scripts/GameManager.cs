@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameLost == true || gameWon || true)
+        if(gameLost == true || gameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
+                                                                                                   //att resize:a en array varje frame! ):<
         {
             AddCurrentGameStats();
 

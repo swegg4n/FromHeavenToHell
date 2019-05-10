@@ -22,6 +22,6 @@ public class MainBoss : EnemyBaseClass
             Ability = abilityList[Random.Range(0, abilityList.Length)];
             counter = 0;
         }
-        //DeathCheck();
+        DeathCheck();
     }
 }
