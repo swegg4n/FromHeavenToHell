@@ -17,11 +17,11 @@ public class MainBoss : EnemyBaseClass
     protected override void Update()
     {
         counter += Time.deltaTime;
-        if(counter > switchingAbilityInterval)
+        if (counter > switchingAbilityInterval)
         {
-            Ability = abilityList[Random.Range(0,abilityList.Length)];
+            Ability = abilityList[Random.Range(0, abilityList.Length)];
             counter = 0;
         }
-        DeathCheck();
+        //DeathCheck();
     }
 }

@@ -11,11 +11,6 @@ public class NodeGrid : MonoBehaviour
     private int gridSizeY;  //Banans höjd (antal noder i höjd)
 
 
-    private void Start()
-    {
-        CreateGrid();
-    }
-
     /// <summary>
     /// Skapar noder för alla tiles i rummet, lägger de i en 2d array
     /// </summary>

@@ -26,12 +26,13 @@ public class BaseEnemyAi : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        /*Vector3*/
         CheckIfHitAndFire();
+
         if (stationary == false)
         {
+
             if (GetComponent<Pathfinder>().FinalPath != null)
             {
                 if (GetComponent<Pathfinder>().FinalPath.Count > 0)
@@ -42,11 +43,11 @@ public class BaseEnemyAi : MonoBehaviour
                         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                     }
                 }
-                else if(GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+                else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                 {
                     GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                 }
-                MoveToNextTile();                
+                MoveToNextTile();
             }
         }
 
@@ -65,7 +66,8 @@ public class BaseEnemyAi : MonoBehaviour
                 GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
             }
 
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
         }
 
