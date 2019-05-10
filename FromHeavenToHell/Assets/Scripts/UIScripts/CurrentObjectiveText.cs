@@ -23,7 +23,7 @@ public class CurrentObjectiveText : MonoBehaviour
     {
         currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
 
-        Debug.Log(tag + "   " + currentObjective);
+        //Debug.Log(tag + "   " + currentObjective);
 
         if (currentObjective.IsSurviveObjective == true)
         {

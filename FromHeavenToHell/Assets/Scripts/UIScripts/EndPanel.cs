@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Classes;
@@ -11,8 +9,9 @@ public class EndPanel : MonoBehaviour
 
     [SerializeField] private Text endText, demonDamageDealtToEnemiesText, angelDamageDealtToEnemiesText, demonDamageTakenText, angelDamageTakenText, demonDamageDealtToAngelText, angelDamageDealtToDemonText, demonSelfDamageText, angelSelfDamageText;
 
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         foreach (PlayerPrefKey key in (PlayerPrefKey[])Enum.GetValues(typeof(PlayerPrefKey)))
         {
@@ -21,7 +20,7 @@ public class EndPanel : MonoBehaviour
 
         if (GameManager.instance.gameLost == true)
         {
-            endText.text = "HAHA You lost scrub git gud N00B REEEEEEEE!!! \n Press Enter To Continue";
+            endText.text = "Npnp, det är Jonathans fel att ni förlorade.\nPress 'Enter' To Continue";
         }
         else if (GameManager.instance.gameWon == true)
         {
@@ -31,11 +30,15 @@ public class EndPanel : MonoBehaviour
         SetStatText();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))   //TEMPORÄRT
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }   
     }
+
 
     private void SetStatText()
     {

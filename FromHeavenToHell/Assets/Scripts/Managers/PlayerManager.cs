@@ -46,6 +46,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject PlayerAngelInstance { get; private set; }     //Propery för att läsa och skriva till instansen av ängel-spelaren
 
     [SerializeField] private int health;    //Gemensamt liv för spelarna
+    public int Health { get { return health; } }
 
     public bool PlayerDemonCanTeleport { get; set; }    //Håller reda på om demonen står på en teleport-tile eller inte
     public bool PlayerAngelCanTeleport { get; set; }    //Håller reda på om ängeln står på en teleport-tile eller inte
@@ -131,14 +132,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        DeathCheck();
-    }
-
-    /// <summary>
-    /// Kontrollerar om spelarnas liv är mindre eller lika med 0.
-    /// </summary>
-    private void DeathCheck()
-    {
         if (Input.GetKey(KeyCode.P))
         {
             health -= 5;
@@ -147,6 +140,13 @@ public class PlayerManager : MonoBehaviour
         {
             health += 5;
         }
+    }
+
+    /// <summary>
+    /// Kontrollerar om spelarnas liv är mindre eller lika med 0.
+    /// </summary>
+    private void DeathCheck()
+    {
 
         if (health <= 0)
         {
@@ -165,19 +165,20 @@ public class PlayerManager : MonoBehaviour
     {
         health -= damage;
 
-        if(PlayerAngelInstance.CompareTag(player.tag) == true)
+        if (PlayerAngelInstance.CompareTag(player.tag) == true)
         {
-            if(PlayerAngelInstance.CompareTag(caster.tag) == true)
+            if (PlayerAngelInstance.CompareTag(caster.tag) == true)
             {
                 StatTracker.AngelSelfDamage += damage;
             }
-            else if(PlayerDemonInstance.CompareTag(caster.tag) == true)
+            else if (PlayerDemonInstance.CompareTag(caster.tag) == true)
             {
                 StatTracker.DemonDamageDealtToAngel += damage;
             }
+
             StatTracker.AngelDamageTaken += damage;
         }
-        else if(PlayerDemonInstance.CompareTag(player.tag) == true)
+        else if (PlayerDemonInstance.CompareTag(player.tag) == true)
         {
             if (PlayerDemonInstance.CompareTag(caster.tag) == true)
             {
@@ -187,12 +188,11 @@ public class PlayerManager : MonoBehaviour
             {
                 StatTracker.AngelDamageDealtToDemon += damage;
             }
+
             StatTracker.DemonDamageTaken += damage;
         }
+
+        DeathCheck();
     }
 
-    public int GetHealth()
-    {
-        return health;
-    }
 }

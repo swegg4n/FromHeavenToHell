@@ -24,9 +24,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    //[SerializeField] private Tilemap groundTileMap;
-    //[SerializeField] private Tilemap wallTileMap;
-    //[SerializeField] private Tilemap topTileMap;
+
 
     [SerializeField] private GameObject currentRoom;
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
@@ -36,6 +34,8 @@ public class GameManager : MonoBehaviour
     public bool gameWon { set; get; }
 
     public int tileSize { get; private set; }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,9 +45,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameLost == true || gameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
-                                                                                                   //att resize:a en array varje frame! ):<
-        {
+        if (gameLost == true || gameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
+        {                                                                                          //att resize:a en array varje frame! ):<
             AddCurrentGameStats();
 
             if (gameLost == true)
@@ -60,7 +59,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
     private void AddStats(PlayerPrefKey key, int stat)
     {
         int[] statArray = PlayerPrefsX.GetIntArray(key.ToString());
