@@ -5,7 +5,7 @@ public class InputSetup : MonoBehaviour
     private bool playerDemonJoined = false;
     private bool playerAngelJoined = false;
 
-    private bool[] controllerJoined = new bool[] { false, false };
+    //private bool[] controllerJoined = new bool[] { false, false };
     private bool keyboardJoined = false;
 
 
@@ -15,7 +15,7 @@ public class InputSetup : MonoBehaviour
     public string PlayerDemonVerticalAxis { get; private set; }
     public string PlayerDemonHorizontalAimAxis { get; private set; }
     public string PlayerDemonVerticalAimAxis { get; private set; }
-    public string PlayerDemonFire { get; private set; }
+    public string[] PlayerDemonFire { get; private set; }
     /*---*/
 
     /*Angel Inputs*/
@@ -23,7 +23,7 @@ public class InputSetup : MonoBehaviour
     public string PlayerAngelVerticalAxis { get; private set; }
     public string PlayerAngelHorizontalAimAxis { get; private set; }
     public string PlayerAngelVerticalAimAxis { get; private set; }
-    public string PlayerAngelFire { get; private set; }
+    public string[] PlayerAngelFire { get; private set; }
     /*---*/
     #endregion
 
@@ -37,6 +37,8 @@ public class InputSetup : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            PlayerDemonFire = new string[3];
+            PlayerAngelFire = new string[3];
             DontDestroyOnLoad(this);
         }
         else if (instance != this)
@@ -45,7 +47,6 @@ public class InputSetup : MonoBehaviour
         }
     }
     #endregion
-
 
     void Update()
     {
@@ -57,11 +58,11 @@ public class InputSetup : MonoBehaviour
     {
         if (playerDemonJoined == false && playerAngelJoined == false)
         {
-            if (Input.GetButtonDown("R1P1") && controllerJoined[0] == false)
+            if (Input.GetButtonDown("R1P1"))
             {
                 AssignPlayer("PlayerDemon", 1);
             }
-            else if (Input.GetButtonDown("R1P2") && controllerJoined[1] == false)
+            else if (Input.GetButtonDown("R1P2"))
             {
                 AssignPlayer("PlayerDemon", 2);
             }
@@ -72,11 +73,11 @@ public class InputSetup : MonoBehaviour
         }
         else if (playerDemonJoined == true && playerAngelJoined == false)
         {
-            if (Input.GetButtonDown("R1P1") && controllerJoined[0] == false)
+            if (Input.GetButtonDown("R1P1"))
             {
                 AssignPlayer("PlayerAngel", 1);
             }
-            else if (Input.GetButtonDown("R1P2") && controllerJoined[1] == false)
+            else if (Input.GetButtonDown("R1P2"))
             {
                 AssignPlayer("PlayerAngel", 2);
             }
@@ -106,7 +107,9 @@ public class InputSetup : MonoBehaviour
                         PlayerDemonVerticalAxis = "VerticalMouse";
                         //Dont set aimHorizontalAxis to anything
                         //Dont set aimVerticalAxis to anything
-                        PlayerDemonFire = "MouseLeftClick";
+                        PlayerDemonFire[0] = "MouseLeftClick";
+                        PlayerDemonFire[1] = "MouseRightClick";
+                        PlayerDemonFire[2] = "ShiftClick";
 
                         keyboardJoined = true;
 
@@ -118,9 +121,11 @@ public class InputSetup : MonoBehaviour
                         PlayerDemonVerticalAxis = $"VerticalP{controller}";
                         PlayerDemonHorizontalAimAxis = $"HorizontalRightStickP{controller}";
                         PlayerDemonVerticalAimAxis = $"VerticalRightStickP{controller}";
-                        PlayerDemonFire = $"R1P{controller}";
+                        PlayerDemonFire[0] = $"R1P{controller}";
+                        PlayerDemonFire[1] = $"R2P{controller}";
+                        PlayerDemonFire[2] = $"L2P{controller}";
 
-                        controllerJoined[controller - 1] = true;
+                        //controllerJoined[controller - 1] = true;
 
                         Debug.Log($"DEMON using controller {controller}");
                     }
@@ -137,7 +142,9 @@ public class InputSetup : MonoBehaviour
                         PlayerAngelVerticalAxis = "VerticalMouse";
                         //Dont set aimHorizontalAxis to anything
                         //Dont set aimVerticalAxis to anything
-                        PlayerAngelFire = "MouseLeftClick";
+                        PlayerAngelFire[0] = "MouseLeftClick";
+                        PlayerAngelFire[1] = "MouseRightClick";
+                        PlayerAngelFire[2] = "ShiftClick";
 
                         keyboardJoined = true;
 
@@ -149,9 +156,11 @@ public class InputSetup : MonoBehaviour
                         PlayerAngelVerticalAxis = $"VerticalP{controller}";
                         PlayerAngelHorizontalAimAxis = $"HorizontalRightStickP{controller}";
                         PlayerAngelVerticalAimAxis = $"VerticalRightStickP{controller}";
-                        PlayerAngelFire = $"R1P{controller}";
+                        PlayerAngelFire[0] = $"R1P{controller}";
+                        PlayerAngelFire[1] = $"R2P{controller}";
+                        PlayerAngelFire[2] = $"L2P{controller}";
 
-                        controllerJoined[controller - 1] = true;
+                        //controllerJoined[controller - 1] = true;
 
                         Debug.Log($"ANGEL using controller {controller}");
                     }

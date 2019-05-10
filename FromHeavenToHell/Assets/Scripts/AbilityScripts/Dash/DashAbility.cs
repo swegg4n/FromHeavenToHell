@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "Ability/Dash Ability")]
 public class DashAbility : Ability
@@ -62,7 +63,7 @@ public class DashAbility : Ability
     {
         Vector3 targetPosition = caster.transform.position + (Vector3)dashDirection * dashDistance / GameManager.instance.tileSize;
 
-        if (GameManager.instance.CurrentRoom.GetComponent<Room>().CheckOnlyGroundTile(targetPosition) == true)
+        if (GameManager.instance.CurrentRoom.GetComponent<Room>().CheckOnlyGroundTileWorldToCell(targetPosition) == true)
         {
             caster.transform.position = targetPosition;
             return true;

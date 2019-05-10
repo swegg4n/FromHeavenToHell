@@ -2,13 +2,16 @@
 
 public class PlayerFire : MonoBehaviour
 {
-    [SerializeField] private Ability selectedAbility;
+    [SerializeField] private Ability[] abilityList;
 
 
     private void Update()
     {
         CheckFireInput();
-        selectedAbility.Update();
+        foreach (Ability a in abilityList)
+        {
+            a.Update();
+        }
     }
 
 
@@ -20,19 +23,13 @@ public class PlayerFire : MonoBehaviour
             {
                 case "PlayerDemon":
                     {
-                        if (Input.GetButton(PlayerManager.instance.PlayerDemonFire) && selectedAbility != null)
-                        {
-                            selectedAbility.TriggerAbility(gameObject);
-                        }
+                        TriggerAbilityDemon();
                     }
                     break;
 
                 case "PlayerAngel":
                     {
-                        if (Input.GetButton(PlayerManager.instance.PlayerAngelFire) && selectedAbility != null)
-                        {
-                            selectedAbility.TriggerAbility(gameObject);
-                        }
+                        TriggerAbilityAngel();
                     }
                     break;
             }
@@ -43,4 +40,39 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
+    private void TriggerAbilityDemon()
+    {
+        if (Input.GetButton(PlayerManager.instance.PlayerDemonFire[0]) && abilityList[0] != null)
+        {
+            abilityList[0].TriggerAbility(gameObject);
+        }
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[1]) == 1 || Input.GetButton(PlayerManager.instance.PlayerDemonFire[1]))
+            && abilityList[1] != null)
+        {
+            abilityList[1].TriggerAbility(gameObject);
+        }
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[2]) == 1 || Input.GetButton(PlayerManager.instance.PlayerDemonFire[2])) 
+            && abilityList[2] != null)
+        {
+            abilityList[2].TriggerAbility(gameObject);
+        }
+    }
+
+    private void TriggerAbilityAngel()
+    {
+        if (Input.GetButton(PlayerManager.instance.PlayerAngelFire[0]) && abilityList[0] != null)
+        {
+            abilityList[0].TriggerAbility(gameObject);
+        }
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[1]) == 1 || Input.GetButton(PlayerManager.instance.PlayerAngelFire[1]))
+            && abilityList[1] != null)
+        {
+            abilityList[1].TriggerAbility(gameObject);
+        }
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[2]) == 1 || Input.GetButton(PlayerManager.instance.PlayerAngelFire[2]))
+            && abilityList[2] != null)
+        {
+            abilityList[2].TriggerAbility(gameObject);
+        }
+    }
 }
