@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 440901390}
   - component: {fileID: 847202580}
   - component: {fileID: 847202585}
+  - component: {fileID: 4844778798146245860}
+  - component: {fileID: 5762290416051250466}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,7 +54,7 @@ MonoBehaviour:
     type: 3}
   playerAngelPrefab: {fileID: 7963643071853028633, guid: 4db5a0c9487afcc4c8882615c629b4e5,
     type: 3}
-  health: 1000
+  health: 10000
 --- !u!114 &6424370980982477292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867171ba376a7f44abc8616785f13f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenSpawn: 5
-  delay: 1
-  nrOfEnemiesToSpawn: 1
   spawnIndicator: {fileID: 7335792222528850430, guid: 6e87183079f60194d9fe1513258203e4,
     type: 3}
   enemy: {fileID: 5771654108664280101, guid: 72996831fa2e53d4283ca460b88163e7, type: 3}
@@ -97,6 +96,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &847202585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424370980982477283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafc171434118c1448d55dd21838a50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4844778798146245860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424370980982477283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c9740201e5c35488789fe14dd2bdfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5762290416051250466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

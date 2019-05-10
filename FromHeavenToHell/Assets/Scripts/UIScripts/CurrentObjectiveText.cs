@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class CurrentObjectiveText : MonoBehaviour
 {
-    [SerializeField] Text surviveText, killText, bossText;
-    [SerializeField] Slider bossHealthBar;
+    [SerializeField] private Text surviveText, killText, bossText;
+    [SerializeField] private Slider bossHealthBar;
 
     private bool bossHealthBarSet;
+
+    private Color textColor;
 
     Objective currentObjective;
 
@@ -28,47 +30,45 @@ public class CurrentObjectiveText : MonoBehaviour
         if (currentObjective.IsSurviveObjective == true)
         {
             Debug.Log(tag);
-            surviveText.text = "Stay Alive For "
-            + GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
+            surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "
-            + currentObjective.SurvivalTime +
-            " Seconds";
+            + currentObjective.SurvivalTime;
+            surviveText.gameObject.SetActive(true);
         }
         else
         {
-            surviveText.text = "";
+            surviveText.gameObject.SetActive(false);
         }
 
         if (currentObjective.IsKillObjective == true)
         {
-            killText.text = "Kill " + GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount + " Enemies";
+            killText.text = GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount;
+            killText.gameObject.SetActive(true);
         }
         else
         {
-            killText.text = "";
+            killText.gameObject.SetActive(false);
         }
 
         if(currentObjective.IsBossObjective == true)
         {
-            if(bossHealthBarSet == false)
-            {
-                Instantiate(bossHealthBar, gameObject.transform);
-                bossHealthBarSet = true;
-            }
+            bossText.gameObject.SetActive(true);
+            bossHealthBar.gameObject.SetActive(true);
 
-            if(GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
+            if (GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
             {
                 GameManager.instance.gameWon = true;
-                bossText.text = "You Killed The Boss!";
+                bossText.text = "1 / 1";
             }
             else
             {
-                bossText.text = "Kill The Boss!";
+                bossText.text = "0 / 1";
             }
         }
         else
         {
-            bossText.text = "";
+            bossText.gameObject.SetActive(false);
+            bossHealthBar.gameObject.SetActive(false);
         }
     }
 }
