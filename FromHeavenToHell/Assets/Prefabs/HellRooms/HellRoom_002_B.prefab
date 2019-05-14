@@ -7142,7 +7142,7 @@ GameObject:
   - component: {fileID: 5435852174187231166}
   m_Layer: 0
   m_Name: HellRoom_002_B
-  m_TagString: Untagged
+  m_TagString: HellRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
