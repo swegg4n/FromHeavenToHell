@@ -20,4 +20,7 @@ public class Objective : ScriptableObject
     [Tooltip("The number of seconds the players need to survive before completing the objective")]
     [SerializeField] private float survivalTime;        //Tiden man måste överleva. Mäts i sekunder
     public float SurvivalTime { get { return survivalTime; } }
+
+    [SerializeField] private bool objectiveCompleted;
+    public bool ObjectiveCompleted { get { return objectiveCompleted; } set { objectiveCompleted = value; } }
 }

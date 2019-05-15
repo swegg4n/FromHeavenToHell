@@ -64,6 +64,13 @@ public class Room : MonoBehaviour
 
         StartCoroutine(SetUpRoomRelations());
     }
+    private void Start()
+    {
+        if(Objective.IsBossObjective == true)
+        {
+            EnemyManager.instance.BossObjectives.Add(Objective);
+        }
+    }
 
     private IEnumerator SetUpRoomRelations()
     {
@@ -109,7 +116,14 @@ public class Room : MonoBehaviour
 
         if (hit == true)
         {
-            return hit.transform.parent.gameObject;
+            try
+            {
+                return hit.transform.parent.gameObject;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
         else
         {

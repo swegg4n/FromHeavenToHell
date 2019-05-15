@@ -153,7 +153,7 @@ public class PlayerManager : MonoBehaviour
             Destroy(PlayerDemonInstance);
             Destroy(PlayerAngelInstance);
 
-            GameManager.instance.gameLost = true;
+            GameManager.instance.GameLost = true;
         }
     }
 

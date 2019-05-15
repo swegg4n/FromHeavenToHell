@@ -18,11 +18,11 @@ public class EndPanel : MonoBehaviour
             numberOfStats++;
         }
 
-        if (GameManager.instance.gameLost == true)
+        if (GameManager.instance.GameLost == true)
         {
             endText.text = "Npnp, det är Jonathans fel att ni förlorade.\nPress 'Enter' To Continue";
         }
-        else if (GameManager.instance.gameWon == true)
+        else if (GameManager.instance.GameWon == true)
         {
             endText.text = "AWWW SNAP You Won!? Gratz i guess... Not Sure What You Expected Here... \n Press Enter To Continue";
         }

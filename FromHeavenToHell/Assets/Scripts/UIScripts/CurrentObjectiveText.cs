@@ -14,21 +14,23 @@ public class CurrentObjectiveText : MonoBehaviour
 
     Objective currentObjective;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
-
+        bossText.gameObject.SetActive(true);
+        bossText.text = GameManager.instance.GetComponent<ObjectiveController>().NrOfBossesCompleted + "/" + EnemyManager.instance.BossObjectives.Count;
 
         if (currentObjective.IsSurviveObjective == true)
         {
-            Debug.Log(tag);
             surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "
             + currentObjective.SurvivalTime;
@@ -49,24 +51,13 @@ public class CurrentObjectiveText : MonoBehaviour
             killText.gameObject.SetActive(false);
         }
 
-        if(currentObjective.IsBossObjective == true)
+        if (currentObjective.IsBossObjective == true)
         {
-            bossText.gameObject.SetActive(true);
-            bossHealthBar.gameObject.SetActive(true);
 
-            if (GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
-            {
-                GameManager.instance.gameWon = true;
-                bossText.text = "1 / 1";
-            }
-            else
-            {
-                bossText.text = "0 / 1";
-            }
+            bossHealthBar.gameObject.SetActive(true);
         }
         else
         {
-            bossText.gameObject.SetActive(false);
             bossHealthBar.gameObject.SetActive(false);
         }
     }

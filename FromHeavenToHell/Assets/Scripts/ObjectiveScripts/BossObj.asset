@@ -17,3 +17,4 @@ MonoBehaviour:
   isBossObjective: 1
   killCount: 0
   survivalTime: 0
+  objectiveCompleted: 0

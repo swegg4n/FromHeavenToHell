@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
 
 
-    public bool gameLost { set; get; }
-    public bool gameWon { set; get; }
+    public bool GameLost { set; get; }
+    public bool GameWon { set; get; }
 
     public int tileSize { get; private set; }
 
@@ -45,15 +45,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameLost == true || gameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
+        if (GameLost == true || GameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
         {                                                                                          //att resize:a en array varje frame! ):<
             AddCurrentGameStats();
 
-            if (gameLost == true)
+            if (GameLost == true)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene(2);
             }
-            else if (gameWon == true)
+            else if (GameWon == true)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene(2);
             }

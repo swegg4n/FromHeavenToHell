@@ -15,9 +15,12 @@ public class ObjectiveController : MonoBehaviour
     bool killCompleted;
     bool survivalCompleted;
 
+    public int NrOfBossesCompleted { get; private set; }
+
     private void Start()
     {
         StartObjective();
+        NrOfBossesCompleted = 0;
     }
 
     /// <summary>
@@ -34,6 +37,7 @@ public class ObjectiveController : MonoBehaviour
         }
 
         ObjectiveCompleted = false;
+        objective.ObjectiveCompleted = false;
         KillCount = 0;
         TimePassed = 0;
 
@@ -56,6 +60,10 @@ public class ObjectiveController : MonoBehaviour
                 ValidateCompletion();
             }
         }
+        if(NrOfBossesCompleted == EnemyManager.instance.BossObjectives.Count)
+        {
+            GameManager.instance.GameWon = true;
+        }
     }
 
     /// <summary>
@@ -64,7 +72,6 @@ public class ObjectiveController : MonoBehaviour
     public void AddKill()
     {
         KillCount++;
-        Debug.Log($"{KillCount}/{objective.KillCount} kills");
     }
 
     /// <summary>
@@ -90,7 +97,7 @@ public class ObjectiveController : MonoBehaviour
             survivalCompleted = false;
         }
 
-        if(objective.IsBossObjective == false || GameManager.instance.CurrentRoom.GetComponentInChildren<EnemyBaseClass>() == null)
+        if (objective.IsBossObjective == false || GameManager.instance.CurrentRoom.GetComponentInChildren<EnemyBaseClass>() == null)
         {
             BossCompleted = true;
         }
@@ -100,9 +107,13 @@ public class ObjectiveController : MonoBehaviour
         }
 
 
-        if (killCompleted == true && survivalCompleted == true && BossCompleted)
+        if (killCompleted == true && survivalCompleted == true && BossCompleted == true)
         {
             ObjectiveCompleted = true;
+            if(objective.IsBossObjective == true)
+            {
+                NrOfBossesCompleted++;
+            }
             Debug.Log("OBJECTIVE COMPLETED!");
         }
     }

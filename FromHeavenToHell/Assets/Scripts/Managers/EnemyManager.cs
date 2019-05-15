@@ -45,6 +45,7 @@ public class EnemyManager : MonoBehaviour
 
     private Random rnd = new Random();
 
+    public List<Objective> BossObjectives { get; set; }
 
     /// <summary>
     /// Kallas innan första uppdateringen
@@ -52,6 +53,7 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         ResetRoom();
+        BossObjectives = new List<Objective>();
     }
 
     /// <summary>
@@ -62,7 +64,6 @@ public class EnemyManager : MonoBehaviour
     {
         ResetVariabels();
         SpawnPositions();
-
     }
 
     private void SpawnPositions()
@@ -161,7 +162,8 @@ public class EnemyManager : MonoBehaviour
             {
                 enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
                 Destroy(spawnIndicatorList[i]);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
 
             }

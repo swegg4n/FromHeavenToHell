@@ -111,7 +111,7 @@ public class InputSetup : MonoBehaviour
                         PlayerDemonFire[1] = "MouseRightClick";
                         PlayerDemonFire[2] = "ShiftClick";
 
-                        keyboardJoined = true;
+                        //keyboardJoined = true;
 
                         Debug.Log("DEMON using keyboard");
                     }
@@ -146,7 +146,7 @@ public class InputSetup : MonoBehaviour
                         PlayerAngelFire[1] = "MouseRightClick";
                         PlayerAngelFire[2] = "ShiftClick";
 
-                        keyboardJoined = true;
+                        //keyboardJoined = true;
 
                         Debug.Log("ANGEL using keyboard");
                     }

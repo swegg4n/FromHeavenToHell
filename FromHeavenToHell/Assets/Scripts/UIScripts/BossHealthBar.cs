@@ -48,7 +48,6 @@ public class BossHealthBar : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
             maxHPSet = false;
         }
     }
