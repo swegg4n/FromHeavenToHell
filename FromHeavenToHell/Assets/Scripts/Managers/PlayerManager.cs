@@ -105,7 +105,6 @@ public class PlayerManager : MonoBehaviour
     /// <param name="roomToTeleportTo">Rummet som spelarna ska befinna sig i</param>
     public void TeleportPlayers(Vector3? position, GameObject roomToTeleportTo)
     {
-        Debug.Log("teleport to" + roomToTeleportTo);
         ///Kontrollerar så att objektivet är avklarat och spelarna har en position att teleportera till
         if (GameManager.instance.GetComponent<ObjectiveController>().ObjectiveCompleted == true && position != null)
         {
@@ -167,28 +166,33 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerAngelInstance.CompareTag(player.tag) == true)
         {
-            if (PlayerAngelInstance.CompareTag(caster.tag) == true)
+            if(caster != null)
             {
-                StatTracker.AngelSelfDamage += damage;
-            }
-            else if (PlayerDemonInstance.CompareTag(caster.tag) == true)
-            {
-                StatTracker.DemonDamageDealtToAngel += damage;
+                if (PlayerAngelInstance.CompareTag(caster.tag) == true)
+                {
+                    StatTracker.AngelSelfDamage += damage;
+                }
+                else if (PlayerDemonInstance.CompareTag(caster.tag) == true)
+                {
+                    StatTracker.DemonDamageDealtToAngel += damage;
+                }
             }
 
             StatTracker.AngelDamageTaken += damage;
         }
         else if (PlayerDemonInstance.CompareTag(player.tag) == true)
         {
-            if (PlayerDemonInstance.CompareTag(caster.tag) == true)
+            if(caster != null)
             {
-                StatTracker.DemonSelfDamage += damage;
+                if (PlayerDemonInstance.CompareTag(caster.tag) == true)
+                {
+                    StatTracker.DemonSelfDamage += damage;
+                }
+                else if (PlayerAngelInstance.CompareTag(caster.tag) == true)
+                {
+                    StatTracker.AngelDamageDealtToDemon += damage;
+                }
             }
-            else if (PlayerAngelInstance.CompareTag(caster.tag) == true)
-            {
-                StatTracker.AngelDamageDealtToDemon += damage;
-            }
-
             StatTracker.DemonDamageTaken += damage;
         }
 
