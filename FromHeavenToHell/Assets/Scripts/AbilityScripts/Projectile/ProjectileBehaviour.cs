@@ -15,7 +15,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.tileSize > ProjectileAbility.GetRange())
+        if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.TileSize > ProjectileAbility.GetRange())
         {
             Destroy(gameObject);
         }

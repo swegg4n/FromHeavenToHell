@@ -61,7 +61,7 @@ public class DashAbility : Ability
     /// <returns>Returnerar om positionen är möjlig att förflyttas till (Om det finns ett golv där)</returns>
     private bool InstantDash()
     {
-        Vector3 targetPosition = caster.transform.position + (Vector3)dashDirection * dashDistance / GameManager.instance.tileSize;
+        Vector3 targetPosition = caster.transform.position + (Vector3)dashDirection * dashDistance / GameManager.instance.TileSize;
 
         if (GameManager.instance.CurrentRoom.GetComponent<Room>().CheckOnlyGroundTileWorldToCell(targetPosition) == true)
         {
