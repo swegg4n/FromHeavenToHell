@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9202687485556323904}
   - component: {fileID: 4094707546874487870}
   m_Layer: 9
-  m_Name: BigProjectile
+  m_Name: ProjectileEnemyStandard
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9202687485556323905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.007, y: -0.035, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.02}
   m_Children:
   - {fileID: 9202687486713558249}
   m_Father: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 1672218159
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f8d0e28c1c84dd64896a7d617717c673, type: 3}
-  m_Color: {r: 0.9716981, g: 0.9615381, b: 0.42626378, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 11bc73625b56e0f428291730644d69e0, type: 3}
+  m_Color: {r: 0.1393305, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,9 +96,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.049518943, y: 0.5075866}
+  m_Offset: {x: 0.05809158, y: 0}
   serializedVersion: 2
-  m_Radius: 2.6665275
+  m_Radius: 4.701964
 --- !u!50 &9202687485556323904
 Rigidbody2D:
   serializedVersion: 4

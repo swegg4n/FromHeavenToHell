@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d175b3a0d7fd89f4986817b95cd87536, type: 3}
   m_Name: BossSpreadingProjectiles
   m_EditorClassIdentifier: 
-  abilityPrefab: {fileID: 9202687485556323905, guid: 5c94a070556ffcd4b98f5f94772bc363,
+  abilityPrefab: {fileID: 9202687485556323905, guid: 2b8e6ebe019f6434994a3b60849b33bf,
     type: 3}
   abilityName: 01
   abilityIcon: {fileID: 0}
@@ -22,6 +22,6 @@ MonoBehaviour:
   speed: 5
   range: 800
   knockbackForce: 0
-  cooldown: 1
+  cooldown: 0.5
   nrOfProjectiles: 30
   spread: 250

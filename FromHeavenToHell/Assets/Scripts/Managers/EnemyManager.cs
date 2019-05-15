@@ -98,6 +98,7 @@ public class EnemyManager : MonoBehaviour
         nrOfEnemiesToSpawn = GameManager.instance.CurrentRoom.GetComponent<Room>().NrOfEnemiesToSpawn;
         delay = GameManager.instance.CurrentRoom.GetComponent<Room>().Delay;
         timeBetweenSpawn = GameManager.instance.CurrentRoom.GetComponent<Room>().TimeBetweenSpawn;
+        timeSinceLastSpawn = timeBetweenSpawn;
 
         if (enemyList != null)
         {
