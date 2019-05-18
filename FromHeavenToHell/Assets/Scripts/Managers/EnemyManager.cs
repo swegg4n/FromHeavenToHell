@@ -74,9 +74,9 @@ public class EnemyManager : MonoBehaviour
         int roomSizeY = GameManager.instance.CurrentRoom.GetComponent<Room>().GetRoomSize().y;
 
 
-        for (int x = GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x; x < roomSizeX; x++)     //Loopar igenom alla tiles i bredd
+        for (int x = GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item1.x; x < roomSizeX; x++)     //Loopar igenom alla tiles i bredd
         {
-            for (int y = GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x; y < roomSizeY; y++)     //Loopar igenom alla tiles i höjd
+            for (int y = GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item2.x; y < roomSizeY; y++)     //Loopar igenom alla tiles i höjd
             {
                 Vector3Int localPlace = new Vector3Int(x, y, 0);    //Tiles local-position
                 Vector3 place = groundTileMap.CellToWorld(new Vector3Int(localPlace.x, localPlace.y, 0));   //Tilens world-position

@@ -83,6 +83,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoom: {fileID: 0}
+  shadowCube: {fileID: 1568623307414927197, guid: 2e9756d5788c7004cbb28ef28aabea22,
+    type: 3}
 --- !u!114 &847202580
 MonoBehaviour:
   m_ObjectHideFlags: 0

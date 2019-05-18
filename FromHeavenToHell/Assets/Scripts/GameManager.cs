@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject currentRoom;
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
 
+    [SerializeField] private GameObject shadowCube;
+    public GameObject ShadowCube { get { return shadowCube; } }
 
     public bool GameLost { set; get; }
     public bool GameWon { set; get; }

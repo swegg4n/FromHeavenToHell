@@ -24,7 +24,7 @@ public class Room : MonoBehaviour
 
     private List<Vector2> teleportPosList;
 
-    public Tuple<Vector2Int, Vector2Int> roomBounds { get; private set; }
+    public Tuple<Vector2Int, Vector2Int> RoomBounds { get; private set; }
 
     [SerializeField] private float timeBetweenSpawn;    //Tiden det tar mellan varje våg av fiender skapas. Mäts i sekunder
     public float TimeBetweenSpawn { get { return timeBetweenSpawn; } }
@@ -45,31 +45,37 @@ public class Room : MonoBehaviour
             if (t.tag == "Ground")
             {
                 groundTileMap = t;
+                t.GetComponent<TilemapRenderer>().receiveShadows = true;
             }
             else if (t.tag == "Wall")
             {
                 wallTileMap = t;
+                t.GetComponent<TilemapRenderer>().receiveShadows = false;
             }
             else if (t.tag == "TopWall")
             {
                 topTileMap = t;
+                t.GetComponent<TilemapRenderer>().receiveShadows = false;
             }
             else if (t.tag == "Teleport")
             {
                 teleportTileMap = t;
+                t.GetComponent<TilemapRenderer>().receiveShadows = true;
             }
         }
 
-        roomBounds = CalculateBoundsXY();
+        RoomBounds = CalculateBoundsXY();
 
         StartCoroutine(SetUpRoomRelations());
     }
     private void Start()
     {
-        if(Objective.IsBossObjective == true)
+        if (Objective.IsBossObjective == true)
         {
             EnemyManager.instance.BossObjectives.Add(Objective);
         }
+
+        Create3DWalls();
     }
 
     private IEnumerator SetUpRoomRelations()
@@ -97,6 +103,31 @@ public class Room : MonoBehaviour
         belowRoom = CheckSorrundingRoom(Vector2.down);
         rightRoom = CheckSorrundingRoom(Vector2.right);
         leftRoom = CheckSorrundingRoom(Vector2.left);
+    }
+
+    private void Create3DWalls()
+    {
+        int gridSizeX = GetRoomSize().x;
+        int gridSizeY = GetRoomSize().y;
+
+        Vector3Int firstTilePosition = new Vector3Int(RoomBounds.Item1.x, RoomBounds.Item2.x, 0);
+
+        for (int y = 0; y < gridSizeY; y++)
+        {
+            for (int x = 0; x < gridSizeX; x++)
+            {
+                bool isWall = CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x, firstTilePosition.y + y, 0));
+
+                if (isWall == true)
+                {
+                    Vector3 position = new Vector3(firstTilePosition.x + x + transform.position.x + 0.5f, firstTilePosition.y + y + transform.position.y + 0.5f, -0.5f);
+
+                    //Instantiate(GameManager.instance.ShadowCube, position, Quaternion.identity);
+                    GameObject shadowCube = Instantiate(GameManager.instance.ShadowCube, transform);
+                    shadowCube.transform.position = position;
+                }
+            }
+        }
     }
 
     private GameObject CheckSorrundingRoom(Vector2 direction)
@@ -146,8 +177,8 @@ public class Room : MonoBehaviour
 
     public Vector2Int GetRoomSize()
     {
-        int roomSizeX = roomBounds.Item1.y - roomBounds.Item1.x;
-        int roomSizeY = roomBounds.Item2.y - roomBounds.Item2.x;
+        int roomSizeX = RoomBounds.Item1.y - RoomBounds.Item1.x;
+        int roomSizeY = RoomBounds.Item2.y - RoomBounds.Item2.x;
 
         return new Vector2Int(roomSizeX, roomSizeY);
     }

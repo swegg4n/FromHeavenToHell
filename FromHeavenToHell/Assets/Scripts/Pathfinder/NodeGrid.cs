@@ -23,8 +23,8 @@ public class NodeGrid : MonoBehaviour
 
         NodeArray = new Node[gridSizeX, gridSizeY];
         Vector3Int firstTilePosition = new Vector3Int(
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x,
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x, 0);
+            GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item1.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item2.x, 0);
 
         for (int y = 0; y < gridSizeY; y++)
         {
@@ -80,15 +80,15 @@ public class NodeGrid : MonoBehaviour
         int xPos = Mathf.FloorToInt(worldPoint.x - (int)GameManager.instance.CurrentRoom.transform.position.x);
         int yPos = Mathf.FloorToInt(worldPoint.y - (int)GameManager.instance.CurrentRoom.transform.position.y);
 
-        xPos = Mathf.Clamp(xPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.x,
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y - 1);
+        xPos = Mathf.Clamp(xPos, GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item1.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item1.y - 1);
 
-        yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.x,
-            GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y - 1);
+        yPos = Mathf.Clamp(yPos, GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item2.x,
+            GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item2.y - 1);
 
 
-        int xIndex = xPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item1.y;
-        int yIndex = yPos + GameManager.instance.CurrentRoom.GetComponent<Room>().roomBounds.Item2.y;
+        int xIndex = xPos + GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item1.y;
+        int yIndex = yPos + GameManager.instance.CurrentRoom.GetComponent<Room>().RoomBounds.Item2.y;
 
         return NodeArray[xIndex, yIndex];
     }
