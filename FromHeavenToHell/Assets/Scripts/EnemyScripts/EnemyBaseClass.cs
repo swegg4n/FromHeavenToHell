@@ -37,34 +37,42 @@ public class EnemyBaseClass : MonoBehaviour
     {
         if (health <= 0)
         {
-            if(lastHitCastedBy.CompareTag(PlayerManager.instance.PlayerAngelInstance.tag) == true)
+            try
             {
-                StatTracker.DemonEnemiesKilled++;
-            }
-            else if (lastHitCastedBy.CompareTag(PlayerManager.instance.PlayerDemonInstance.tag) == true)
-            {
-                StatTracker.AngelEnemiesKilled++;
-            }
+                if (lastHitCastedBy.CompareTag(PlayerManager.instance.PlayerAngelInstance.tag) == true)
+                {
+                    StatTracker.DemonEnemiesKilled++;
+                }
+                else if (lastHitCastedBy.CompareTag(PlayerManager.instance.PlayerDemonInstance.tag) == true)
+                {
+                    StatTracker.AngelEnemiesKilled++;
+                }
 
-            Destroy(gameObject);
-            GameManager.instance.GetComponent<ObjectiveController>().AddKill();
+                Destroy(gameObject);
+                GameManager.instance.GetComponent<ObjectiveController>().AddKill();
+            }
+            catch { }
         }
     }
 
     public virtual void TakeDamage(int damage, GameObject player)
     {
-        health -= damage;
-
-        lastHitCastedBy = player;
-
-        if (PlayerManager.instance.PlayerAngelInstance.CompareTag(player.tag) == true)
+        try
         {
-            StatTracker.AngelDamageDealtToEnemies += damage;
+            health -= damage;
+
+            lastHitCastedBy = player;
+
+            if (PlayerManager.instance.PlayerAngelInstance.CompareTag(player.tag) == true)
+            {
+                StatTracker.AngelDamageDealtToEnemies += damage;
+            }
+            else if (PlayerManager.instance.PlayerDemonInstance.CompareTag(player.tag) == true)
+            {
+                StatTracker.DemonDamageDealtToEnemies += damage;
+            }
         }
-        else if (PlayerManager.instance.PlayerDemonInstance.CompareTag(player.tag) == true)
-        {
-            StatTracker.DemonDamageDealtToEnemies += damage;
-        }
+        catch { }
     }
 
     public int GetHealth()

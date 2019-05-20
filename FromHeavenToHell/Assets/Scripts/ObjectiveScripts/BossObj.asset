@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BossObj
   m_EditorClassIdentifier: 
   isKillObjective: 0
-  isSurviveObjective: 0
+  isSurviveObjective: 1
   isBossObjective: 1
   killCount: 0
-  survivalTime: 0
+  survivalTime: 5
   objectiveCompleted: 0
