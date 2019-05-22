@@ -27,7 +27,7 @@ public class ProjectileAbility : Ability
         Collider2D hitbox = caster.GetComponent<Collider2D>();
         CooldownController cdController = caster.GetComponent<CooldownController>();
 
-        if (cdController.CooldownPassed() == true)
+        if (cdController.ProjectileCooldownPassed() == true)
         {
             Vector2 direction;
 
@@ -58,7 +58,7 @@ public class ProjectileAbility : Ability
             }
 
 
-            cdController.ResetCooldown(cooldown);
+            cdController.ResetProjectileCooldown(cooldown);
         }
     }
 

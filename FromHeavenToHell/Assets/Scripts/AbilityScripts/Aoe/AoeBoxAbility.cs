@@ -22,7 +22,7 @@ public class AoeBoxAbility : Ability
 
         CooldownController cdController = caster.GetComponent<CooldownController>();
 
-        if (cdController.CooldownPassed() == true)
+        if (cdController.AoeCooldownPassed() == true)
         {
             Vector2 direction;
 
@@ -47,7 +47,7 @@ public class AoeBoxAbility : Ability
 
             aoeBox.GetComponent<AoeBehaviour>().Caster = caster;
 
-            cdController.ResetCooldown(cooldown);
+            cdController.ResetAoeCooldown(cooldown);
         }
     }
 

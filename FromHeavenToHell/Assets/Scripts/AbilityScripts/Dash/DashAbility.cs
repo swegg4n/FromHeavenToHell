@@ -22,7 +22,7 @@ public class DashAbility : Ability
     {
         CooldownController cdController = caster.GetComponent<CooldownController>();
 
-        if(cdController.CooldownPassed() == true)
+        if(cdController.DashCooldownPassed() == true)
         {
             this.caster = caster;
             dashDirection = caster.GetComponent<AimIndicator>().direction.normalized;
@@ -32,13 +32,13 @@ public class DashAbility : Ability
             {
                 caster.GetComponent<PlayerMovement>().Dashing = true;
                 dashSpeed = dashDistance / dashTime;
-                cdController.ResetCooldown(cooldown);
+                cdController.ResetDashCooldown(cooldown);
             }
             else
             {
                 if(InstantDash() == true)
                 {
-                    cdController.ResetCooldown(cooldown);
+                    cdController.ResetDashCooldown(cooldown);
                 }
             }
         }

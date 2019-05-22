@@ -2,14 +2,46 @@
 
 public class CooldownController : MonoBehaviour
 {
-    private float cooldownCountDown;    //tiden som måste väntas. Skrivs i sekunder
+    private float cooldownCountDownProjectile;    //tiden som måste väntas. Skrivs i sekunder
+    private float cooldownCountDownAoe;    //tiden som måste väntas. Skrivs i sekunder
+    private float cooldownCountDownDash;    //tiden som måste väntas. Skrivs i sekunder
 
     /// <summary>
     /// Kontrollerar om väntetiden har passerat eller inte
     /// </summary>
-    public bool CooldownPassed()
+    public bool ProjectileCooldownPassed()
     {
-        if (cooldownCountDown <= 0)
+        if (cooldownCountDownProjectile <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Kontrollerar om väntetiden har passerat eller inte
+    /// </summary>
+    public bool AoeCooldownPassed()
+    {
+        if (cooldownCountDownAoe <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Kontrollerar om väntetiden har passerat eller inte
+    /// </summary>
+    public bool DashCooldownPassed()
+    {
+        if (cooldownCountDownDash <= 0)
         {
             return true;
         }
@@ -26,9 +58,19 @@ public class CooldownController : MonoBehaviour
     {
         if (GameManager.instance.Paused == false)
         {
-            if (cooldownCountDown > 0)
+            if (cooldownCountDownProjectile > 0)
             {
-                cooldownCountDown -= Time.deltaTime;
+                cooldownCountDownProjectile -= Time.deltaTime;
+            }
+
+            if(cooldownCountDownAoe > 0)
+            {
+                cooldownCountDownAoe -= Time.deltaTime;
+            }
+
+            if (cooldownCountDownDash > 0)
+            {
+                cooldownCountDownDash -= Time.deltaTime;
             }
         }
     }
@@ -37,8 +79,26 @@ public class CooldownController : MonoBehaviour
     /// Återställer väntetiden
     /// </summary>
     /// <param name="cooldown">Nya tiden som måste väntas</param>
-    public void ResetCooldown(float cooldown)
+    public void ResetProjectileCooldown(float cooldown)
     {
-        cooldownCountDown = cooldown;
+        cooldownCountDownProjectile = cooldown;
+    }
+
+    /// <summary>
+    /// Återställer väntetiden
+    /// </summary>
+    /// <param name="cooldown">Nya tiden som måste väntas</param>
+    public void ResetAoeCooldown(float cooldown)
+    {
+        cooldownCountDownAoe = cooldown;
+    }
+
+    /// <summary>
+    /// Återställer väntetiden
+    /// </summary>
+    /// <param name="cooldown">Nya tiden som måste väntas</param>
+    public void ResetDashCooldown(float cooldown)
+    {
+        cooldownCountDownDash = cooldown;
     }
 }
