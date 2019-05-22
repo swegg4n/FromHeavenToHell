@@ -439,8 +439,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityList:
   - {fileID: 11400000, guid: e67c97bc5617a204a94088dd0c977ae2, type: 2}
-  - {fileID: 11400000, guid: 3b451312c99a4534186d068b68da8fd9, type: 2}
   - {fileID: 11400000, guid: 683b58c7d8082d342a96f034fb7b6445, type: 2}
+  - {fileID: 11400000, guid: 3b451312c99a4534186d068b68da8fd9, type: 2}
 --- !u!114 &1349391385369179165
 MonoBehaviour:
   m_ObjectHideFlags: 0

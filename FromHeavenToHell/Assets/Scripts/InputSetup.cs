@@ -109,7 +109,7 @@ public class InputSetup : MonoBehaviour
                         //Dont set aimVerticalAxis to anything
                         PlayerDemonFire[0] = "MouseLeftClick";
                         PlayerDemonFire[1] = "MouseRightClick";
-                        PlayerDemonFire[2] = "ShiftClick";
+                        PlayerDemonFire[2] = "Space";
 
                         //keyboardJoined = true;
 
@@ -121,9 +121,9 @@ public class InputSetup : MonoBehaviour
                         PlayerDemonVerticalAxis = $"VerticalP{controller}";
                         PlayerDemonHorizontalAimAxis = $"HorizontalRightStickP{controller}";
                         PlayerDemonVerticalAimAxis = $"VerticalRightStickP{controller}";
-                        PlayerDemonFire[0] = $"R1P{controller}";
-                        PlayerDemonFire[1] = $"R2P{controller}";
-                        PlayerDemonFire[2] = $"L2P{controller}";
+                        PlayerDemonFire[0] = $"R2P{controller}";
+                        PlayerDemonFire[1] = $"L2P{controller}";
+                        PlayerDemonFire[2] = $"R1P{controller}";
 
                         //controllerJoined[controller - 1] = true;
 
@@ -144,7 +144,7 @@ public class InputSetup : MonoBehaviour
                         //Dont set aimVerticalAxis to anything
                         PlayerAngelFire[0] = "MouseLeftClick";
                         PlayerAngelFire[1] = "MouseRightClick";
-                        PlayerAngelFire[2] = "ShiftClick";
+                        PlayerAngelFire[2] = "Space";
 
                         //keyboardJoined = true;
 
@@ -156,9 +156,9 @@ public class InputSetup : MonoBehaviour
                         PlayerAngelVerticalAxis = $"VerticalP{controller}";
                         PlayerAngelHorizontalAimAxis = $"HorizontalRightStickP{controller}";
                         PlayerAngelVerticalAimAxis = $"VerticalRightStickP{controller}";
-                        PlayerAngelFire[0] = $"R1P{controller}";
-                        PlayerAngelFire[1] = $"R2P{controller}";
-                        PlayerAngelFire[2] = $"L2P{controller}";
+                        PlayerAngelFire[0] = $"R2P{controller}";
+                        PlayerAngelFire[1] = $"L2P{controller}";
+                        PlayerAngelFire[2] = $"R1P{controller}";
 
                         //controllerJoined[controller - 1] = true;
 

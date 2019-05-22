@@ -45,16 +45,16 @@ public class PlayerFire : MonoBehaviour
 
     private void TriggerAbilityDemon()
     {
-        if (Input.GetButton(PlayerManager.instance.PlayerDemonFire[0]) && abilityList[0] != null)
+        if (Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[0]) >= 0.01 && abilityList[0] != null)
         {
             abilityList[0].TriggerAbility(gameObject);
         }
-        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[1]) == 1 || Input.GetButton(PlayerManager.instance.PlayerDemonFire[1]))
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[1]) >= 0.01 || Input.GetButton(PlayerManager.instance.PlayerDemonFire[1]))
             && abilityList[1] != null)
         {
             abilityList[1].TriggerAbility(gameObject);
         }
-        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerDemonFire[2]) == 1 || Input.GetButton(PlayerManager.instance.PlayerDemonFire[2])) 
+        if ((Input.GetButton(PlayerManager.instance.PlayerDemonFire[2]) || Input.GetButton(PlayerManager.instance.PlayerDemonFire[2])) 
             && abilityList[2] != null)
         {
             abilityList[2].TriggerAbility(gameObject);
@@ -63,16 +63,16 @@ public class PlayerFire : MonoBehaviour
 
     private void TriggerAbilityAngel()
     {
-        if (Input.GetButton(PlayerManager.instance.PlayerAngelFire[0]) && abilityList[0] != null)
+        if (Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[0]) >= 0.01 && abilityList[0] != null)
         {
             abilityList[0].TriggerAbility(gameObject);
         }
-        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[1]) == 1 || Input.GetButton(PlayerManager.instance.PlayerAngelFire[1]))
+        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[1]) >= 0.01 || Input.GetButton(PlayerManager.instance.PlayerAngelFire[1]))
             && abilityList[1] != null)
         {
             abilityList[1].TriggerAbility(gameObject);
         }
-        if ((Input.GetAxisRaw(PlayerManager.instance.PlayerAngelFire[2]) == 1 || Input.GetButton(PlayerManager.instance.PlayerAngelFire[2]))
+        if ((Input.GetButton(PlayerManager.instance.PlayerAngelFire[2]) || Input.GetButton(PlayerManager.instance.PlayerAngelFire[2]))
             && abilityList[2] != null)
         {
             abilityList[2].TriggerAbility(gameObject);
