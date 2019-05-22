@@ -795,11 +795,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 3526754694927232304, guid: 343b04dbd9525f24da091706c75c2d5d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3526754694927232316, guid: 343b04dbd9525f24da091706c75c2d5d,
         type: 3}
       propertyPath: m_LocalPosition.x

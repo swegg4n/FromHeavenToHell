@@ -157,13 +157,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Tutorial Text: At the top of the screen shows the current objective of
-    the room and how many bosses are left to kill in the level:
-
-
-
-    To get to another room you have to complete the objective and BOTH player have
-    to stand on one of the four room exits:'
+  m_Text: "Objective: At the top of the screen shows the current objective of the
+    room and how many bosses are left to kill in the level.\nLevel: To get to another
+    room you have to complete the objective and BOTH player have to stand on one of
+    the four room exits shown as rainbows. \nAbilities: Each player has 3 abilities
+    that they can use: A projectile on Right Trigger or Left Mouse Button, an aoe
+    ability on Left Trigger or Right Mouse Button and a dash ability on Right Bumper
+    or Space Bar. "
 --- !u!1 &753574651696252305
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5488150231322664239
 RectTransform:
   m_ObjectHideFlags: 0
