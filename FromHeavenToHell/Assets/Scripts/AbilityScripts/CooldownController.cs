@@ -24,9 +24,12 @@ public class CooldownController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (cooldownCountDown > 0)
+        if (GameManager.instance.Paused == false)
         {
-            cooldownCountDown -= Time.deltaTime;
+            if (cooldownCountDown > 0)
+            {
+                cooldownCountDown -= Time.deltaTime;
+            }
         }
     }
 

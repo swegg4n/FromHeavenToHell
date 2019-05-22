@@ -122,7 +122,10 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        UpdateSpawnCooldown();
+        if (GameManager.instance.Paused == false)
+        {
+            UpdateSpawnCooldown();
+        }
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ public class AoeBoxAbility : Ability
             //Konverterar vinkel skriven i radianer till vinkel skriven i grader
             float degAngle = radAngle / (2 * Mathf.PI) * 360;
 
-            Vector2 targetPosition = (Vector2)caster.transform.position + direction.normalized * range / GameManager.instance.tileSize;
+            Vector2 targetPosition = (Vector2)caster.transform.position + direction.normalized * range / GameManager.instance.TileSize;
 
             var aoeBox = Instantiate(abilityPrefab, targetPosition, Quaternion.Euler(0, 0, degAngle));
             aoeBox.GetComponent<AoeBehaviour>().aoeAbility = this;

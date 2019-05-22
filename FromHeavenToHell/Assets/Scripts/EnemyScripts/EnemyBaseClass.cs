@@ -30,7 +30,10 @@ public class EnemyBaseClass : MonoBehaviour
 
     protected virtual void Update()
     {
-        DeathCheck();
+        if (GameManager.instance.Paused == false)
+        {
+            DeathCheck();
+        }
     }
 
     protected void DeathCheck()

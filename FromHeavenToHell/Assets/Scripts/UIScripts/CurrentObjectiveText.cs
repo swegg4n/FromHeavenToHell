@@ -53,8 +53,15 @@ public class CurrentObjectiveText : MonoBehaviour
 
         if (currentObjective.IsBossObjective == true)
         {
-
-            bossHealthBar.gameObject.SetActive(true);
+            if (GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
+            {
+                GameManager.instance.GameWon = true;
+                bossText.text = "1 / 1";
+            }
+            else
+            {
+                bossText.text = "0 / 1";
+            }
         }
         else
         {

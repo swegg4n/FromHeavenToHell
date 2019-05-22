@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System;
 using Assets.Classes;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private GameObject currentRoom;
+    [SerializeField] private GameObject pauseMenuCanvas;
+    [SerializeField] private GameObject playerUICanvas;
+
     public GameObject CurrentRoom { set { currentRoom = value; } get { return currentRoom; } }
 
     [SerializeField] private GameObject shadowCube;
@@ -34,21 +38,38 @@ public class GameManager : MonoBehaviour
 
     public bool GameLost { set; get; }
     public bool GameWon { set; get; }
+    public bool Paused { set; get; }
 
-    public int tileSize { get; private set; }
+    public int TileSize { get; private set; }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        tileSize = 32; //Vem hårdkodade detta? Inte Jonathan eller Oscar i all fall...
+        TileSize = 32; //Oj då, vem hårdkodade detta? Inte Jonathan eller Oscar i all fall...
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameLost == true || GameWon == true)     // if(gameLost == true || gameWon || true)   <-- ok jonathan jag tror inte det är en bra ide
-        {                                                                                          //att resize:a en array varje frame! ):<
+        if(Input.GetKeyDown(KeyCode.P) == true)
+        {
+            Paused = !Paused;
+        }
+
+        if(Paused == true)
+        {
+            pauseMenuCanvas.SetActive(true);
+            playerUICanvas.SetActive(false);
+        }
+        else
+        {
+            pauseMenuCanvas.SetActive(false);
+            playerUICanvas.SetActive(true);
+        }
+
+        if (GameLost == true || GameWon == true)
+        { 
             AddCurrentGameStats();
 
             if (GameLost == true)

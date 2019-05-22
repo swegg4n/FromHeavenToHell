@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private int health;    //Gemensamt liv för spelarna
     public int Health { get { return health; } }
+    public int MaxHealth { get; private set; }
 
     public bool PlayerDemonCanTeleport { get; set; }    //Håller reda på om demonen står på en teleport-tile eller inte
     public bool PlayerAngelCanTeleport { get; set; }    //Håller reda på om ängeln står på en teleport-tile eller inte
@@ -57,6 +58,8 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        MaxHealth = health;
+
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
 
@@ -131,13 +134,16 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Input.GetKey(KeyCode.P))
+        if (GameManager.instance.Paused == false)
         {
-            health -= 5;
-        }
-        else if (Input.GetKey(KeyCode.O))
-        {
-            health += 5;
+            if (Input.GetKey(KeyCode.K))
+            {
+                health = MaxHealth;
+            }
+            else if (Input.GetKey(KeyCode.L))
+            {
+                health -= 10;
+            }
         }
     }
 

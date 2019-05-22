@@ -7,17 +7,28 @@ public class ProjectileBehaviour : MonoBehaviour
     public ProjectileAbility ProjectileAbility { set; get;}
     public GameObject Caster { set; get; }
     private Vector2 startPosition;
+    private Vector2 velocity;
 
     void Start()
     {
+        velocity = GetComponent<Rigidbody2D>().velocity;
         startPosition = Caster.transform.position;
     }
 
     void Update()
     {
-        if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.tileSize > ProjectileAbility.GetRange())
+        if (GameManager.instance.Paused == false)
         {
-            Destroy(gameObject);
+            gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
+
+            if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.TileSize > ProjectileAbility.GetRange())
+            {
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 
