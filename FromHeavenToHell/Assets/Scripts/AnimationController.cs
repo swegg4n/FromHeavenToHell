@@ -25,32 +25,35 @@ public class AnimationController : MonoBehaviour
 
     void Update()
     {
-        CheckIfMoving();
+        if (GameManager.instance.Paused == false)
+        {
+            CheckIfMoving();
 
-        normalizedDirection = GetComponentInChildren<AimIndicator>().direction.normalized;
+            normalizedDirection = GetComponentInChildren<AimIndicator>().direction.normalized;
 
-        koeficient = normalizedDirection.y / normalizedDirection.x;
+            koeficient = normalizedDirection.y / normalizedDirection.x;
 
 
-        if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
-        {
-            animator.SetInteger("AnimationSelector", (int)AnimationSelector.Right);  
-        }
-        else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
-        {
-            animator.SetInteger("AnimationSelector", (int)AnimationSelector.Left);
-        }
-        else if((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
-        {
-            animator.SetInteger("AnimationSelector", (int)AnimationSelector.Up);
-        }
-        else if((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
-        {
-            animator.SetInteger("AnimationSelector", (int)AnimationSelector.Down);
-        }
-        else
-        {
-            animator.SetInteger("AnimationSelector", (int)AnimationSelector.Idle);
+            if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
+            {
+                animator.SetInteger("AnimationSelector", (int)AnimationSelector.Right);
+            }
+            else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
+            {
+                animator.SetInteger("AnimationSelector", (int)AnimationSelector.Left);
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
+            {
+                animator.SetInteger("AnimationSelector", (int)AnimationSelector.Up);
+            }
+            else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
+            {
+                animator.SetInteger("AnimationSelector", (int)AnimationSelector.Down);
+            }
+            else
+            {
+                animator.SetInteger("AnimationSelector", (int)AnimationSelector.Idle);
+            }
         }
     }
 

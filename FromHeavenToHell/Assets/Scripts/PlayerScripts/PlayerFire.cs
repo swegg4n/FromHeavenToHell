@@ -7,10 +7,13 @@ public class PlayerFire : MonoBehaviour
 
     private void Update()
     {
-        CheckFireInput();
-        foreach (Ability a in abilityList)
+        if (GameManager.instance.Paused == false)
         {
-            a.Update();
+            CheckFireInput();
+            foreach (Ability a in abilityList)
+            {
+                a.Update();
+            }
         }
     }
 

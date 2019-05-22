@@ -130,11 +130,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUICanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 2976047663027179880, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 859639698023684847, guid: c57f9fa7f5034db4e9361a0b0ea72661,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -310,42 +305,12 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3318502924409580332, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3318502924409580332, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3318502924409580332, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2809893071174372988, guid: c57f9fa7f5034db4e9361a0b0ea72661,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2809893071174372988, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5120655698665264624, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5120655698665264624, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5120655698665264624, guid: c57f9fa7f5034db4e9361a0b0ea72661,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2181,11 +2146,6 @@ PrefabInstance:
     - target: {fileID: 3526754694927232316, guid: 343b04dbd9525f24da091706c75c2d5d,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1295780251882387472, guid: 343b04dbd9525f24da091706c75c2d5d,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

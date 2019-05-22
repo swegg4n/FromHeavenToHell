@@ -30,8 +30,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //GetInput();
-        MovePlayer();
+        if(GameManager.instance.Paused == false)
+        {
+            //GetInput();
+            MovePlayer();
+        }
     }
 
     #region old

@@ -45,15 +45,18 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (ObjectiveCompleted == false)
+        if (GameManager.instance.Paused == false)
         {
-            if (TimePassed < objective.SurvivalTime)
+            if (ObjectiveCompleted == false)
             {
-                TimePassed += Time.deltaTime;
-            }
-            else
-            {
-                ValidateCompletion();
+                if (TimePassed < objective.SurvivalTime)
+                {
+                    TimePassed += Time.deltaTime;
+                }
+                else
+                {
+                    ValidateCompletion();
+                }
             }
         }
     }

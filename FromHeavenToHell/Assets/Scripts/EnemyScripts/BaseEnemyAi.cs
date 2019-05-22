@@ -28,26 +28,29 @@ public class BaseEnemyAi : MonoBehaviour
 
     void Update()
     {
-        CheckIfHitAndFire();
-
-        if (stationary == false)
+        if (GameManager.instance.Paused == false)
         {
+            CheckIfHitAndFire();
 
-            if (GetComponent<Pathfinder>().FinalPath != null)
+            if (stationary == false)
             {
-                if (GetComponent<Pathfinder>().FinalPath.Count > 0)
+
+                if (GetComponent<Pathfinder>().FinalPath != null)
                 {
-                    if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
-                        GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
+                    if (GetComponent<Pathfinder>().FinalPath.Count > 0)
+                    {
+                        if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
+                            GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
+                        {
+                            GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
+                        }
+                    }
+                    else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                     {
                         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                     }
+                    MoveToNextTile();
                 }
-                else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
-                {
-                    GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
-                }
-                MoveToNextTile();
             }
         }
 

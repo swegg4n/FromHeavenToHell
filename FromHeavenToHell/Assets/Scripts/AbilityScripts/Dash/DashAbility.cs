@@ -46,11 +46,14 @@ public class DashAbility : Ability
 
     public override void Update()
     {
-        if(caster != null)
+        if (GameManager.instance.Paused == false)
         {
-            if (caster.GetComponent<PlayerMovement>().Dashing == true)
+            if (caster != null)
             {
-                NormalDash();
+                if (caster.GetComponent<PlayerMovement>().Dashing == true)
+                {
+                    NormalDash();
+                }
             }
         }
     }

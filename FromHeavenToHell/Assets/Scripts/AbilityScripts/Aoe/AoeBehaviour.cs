@@ -6,39 +6,51 @@ public class AoeBehaviour : MonoBehaviour
 {
     public AoeBoxAbility aoeAbility { set; get; }
     public GameObject Caster { set; get; }
-    private float timeSinceLastTick;
+    private float timeSinceLastTick, timeSinceCast;
     private bool resetClock;
     [SerializeField] private bool selfDamage;
 
     void Start()
     {
-        Destroy(gameObject, aoeAbility.GetActiveDuration());
+
     }
 
     void Update()
     {
-        if (resetClock == true)
+        if (GameManager.instance.Paused == false)
         {
-            timeSinceLastTick = 0;
-            resetClock = false;
-        }
+            if (resetClock == true)
+            {
+                timeSinceLastTick = 0;
+                resetClock = false;
+            }
 
-        timeSinceLastTick += Time.deltaTime;
+            if (timeSinceCast > aoeAbility.GetActiveDuration())
+            {
+                Destroy(gameObject);
+            }
+
+            timeSinceLastTick += Time.deltaTime;
+            timeSinceCast += Time.deltaTime;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
+        if (GameManager.instance.Paused == false)
         {
-            if(Caster == null)
+            if (timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
             {
-                TakeDamage(other);
+                if (Caster == null)
+                {
+                    TakeDamage(other);
+                }
+                else if (Caster.tag != other.tag || selfDamage == true)
+                {
+                    TakeDamage(other);
+                }
+                resetClock = true;
             }
-            else if (Caster.tag != other.tag || selfDamage == true)
-            {
-                TakeDamage(other);
-            }
-            resetClock = true;
         }
     }
 

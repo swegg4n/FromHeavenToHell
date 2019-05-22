@@ -14,33 +14,37 @@ public class AimIndicator : MonoBehaviour
 
     void Update()
     {
-        CheckAimInput();
+        if (GameManager.instance.Paused == false)
+        {
 
-        #region old
-        /*
-        if (gameObject.tag == "PlayerDemon")
-        {
-            if (PlayerManager.instance.PlayerDemonUsingMouse == true)
+            CheckAimInput();
+
+            #region old
+            /*
+            if (gameObject.tag == "PlayerDemon")
             {
-                MoveSightKeyboard();
+                if (PlayerManager.instance.PlayerDemonUsingMouse == true)
+                {
+                    MoveSightKeyboard();
+                }
+                else
+                {
+                    MoveSightJoystick("P1");
+                }
             }
-            else
+            else if(gameObject.tag == "PlayerAngel")
             {
-                MoveSightJoystick("P1");
-            }
+                if (PlayerManager.instance.PlayerAngelUsingMouse == true)
+                {
+                    MoveSightKeyboard();
+                }
+                else
+                {
+                    MoveSightJoystick("P2");
+                }
+            }*/
+            #endregion
         }
-        else if(gameObject.tag == "PlayerAngel")
-        {
-            if (PlayerManager.instance.PlayerAngelUsingMouse == true)
-            {
-                MoveSightKeyboard();
-            }
-            else
-            {
-                MoveSightJoystick("P2");
-            }
-        }*/ 
-        #endregion
     }
 
     private void CheckAimInput()
