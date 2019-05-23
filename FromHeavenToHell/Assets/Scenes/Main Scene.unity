@@ -667,6 +667,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &469911139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077342485293369825, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1685518216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &497354762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,12 +1122,6 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
---- !u!1 &873465989 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8077342485293369825, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
-    type: 3}
-  m_PrefabInstance: {fileID: 1685518216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!213 &988699060
 Sprite:
   m_ObjectHideFlags: 0
@@ -3083,7 +3083,7 @@ PrefabInstance:
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: currentRoom
       value: 
-      objectReference: {fileID: 873465989}
+      objectReference: {fileID: 469911139}
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: pauseMenuCanvas
       value: 

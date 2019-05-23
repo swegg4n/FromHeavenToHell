@@ -17,10 +17,10 @@ MonoBehaviour:
   abilityName: New Ability
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 500
-  optimalRange: 800
+  damage: 1000
+  optimalRange: 600
   speed: 3
-  range: 800
+  range: 600
   knockbackForce: 0
   cooldown: 1.5
   nrOfProjectiles: 1
