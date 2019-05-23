@@ -12,6 +12,10 @@ public class Room : MonoBehaviour
     [SerializeField] private Objective objective;
     public Objective Objective { get { return objective; } }
 
+    public bool IsHeavenRoom { get; private set; }
+    public bool IsHellRoom { get; private set; }
+    public bool IsBossRoom { get; private set; }
+
     private Tilemap groundTileMap;
     private Tilemap wallTileMap;
     private Tilemap topTileMap;
@@ -70,6 +74,19 @@ public class Room : MonoBehaviour
     }
     private void Start()
     {
+        if(gameObject.tag == "HeavenRoom")
+        {
+            IsHeavenRoom = true;
+        }
+        else if(gameObject.tag == "HellRoom")
+        {
+            IsHellRoom = true;
+        }
+        else if(gameObject.tag == "BossRoom")
+        {
+            IsBossRoom = true;
+        }
+
         if (Objective.IsBossObjective == true)
         {
             EnemyManager.instance.BossObjectives.Add(Objective);
