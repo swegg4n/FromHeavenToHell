@@ -21,5 +21,5 @@ MonoBehaviour:
   optimalRange: 200
   cooldown: 2
   activeDuration: 3
-  timeBetweenTicks: 2
+  timeBetweenTicks: 0.2
   range: 80

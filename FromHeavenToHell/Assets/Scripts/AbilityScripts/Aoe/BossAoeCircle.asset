@@ -17,8 +17,8 @@ MonoBehaviour:
   abilityName: 03
   abilityIcon: {fileID: 0}
   abilitySound: {fileID: 0}
-  damage: 10
-  optimalRange: 800
+  damage: 50
+  optimalRange: 600
   cooldown: 3
   activeDuration: 8
   timeBetweenTicks: 0.2
