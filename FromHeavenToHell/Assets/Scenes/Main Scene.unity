@@ -1116,6 +1116,12 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
+--- !u!1 &873465989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077342485293369825, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1685518216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!213 &988699060
 Sprite:
   m_ObjectHideFlags: 0
@@ -2823,12 +2829,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36d657ce0fd0f2144b0bb20a24e44fae, type: 3}
---- !u!1 &1685518217 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8077342485293369825, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
-    type: 3}
-  m_PrefabInstance: {fileID: 1685518216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1758577016 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 14657225559868995, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
@@ -3083,7 +3083,7 @@ PrefabInstance:
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: currentRoom
       value: 
-      objectReference: {fileID: 1685518217}
+      objectReference: {fileID: 873465989}
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: pauseMenuCanvas
       value: 
