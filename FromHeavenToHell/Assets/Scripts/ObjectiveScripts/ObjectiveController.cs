@@ -116,7 +116,8 @@ public class ObjectiveController : MonoBehaviour
             if(objective.IsBossObjective == true)
             {
                 NrOfBossesCompleted++;
-                PlayerManager.instance.Heal(PlayerManager.instance.MaxHealth);
+                //PlayerManager.instance.Heal(PlayerManager.instance.MaxHealth);
+                PlayerManager.instance.Health = PlayerManager.instance.MaxHealth;
             }
             Debug.Log("OBJECTIVE COMPLETED!");
         }

@@ -33,7 +33,7 @@ public class CurrentObjectiveText : MonoBehaviour
         bossText.gameObject.SetActive(true);
         bossText.text = GameManager.instance.GetComponent<ObjectiveController>().NrOfBossesCompleted + "/" + EnemyManager.instance.BossObjectives.Count;
 
-        if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsHeavenRoom == true)
+        if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsHeavenRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
 
@@ -41,7 +41,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.red;
             killText.color = Color.red;
         }
-        else if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsHellRoom == true)
+        else if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsHellRoom == true)
         {
             RenderSettings.ambientLight = hellAmbientColor;
 
@@ -49,7 +49,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.green;
             killText.color = Color.green;
         }
-        else if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == true)
+        else if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
 
@@ -58,7 +58,7 @@ public class CurrentObjectiveText : MonoBehaviour
             killText.color = Color.red;
         }
 
-        if (currentObjective.IsSurviveObjective == true)
+        if (currentObjective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false)
         {
             surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "
@@ -70,7 +70,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.gameObject.SetActive(false);
         }
 
-        if (currentObjective.IsKillObjective == true)
+        if (currentObjective.IsKillObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false)
         {
             killText.text = GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount;
             killText.gameObject.SetActive(true);

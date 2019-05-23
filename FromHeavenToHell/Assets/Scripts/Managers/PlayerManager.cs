@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject PlayerAngelInstance { get; private set; }     //Propery för att läsa och skriva till instansen av ängel-spelaren
 
     [SerializeField] private int health;    //Gemensamt liv för spelarna
-    public int Health { get { return health; } }
+    public int Health { get { return health; } set { health = value; } }
     public int MaxHealth { get; private set; }
 
     public bool PlayerDemonCanTeleport { get; set; }    //Håller reda på om demonen står på en teleport-tile eller inte

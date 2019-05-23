@@ -9,6 +9,8 @@ public class AoeBehaviour : MonoBehaviour
     private float timeSinceLastTick, timeSinceCast;
     private bool resetClock;
     [SerializeField] private bool selfDamage;
+    private const float fadeTime = 1f;
+    private const float rotationSpeed = -0.075f;
 
     void Start()
     {
@@ -25,9 +27,21 @@ public class AoeBehaviour : MonoBehaviour
                 resetClock = false;
             }
 
+            if (aoeAbility.GetActiveDuration() - timeSinceCast <= fadeTime)
+            {
+                Color abilityColor = GetComponent<SpriteRenderer>().color;
+                abilityColor = new Color(abilityColor.r, abilityColor.b, abilityColor.g, abilityColor.a -= Time.deltaTime * fadeTime);
+                GetComponent<SpriteRenderer>().color = abilityColor;
+            }
+
             if (timeSinceCast > aoeAbility.GetActiveDuration())
             {
                 Destroy(gameObject);
+            }
+
+            if (GetComponent<SpriteRenderer>().sprite.name == "CircleAOE")  //hardcode
+            {
+                transform.Rotate(Vector3.forward, rotationSpeed);
             }
 
             timeSinceLastTick += Time.deltaTime;
