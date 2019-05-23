@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class InputSetup : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class InputSetup : MonoBehaviour
     //private bool[] controllerJoined = new bool[] { false, false };
     private bool keyboardJoined = false;
 
+    [SerializeField] private Text playerSelecionText;
+    [SerializeField] private Image demonImage;
+    [SerializeField] private Image angelImage;
 
     #region Input
     /*Demon Inputs*/
@@ -51,9 +55,7 @@ public class InputSetup : MonoBehaviour
 
     void Update()
     {
-        SelectInputMethod();
-        if (Input.GetButtonDown("MouseLeftClick"))
-            Test();
+        SelectInputMethod();            
     }
 
 
@@ -61,6 +63,10 @@ public class InputSetup : MonoBehaviour
     {
         if (playerDemonJoined == false && playerAngelJoined == false)
         {
+            playerSelecionText.text = "Click left mouse button on mouse and keyboard or right bumper on controller to play as the demon. ";
+            demonImage.gameObject.SetActive(true);
+            angelImage.gameObject.SetActive(false);
+
             if (Input.GetButtonDown("R1P1"))
             {
                 AssignPlayer("PlayerDemon", 1);
@@ -76,6 +82,10 @@ public class InputSetup : MonoBehaviour
         }
         else if (playerDemonJoined == true && playerAngelJoined == false)
         {
+            playerSelecionText.text = "Click left mouse button on mouse and keyboard or right bumper on controller to play as the angel. ";
+            demonImage.gameObject.SetActive(false);
+            angelImage.gameObject.SetActive(true);
+
             if (Input.GetButtonDown("R1P1"))
             {
                 AssignPlayer("PlayerAngel", 1);
