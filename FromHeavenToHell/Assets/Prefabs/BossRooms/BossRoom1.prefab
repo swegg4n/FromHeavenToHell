@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf341d6c61754e42b5c665e060cc948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 3000
   speedFactor: 50
   availableAbilities: []
   abilityList:
