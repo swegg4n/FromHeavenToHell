@@ -8,6 +8,9 @@ public class CurrentObjectiveText : MonoBehaviour
     [SerializeField] private Text surviveText, killText, bossText;
     [SerializeField] private Slider bossHealthBar;
 
+    private Color hellAmbientColor;
+    private Color heavenAmbientColor;
+
     private bool bossHealthBarSet;
 
     private Color textColor;
@@ -19,7 +22,8 @@ public class CurrentObjectiveText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hellAmbientColor = new Color(0.75f, 0.1f, 0.1f);
+        heavenAmbientColor = new Color(0.75f, 1f, 1f);
     }
 
     // Update is called once per frame
@@ -28,6 +32,31 @@ public class CurrentObjectiveText : MonoBehaviour
         currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
         bossText.gameObject.SetActive(true);
         bossText.text = GameManager.instance.GetComponent<ObjectiveController>().NrOfBossesCompleted + "/" + EnemyManager.instance.BossObjectives.Count;
+
+        if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsHeavenRoom == true)
+        {
+            RenderSettings.ambientLight = heavenAmbientColor;
+
+            bossText.color = Color.red;
+            surviveText.color = Color.red;
+            killText.color = Color.red;
+        }
+        else if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsHellRoom == true)
+        {
+            RenderSettings.ambientLight = hellAmbientColor;
+
+            bossText.color = Color.green;
+            surviveText.color = Color.green;
+            killText.color = Color.green;
+        }
+        else if(GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == true)
+        {
+            RenderSettings.ambientLight = heavenAmbientColor;
+
+            bossText.color = Color.red;
+            surviveText.color = Color.red;
+            killText.color = Color.red;
+        }
 
         if (currentObjective.IsSurviveObjective == true)
         {
