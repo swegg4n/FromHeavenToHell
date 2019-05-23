@@ -299,6 +299,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1894279178749616101, guid: c57f9fa7f5034db4e9361a0b0ea72661,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2809893071174372988, guid: c57f9fa7f5034db4e9361a0b0ea72661,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -307,11 +312,6 @@ PrefabInstance:
     - target: {fileID: 2809893071174372988, guid: c57f9fa7f5034db4e9361a0b0ea72661,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1894279178749616101, guid: c57f9fa7f5034db4e9361a0b0ea72661,
-        type: 3}
-      propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -667,12 +667,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &469911139 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8077342485293369825, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
-    type: 3}
-  m_PrefabInstance: {fileID: 1685518216}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &497354762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2207,6 +2201,11 @@ PrefabInstance:
       propertyPath: m_Spacing.y
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 13163738307763508, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6251293635316038881, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
         type: 3}
       propertyPath: m_IsActive
@@ -2829,6 +2828,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36d657ce0fd0f2144b0bb20a24e44fae, type: 3}
+--- !u!1 &1685518217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4716284832590405783, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1685518216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1758577016 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 14657225559868995, guid: 36d657ce0fd0f2144b0bb20a24e44fae,
@@ -3083,7 +3088,7 @@ PrefabInstance:
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: currentRoom
       value: 
-      objectReference: {fileID: 469911139}
+      objectReference: {fileID: 1685518217}
     - target: {fileID: 440901390, guid: eac1c08022ad78449b659c41f4f70fad, type: 3}
       propertyPath: pauseMenuCanvas
       value: 
