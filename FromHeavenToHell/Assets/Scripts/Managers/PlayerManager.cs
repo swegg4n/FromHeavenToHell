@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
 
-        ///Inputs för demonen
+        // Inputs för demonen
         PlayerDemonHorizontalAxis = InputSetup.instance.PlayerDemonHorizontalAxis;
         PlayerDemonVerticalAxis = InputSetup.instance.PlayerDemonVerticalAxis;
         PlayerDemonHorizontalAimAxis = InputSetup.instance.PlayerDemonHorizontalAimAxis;

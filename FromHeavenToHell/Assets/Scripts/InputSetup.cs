@@ -45,12 +45,15 @@ public class InputSetup : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
     #endregion
 
     void Update()
     {
         SelectInputMethod();
+        if (Input.GetButtonDown("MouseLeftClick"))
+            Test();
     }
 
 
@@ -95,6 +98,27 @@ public class InputSetup : MonoBehaviour
 
     }
 
+    private void Test()
+    {
+        PlayerAngelHorizontalAxis = "HorizontalMouse";
+        PlayerAngelVerticalAxis = "VerticalMouse";
+        //Dont set aimHorizontalAxis to anything
+        //Dont set aimVerticalAxis to anything
+        PlayerAngelFire[0] = "MouseLeftClick";
+        PlayerAngelFire[1] = "MouseRightClick";
+        PlayerAngelFire[2] = "ShiftClick";
+
+        PlayerDemonHorizontalAxis = "HorizontalMouse";
+        PlayerDemonVerticalAxis = "VerticalMouse";
+        //Dont set aimHorizontalAxis to anything
+        //Dont set aimVerticalAxis to anything
+        PlayerDemonFire[0] = "MouseLeftClick";
+        PlayerDemonFire[1] = "MouseRightClick";
+        PlayerDemonFire[2] = "ShiftClick";
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+
+    }
     private void AssignPlayer(string playerTag, int controller)
     {
         switch (playerTag)
