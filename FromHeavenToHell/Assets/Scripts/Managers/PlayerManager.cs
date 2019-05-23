@@ -129,6 +129,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void Heal(int heal)
+    {
+        health += heal;
+    }
     /// <summary>
     /// Kallas varje frame
     /// </summary>
