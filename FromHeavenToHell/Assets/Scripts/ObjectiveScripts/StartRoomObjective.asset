@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isKillObjective: 0
   isSurviveObjective: 1
+  isBossObjective: 0
   killCount: 0
-  survivalTime: 5
+  survivalTime: 3
+  objectiveCompleted: 0

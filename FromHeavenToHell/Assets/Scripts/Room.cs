@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     [SerializeField] private Objective objective;
     public Objective Objective { get { return objective; } }
 
+    public bool IsStartRoom { get; private set; }
     public bool IsHeavenRoom { get; private set; }
     public bool IsHellRoom { get; private set; }
     public bool IsBossRoom { get; private set; }
@@ -74,15 +75,19 @@ public class Room : MonoBehaviour
     }
     private void Start()
     {
-        if(gameObject.tag == "HeavenRoom")
+        if (gameObject.tag == "StartRoom")
+        {
+            IsStartRoom = true;
+        }
+        else if (gameObject.tag == "HeavenRoom")
         {
             IsHeavenRoom = true;
         }
-        else if(gameObject.tag == "HellRoom")
+        else if (gameObject.tag == "HellRoom")
         {
             IsHellRoom = true;
         }
-        else if(gameObject.tag == "BossRoom")
+        else if (gameObject.tag == "BossRoom")
         {
             IsBossRoom = true;
         }

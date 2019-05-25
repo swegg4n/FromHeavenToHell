@@ -17,6 +17,7 @@ TagManager:
   - HellRoom
   - HeavenRoom
   - BossRoom
+  - StartRoom
   layers:
   - Default
   - TransparentFX

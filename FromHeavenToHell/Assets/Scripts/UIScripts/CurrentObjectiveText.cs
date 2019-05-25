@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CurrentObjectiveText : MonoBehaviour
 {
     [SerializeField] private Text surviveText, killText, bossText;
+    [SerializeField] private GameObject tutPanel;
     [SerializeField] private Slider bossHealthBar;
 
     private Color hellAmbientColor;
@@ -58,7 +59,8 @@ public class CurrentObjectiveText : MonoBehaviour
             killText.color = Color.red;
         }
 
-        if (currentObjective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false)
+        if (currentObjective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
+            GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
         {
             surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
             " / "
@@ -70,7 +72,8 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.gameObject.SetActive(false);
         }
 
-        if (currentObjective.IsKillObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false)
+        if (currentObjective.IsKillObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
+                GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
         {
             killText.text = GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount;
             killText.gameObject.SetActive(true);
@@ -78,6 +81,15 @@ public class CurrentObjectiveText : MonoBehaviour
         else
         {
             killText.gameObject.SetActive(false);
+        }
+
+        if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == true)
+        {
+            tutPanel.SetActive(true);
+        }
+        else
+        {
+            tutPanel.SetActive(false);
         }
 
         if (currentObjective.IsBossObjective == true)
