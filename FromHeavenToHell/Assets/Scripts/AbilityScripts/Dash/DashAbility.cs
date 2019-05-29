@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(menuName = "Ability/Dash Ability")]
 public class DashAbility : Ability
 {
     private GameObject caster;
 
-    [SerializeField] private float dashDistance;    //Distansen användaren ska förflyttas. Mäts i ...
-    [SerializeField] private float dashTime;    //Tiden under vilken användaren ska förflyttas. Mäts i sekunder
-    [SerializeField] private float cooldown;    //Tiden användaren måste vänta innan abilityn kan användas. Mäts i sekunder 
-    private float dashSpeed;    //Farten användaren ska förflyttas med. Mäts i ...
+    [SerializeField] private float dashDistance;    //Distansen användaren ska förflyttas
+    [SerializeField] private float dashTime;    //Tiden under vilken användaren ska förflyttas
+    [SerializeField] private float cooldown;    //Tiden användaren måste vänta innan abilityn kan användas
+    private float dashSpeed;    //Farten användaren ska förflyttas med
     private Vector2 dashDirection;  //Riktningen för förflyttning
-    private float timeCounter;  //
+    private float timeCounter;
     private bool instantDash;   //Ifall användaren ska teleporteras direkt till mål eller förflyttas över tid
 
     /// <summary>
@@ -22,11 +21,10 @@ public class DashAbility : Ability
     {
         CooldownController cdController = caster.GetComponent<CooldownController>();
 
-        if(cdController.DashCooldownPassed() == true)
+        if (cdController.DashCooldownPassed() == true)
         {
             this.caster = caster;
-            dashDirection = caster.GetComponent<AimIndicator>().direction.normalized;
-            
+            dashDirection = caster.GetComponent<AimIndicator>().Direction.normalized;
 
             if (dashTime != 0)
             {
@@ -36,7 +34,7 @@ public class DashAbility : Ability
             }
             else
             {
-                if(InstantDash() == true)
+                if (InstantDash() == true)
                 {
                     cdController.ResetDashCooldown(cooldown);
                 }

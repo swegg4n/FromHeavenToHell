@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BossHealthBar : MonoBehaviour
@@ -9,19 +7,18 @@ public class BossHealthBar : MonoBehaviour
     private float healthPercentage, greenColorPercentage, redColorPercentage;
     private bool maxHPSet;
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.CurrentRoom.GetComponent<Room>().Objective.IsBossObjective == true
+        UpdateBossHealthBar();
+    }
+
+    private void UpdateBossHealthBar()
+    {
+        if (GameManager.instance.CurrentRoom.GetComponent<Room>().Objective.IsBossObjective == true
             && GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == false)
         {
-            if(maxHPSet == false)
+            if (maxHPSet == false)
             {
                 maxHP = GameManager.instance.CurrentRoom.GetComponentInChildren<EnemyBaseClass>().GetHealth();
                 GetComponent<Slider>().maxValue = maxHP;
@@ -51,4 +48,5 @@ public class BossHealthBar : MonoBehaviour
             maxHPSet = false;
         }
     }
+
 }

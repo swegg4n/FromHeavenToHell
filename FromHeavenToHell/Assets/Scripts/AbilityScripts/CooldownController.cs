@@ -63,7 +63,7 @@ public class CooldownController : MonoBehaviour
                 cooldownCountDownProjectile -= Time.deltaTime;
             }
 
-            if(cooldownCountDownAoe > 0)
+            if (cooldownCountDownAoe > 0)
             {
                 cooldownCountDownAoe -= Time.deltaTime;
             }

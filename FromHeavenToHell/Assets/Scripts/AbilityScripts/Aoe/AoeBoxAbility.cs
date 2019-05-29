@@ -28,7 +28,7 @@ public class AoeBoxAbility : Ability
 
             if (caster.tag == "PlayerDemon" || caster.tag == "PlayerAngel")
             {
-                direction = caster.GetComponent<AimIndicator>().direction;
+                direction = caster.GetComponent<AimIndicator>().Direction;
             }
             else
             {
@@ -43,7 +43,7 @@ public class AoeBoxAbility : Ability
             Vector2 targetPosition = (Vector2)caster.transform.position + direction.normalized * range / GameManager.instance.TileSize;
 
             var aoeBox = Instantiate(abilityPrefab, targetPosition, Quaternion.Euler(0, 0, degAngle));
-            aoeBox.GetComponent<AoeBehaviour>().aoeAbility = this;
+            aoeBox.GetComponent<AoeBehaviour>().AoeAbility = this;
 
             aoeBox.GetComponent<AoeBehaviour>().Caster = caster;
 

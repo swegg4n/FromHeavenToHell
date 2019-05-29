@@ -10,72 +10,40 @@ public class AimIndicator : MonoBehaviour
     private float aimY;
 
     private Vector2 lastDirection;
-    public Vector2 direction { get; private set; }
+    public Vector2 Direction { get; private set; }
+
 
     void Update()
     {
         if (GameManager.instance.Paused == false)
         {
-
             CheckAimInput();
-
-            #region old
-            /*
-            if (gameObject.tag == "PlayerDemon")
-            {
-                if (Inputs.PlayerDemonUsingMouse == true)
-                {
-                    MoveSightKeyboard();
-                }
-                else
-                {
-                    MoveSightJoystick("P1");
-                }
-            }
-            else if(gameObject.tag == "PlayerAngel")
-            {
-                if (Inputs.PlayerAngelUsingMouse == true)
-                {
-                    MoveSightKeyboard();
-                }
-                else
-                {
-                    MoveSightJoystick("P2");
-                }
-            }*/
-            #endregion
         }
     }
 
     private void CheckAimInput()
     {
-        switch (gameObject.tag)
+        if (gameObject.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
         {
-            case "PlayerDemon":
-                {
-                    if (Inputs.PlayerDemonHorizontalAimAxis != null || Inputs.PlayerDemonVerticalAimAxis != null)
-                    {
-                        MoveSightJoystick(Inputs.PlayerDemonHorizontalAimAxis, Inputs.PlayerDemonVerticalAimAxis);
-                    }
-                    else
-                    {
-                        MoveSightKeyboard();
-                    }
-                }
-                break;
-
-            case "PlayerAngel":
-                {
-                    if (Inputs.PlayerAngelHorizontalAimAxis != null || Inputs.PlayerAngelVerticalAimAxis != null)
-                    {
-                        MoveSightJoystick(Inputs.PlayerAngelHorizontalAimAxis, Inputs.PlayerAngelVerticalAimAxis);
-                    }
-                    else
-                    {
-                        MoveSightKeyboard();
-                    }
-                }
-                break;
+            if (Inputs.PlayerDemonHorizontalAimAxis != null || Inputs.PlayerDemonVerticalAimAxis != null)
+            {
+                MoveSightJoystick(Inputs.PlayerDemonHorizontalAimAxis, Inputs.PlayerDemonVerticalAimAxis);
+            }
+            else
+            {
+                MoveSightKeyboard();
+            }
+        }
+        else if (gameObject.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel])
+        {
+            if (Inputs.PlayerAngelHorizontalAimAxis != null || Inputs.PlayerAngelVerticalAimAxis != null)
+            {
+                MoveSightJoystick(Inputs.PlayerAngelHorizontalAimAxis, Inputs.PlayerAngelVerticalAimAxis);
+            }
+            else
+            {
+                MoveSightKeyboard();
+            }
         }
     }
 
@@ -84,24 +52,24 @@ public class AimIndicator : MonoBehaviour
         aimX = Input.GetAxisRaw(horizontalAimInput);
         aimY = Input.GetAxisRaw(verticalAimInput);
 
-        direction = new Vector2(aimX, aimY);
+        Direction = new Vector2(aimX, aimY);
 
-        if (direction == Vector2.zero)
+        if (Direction == Vector2.zero)
         {
-            direction = lastDirection;
+            Direction = lastDirection;
         }
 
-        aimIndicator.transform.up = direction;
+        aimIndicator.transform.up = Direction;
 
-        lastDirection = direction;
+        lastDirection = Direction;
     }
 
     private void MoveSightKeyboard()
     {
         mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-        aimIndicator.transform.up = direction;
+        Direction = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+        aimIndicator.transform.up = Direction;
     }
 
 }

@@ -29,7 +29,7 @@ public class AnimationController : MonoBehaviour
         {
             CheckIfMoving();
 
-            normalizedDirection = GetComponentInChildren<AimIndicator>().direction.normalized;
+            normalizedDirection = GetComponentInChildren<AimIndicator>().Direction.normalized;
 
             koeficient = normalizedDirection.y / normalizedDirection.x;
 

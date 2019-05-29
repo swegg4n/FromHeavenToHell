@@ -7,10 +7,11 @@ public class EndPanel : MonoBehaviour
 {
     private int numberOfStats;
 
-    [SerializeField] private Text endText, demonDamageDealtToEnemiesText, angelDamageDealtToEnemiesText, demonDamageTakenText, angelDamageTakenText, demonDamageDealtToAngelText, angelDamageDealtToDemonText, demonSelfDamageText, angelSelfDamageText;
+    [SerializeField] private Text endText;
+    [SerializeField] private Text angelDamageDealtToEnemiesText, angelDamageTakenText, angelDamageDealtToDemonText, angelSelfDamageText;
+    [SerializeField] private Text demonDamageDealtToEnemiesText, demonDamageTakenText, demonDamageDealtToAngelText, demonSelfDamageText;
 
 
-    // Start is called before the first frame update
     private void Start()
     {
         foreach (PlayerPrefKey key in (PlayerPrefKey[])Enum.GetValues(typeof(PlayerPrefKey)))
@@ -20,7 +21,7 @@ public class EndPanel : MonoBehaviour
 
         if (GameManager.instance.GameLost == true)
         {
-            endText.text = "Npnp, det är Jonathans fel att ni förlorade.\nPress 'Enter' To Continue";
+            endText.text = "You Died!.\nPress 'Enter' To Continue";
         }
         else if (GameManager.instance.GameWon == true)
         {
@@ -36,7 +37,7 @@ public class EndPanel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))   //TEMPORÄRT
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-        }   
+        }
     }
 
 
@@ -44,10 +45,13 @@ public class EndPanel : MonoBehaviour
     {
         demonDamageDealtToEnemiesText.text = StatTracker.DemonDamageDealtToEnemies.ToString();
         angelDamageDealtToEnemiesText.text = StatTracker.AngelDamageDealtToEnemies.ToString();
+
         demonDamageTakenText.text = StatTracker.DemonDamageTaken.ToString();
         angelDamageTakenText.text = StatTracker.AngelDamageTaken.ToString();
+
         demonDamageDealtToAngelText.text = StatTracker.DemonDamageDealtToAngel.ToString();
         angelDamageDealtToDemonText.text = StatTracker.AngelDamageDealtToDemon.ToString();
+
         demonSelfDamageText.text = StatTracker.DemonSelfDamage.ToString();
         angelSelfDamageText.text = StatTracker.AngelSelfDamage.ToString();
     }

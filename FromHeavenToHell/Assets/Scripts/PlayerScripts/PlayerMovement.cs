@@ -22,57 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(GameManager.instance.Paused == false)
+        if (GameManager.instance.Paused == false)
         {
-            //GetInput();
             MovePlayer();
         }
     }
-
-    #region old
-    /*
-    /// <summary>
-    /// Låter spelarna styras på olika sätt beroende på valda styrsätt
-    /// </summary>
-    private void GetInput()
-    {
-        if (gameObject.tag == "PlayerDemon")
-        {
-            if (Inputs.PlayerDemonUsingMouse == true)
-            {
-                GetKeyboardInput();
-            }
-            else
-            {
-                GetJoystickInput("P1");
-            }
-        }
-        else if (gameObject.tag == "PlayerAngel")
-        {
-            if (Inputs.PlayerAngelUsingMouse == true)
-            {
-                GetKeyboardInput();
-            }
-            else
-            {
-                GetJoystickInput("P2");
-            }
-        }
-    }
-
-    private void GetKeyboardInput()
-    {
-        velocityX = Input.GetAxisRaw("HorizontalMouse");
-        velocityY = Input.GetAxisRaw("VerticalMouse");
-    }
-
-    private void GetJoystickInput(string player)
-    {
-        velocityX = Input.GetAxisRaw("Horizontal" + player);
-        velocityY = Input.GetAxisRaw("Vertical" + player);
-    }
-    */
-    #endregion
 
     private void MovePlayer()
     {
@@ -84,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
-            bool isDemon = (tag == "PlayerDemon");
+            bool isDemon = (tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon]);
 
             velocityX = Input.GetAxisRaw(isDemon ? Inputs.PlayerDemonHorizontalAxis : Inputs.PlayerAngelHorizontalAxis);
             velocityY = Input.GetAxisRaw(isDemon ? Inputs.PlayerDemonVerticalAxis : Inputs.PlayerAngelVerticalAxis);

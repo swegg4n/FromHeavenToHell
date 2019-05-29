@@ -14,21 +14,13 @@ public class Teleporter : MonoBehaviour
     {
         currentRoomTeleportPosList = GetComponentInParent<Room>().GetTeleportPos();
 
-        switch (collider.transform.tag)
+        if (collider.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
         {
-            case "PlayerDemon":     //Om spelaren är demonen
-                {
-                    PlayerManager.instance.PlayerDemonCanTeleport = true;   //Sätter att demonen kan teleportera
-                    //Debug.Log("Demon In");
-                }
-                break;
-
-            case "PlayerAngel":     //Om spelaren är ängeln
-                {
-                    PlayerManager.instance.PlayerAngelCanTeleport = true;   //Sätter att ängeln kan teleportera
-                    //Debug.Log("Angel In");
-                }
-                break;
+            PlayerManager.instance.PlayerDemonCanTeleport = true;   //Sätter att demonen kan teleportera
+        }
+        else if (collider.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel])
+        {
+            PlayerManager.instance.PlayerAngelCanTeleport = true;   //Sätter att ängeln kan teleportera
         }
 
         Teleport(collider);
@@ -40,21 +32,13 @@ public class Teleporter : MonoBehaviour
     /// <param name="collider">Collidern på objektet som går ut ur teleport-tilen</param>
     private void OnTriggerExit2D(Collider2D collider)
     {
-        switch (collider.transform.tag)
+        if (collider.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
         {
-            case "PlayerDemon":     //Om spelaren är demonen
-                {
-                    PlayerManager.instance.PlayerDemonCanTeleport = false;      //Sätter att demonen INTE kan teleportera
-                    //Debug.Log("Demon Out");
-                }
-                break;
-
-            case "PlayerAngel":     //Om spelaren är ängeln
-                {
-                    PlayerManager.instance.PlayerAngelCanTeleport = false;      //Sätter att ängeln INTE kan teleportera
-                    //Debug.Log("Angel Out");
-                }
-                break;
+            PlayerManager.instance.PlayerDemonCanTeleport = false;   //Sätter att demonen kan teleportera
+        }
+        else if (collider.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel])
+        {
+            PlayerManager.instance.PlayerAngelCanTeleport = false;   //Sätter att ängeln kan teleportera
         }
     }
 
@@ -83,50 +67,50 @@ public class Teleporter : MonoBehaviour
 
         if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
         {
-           // Debug.Log("A1");
+            // Debug.Log("A1");
 
-            roomToTeleportTo = GetComponentInParent<Room>().rightRoom;
+            roomToTeleportTo = GetComponentInParent<Room>().RightRoom;
 
-            if (GetComponentInParent<Room>().rightRoom != null)
+            if (GetComponentInParent<Room>().RightRoom != null)
             {
-                return GetComponentInParent<Room>().rightRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.right);
+                return GetComponentInParent<Room>().RightRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.right);
             }
         }
         else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
         {
-           // Debug.Log("A2");
+            // Debug.Log("A2");
 
-            roomToTeleportTo = GetComponentInParent<Room>().leftRoom;
+            roomToTeleportTo = GetComponentInParent<Room>().LeftRoom;
 
-            if (GetComponentInParent<Room>().leftRoom != null)
+            if (GetComponentInParent<Room>().LeftRoom != null)
             {
-                return GetComponentInParent<Room>().leftRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.left);
+                return GetComponentInParent<Room>().LeftRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.left);
             }
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
         {
             //Debug.Log("A3");
 
-            roomToTeleportTo = GetComponentInParent<Room>().aboveRoom;
+            roomToTeleportTo = GetComponentInParent<Room>().AboveRoom;
 
-            if (GetComponentInParent<Room>().aboveRoom != null)
+            if (GetComponentInParent<Room>().AboveRoom != null)
             {
-                return GetComponentInParent<Room>().aboveRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.up);
+                return GetComponentInParent<Room>().AboveRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.up);
             }
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
         {
-           // Debug.Log("A4");
+            // Debug.Log("A4");
 
-            roomToTeleportTo = GetComponentInParent<Room>().belowRoom;
+            roomToTeleportTo = GetComponentInParent<Room>().BelowRoom;
 
-            if (GetComponentInParent<Room>().belowRoom != null)
+            if (GetComponentInParent<Room>().BelowRoom != null)
             {
-                return GetComponentInParent<Room>().belowRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.down);
+                return GetComponentInParent<Room>().BelowRoom.GetComponent<Room>().CheckTeleportInDirecction(Vector2.down);
             }
         }
 
-       // Debug.Log("5");
+        // Debug.Log("5");
         return null;
     }
 

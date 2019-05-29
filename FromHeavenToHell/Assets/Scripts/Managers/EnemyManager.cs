@@ -167,7 +167,7 @@ public class EnemyManager : MonoBehaviour
                 enemyList.Add(Instantiate(enemy, tilePositionList[tempIndexList[i]], Quaternion.identity));
                 Destroy(spawnIndicatorList[i]);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

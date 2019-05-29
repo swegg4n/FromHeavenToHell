@@ -11,29 +11,23 @@ public class ProjectileAbility : Ability
     [SerializeField] private float spread; //Vinkeln offset från siktet som projektierna sprids från
     private float offset;
 
-    public GameObject caster { get; private set; }  //Objektet som använder abilityn
-
-
 
     /// <summary>
     /// Det som händer när abilityn används
     /// </summary>
     public override void TriggerAbility(GameObject caster)
     {
-        this.caster = caster;
-
         offset = caster.GetComponent<BoxCollider2D>().size.magnitude;
 
-        Collider2D hitbox = caster.GetComponent<Collider2D>();
         CooldownController cdController = caster.GetComponent<CooldownController>();
 
         if (cdController.ProjectileCooldownPassed() == true)
         {
             Vector2 direction;
 
-            if (caster.tag == "PlayerDemon" || caster.tag == "PlayerAngel")
+            if (caster.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon] || caster.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel])
             {
-                direction = caster.GetComponent<AimIndicator>().direction;
+                direction = caster.GetComponent<AimIndicator>().Direction;
             }
             else
             {
@@ -56,7 +50,6 @@ public class ProjectileAbility : Ability
                 projectile.GetComponent<ProjectileBehaviour>().Caster = caster;
 
             }
-
 
             cdController.ResetProjectileCooldown(cooldown);
         }

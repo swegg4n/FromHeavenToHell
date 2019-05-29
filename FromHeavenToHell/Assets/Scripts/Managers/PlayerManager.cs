@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Classes;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System;
-using Assets.Classes;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -105,23 +102,6 @@ public class PlayerManager : MonoBehaviour
         health += heal;
     }
 
-    /// <summary>
-    /// Kallas varje frame
-    /// </summary>
-    private void Update()
-    {
-        if (GameManager.instance.Paused == false)
-        {
-            if (Input.GetKey(KeyCode.K))
-            {
-                health = MaxHealth;
-            }
-            else if (Input.GetKey(KeyCode.L))
-            {
-                health -= 10;
-            }
-        }
-    }
 
     /// <summary>
     /// Kontrollerar om spelarnas liv är mindre eller lika med 0.

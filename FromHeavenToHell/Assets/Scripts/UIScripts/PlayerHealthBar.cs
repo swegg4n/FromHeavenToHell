@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
@@ -8,21 +6,21 @@ public class PlayerHealthBar : MonoBehaviour
     private int maxHp;
     private float healthPercentage, greenColorPercentage, redColorPercentage;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         maxHp = PlayerManager.instance.Health;
         GetComponent<Slider>().maxValue = maxHp;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         GetComponent<Slider>().value = PlayerManager.instance.Health;
 
         healthPercentage = PlayerManager.instance.Health / (float)maxHp;
 
-        if(healthPercentage > 0.5f)
+        if (healthPercentage > 0.5f)
         {
             greenColorPercentage = 1;
             redColorPercentage = 1 - ((healthPercentage - 0.5f) * 2);

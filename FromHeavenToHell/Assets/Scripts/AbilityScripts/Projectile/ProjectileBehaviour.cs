@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour
 {
-    public ProjectileAbility ProjectileAbility { set; get;}
+    public ProjectileAbility ProjectileAbility { set; get; }
     public GameObject Caster { set; get; }
     private Vector2 startPosition;
     private Vector2 velocity;
@@ -34,11 +32,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Caster == null)
-        {
-            HandleCollision(other);
-        }
-        else if(Caster.tag != other.tag)
+        if (Caster == null || Caster.tag != other.tag)
         {
             HandleCollision(other);
         }
@@ -46,17 +40,17 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void HandleCollision(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == GameManager.objectsTags[GameManager.Objects.Enemy])
         {
             other.GetComponent<EnemyBaseClass>().TakeDamage(ProjectileAbility.Damage, Caster);
             Destroy(gameObject);
         }
-        else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
+        else if (other.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel] || other.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
         {
             PlayerManager.instance.TakeDamage(ProjectileAbility.Damage, other.gameObject, Caster);
             Destroy(gameObject);
         }
-        else if (other.tag == "Wall")
+        else if (other.tag == GameManager.objectsTags[GameManager.Objects.Wall])
         {
             Destroy(gameObject);
         }

@@ -1,10 +1,8 @@
-﻿using System.Collections;
+﻿using Assets.Classes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using System;
-using Assets.Classes;
-using UnityEngine.UI;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +23,15 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public enum Objects { PlayerAngel, PlayerDemon, Enemy, Wall }
 
+    public static Dictionary<Objects, string> objectsTags = new Dictionary<Objects, string>()
+    {
+        { Objects.PlayerAngel, "PlayerAngel"},
+        { Objects.PlayerDemon, "PlayerDemon"},
+        { Objects.Enemy, "Enemy"},
+        { Objects.Wall, "Wall" }
+    };
 
     [SerializeField] private GameObject currentRoom;
     [SerializeField] private GameObject pauseMenuCanvas;

@@ -5,17 +5,15 @@ public class ObjectiveController : MonoBehaviour
     private Objective objective;
 
     public bool ObjectiveCompleted { get; private set; }
-
     public int KillCount { get; private set; }
-
     public float TimePassed { get; private set; }
-
     public bool BossCompleted { get; private set; }
 
     bool killCompleted;
     bool survivalCompleted;
 
     public int NrOfBossesCompleted { get; private set; }
+
 
     private void Start()
     {
@@ -63,10 +61,6 @@ public class ObjectiveController : MonoBehaviour
                 }
             }
         }
-        if(NrOfBossesCompleted == EnemyManager.instance.BossObjectives.Count)
-        {
-            GameManager.instance.GameWon = true;
-        }
     }
 
     /// <summary>
@@ -113,13 +107,17 @@ public class ObjectiveController : MonoBehaviour
         if (killCompleted == true && survivalCompleted == true && BossCompleted == true)
         {
             ObjectiveCompleted = true;
-            if(objective.IsBossObjective == true)
+            if (objective.IsBossObjective == true)
             {
                 NrOfBossesCompleted++;
-                //PlayerManager.instance.Heal(PlayerManager.instance.MaxHealth);
                 PlayerManager.instance.Health = PlayerManager.instance.MaxHealth;
             }
             Debug.Log("OBJECTIVE COMPLETED!");
+
+            if (NrOfBossesCompleted == EnemyManager.instance.BossObjectives.Count)
+            {
+                GameManager.instance.GameWon = true;
+            }
         }
     }
 

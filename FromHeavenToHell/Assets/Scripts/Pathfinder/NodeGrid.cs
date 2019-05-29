@@ -114,7 +114,6 @@ public class NodeGrid : MonoBehaviour
         }
         catch (System.Exception)
         {
-
         }
     }
 

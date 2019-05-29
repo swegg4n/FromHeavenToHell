@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AoeBehaviour : MonoBehaviour
 {
-    public AoeBoxAbility aoeAbility { set; get; }
+    public AoeBoxAbility AoeAbility { set; get; }
     public GameObject Caster { set; get; }
     private float timeSinceLastTick, timeSinceCast;
     private bool resetClock;
@@ -12,10 +10,6 @@ public class AoeBehaviour : MonoBehaviour
     private const float fadeTime = 1f;
     private const float rotationSpeed = -0.075f;
 
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -27,21 +21,16 @@ public class AoeBehaviour : MonoBehaviour
                 resetClock = false;
             }
 
-            if (aoeAbility.GetActiveDuration() - timeSinceCast <= fadeTime)
+            if (AoeAbility.GetActiveDuration() - timeSinceCast <= fadeTime)
             {
                 Color abilityColor = GetComponent<SpriteRenderer>().color;
                 abilityColor = new Color(abilityColor.r, abilityColor.b, abilityColor.g, abilityColor.a -= Time.deltaTime * fadeTime);
                 GetComponent<SpriteRenderer>().color = abilityColor;
             }
 
-            if (timeSinceCast > aoeAbility.GetActiveDuration())
+            if (timeSinceCast > AoeAbility.GetActiveDuration())
             {
                 Destroy(gameObject);
-            }
-
-            if (GetComponent<SpriteRenderer>().sprite.name == "CircleAOE")  //hardcode
-            {
-                transform.Rotate(Vector3.forward, rotationSpeed);
             }
 
             timeSinceLastTick += Time.deltaTime;
@@ -53,7 +42,7 @@ public class AoeBehaviour : MonoBehaviour
     {
         if (GameManager.instance.Paused == false)
         {
-            if (timeSinceLastTick > aoeAbility.GetTimeBetweenTicks())
+            if (timeSinceLastTick > AoeAbility.GetTimeBetweenTicks())
             {
                 if (Caster == null)
                 {
@@ -70,13 +59,13 @@ public class AoeBehaviour : MonoBehaviour
 
     private void TakeDamage(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == GameManager.objectsTags[GameManager.Objects.Enemy])
         {
-            other.GetComponent<EnemyBaseClass>().TakeDamage(aoeAbility.Damage, Caster);
+            other.GetComponent<EnemyBaseClass>().TakeDamage(AoeAbility.Damage, Caster);
         }
-        else if (other.tag == "PlayerAngel" || other.tag == "PlayerDemon")
+        else if (other.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel] || other.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
         {
-            PlayerManager.instance.TakeDamage(aoeAbility.Damage, other.gameObject, Caster);
+            PlayerManager.instance.TakeDamage(AoeAbility.Damage, other.gameObject, Caster);
         }
     }
 }

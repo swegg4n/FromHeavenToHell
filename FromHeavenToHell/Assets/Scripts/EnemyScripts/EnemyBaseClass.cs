@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Classes;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Classes;
 
 public class EnemyBaseClass : MonoBehaviour
 {

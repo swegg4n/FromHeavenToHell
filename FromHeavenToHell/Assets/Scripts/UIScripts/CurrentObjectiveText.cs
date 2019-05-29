@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CurrentObjectiveText : MonoBehaviour
@@ -16,25 +14,27 @@ public class CurrentObjectiveText : MonoBehaviour
 
     private Color textColor;
 
-    Objective currentObjective;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         hellAmbientColor = new Color(0.75f, 0.1f, 0.1f);
         heavenAmbientColor = new Color(0.75f, 1f, 1f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
+        Room currentRoom = GameManager.instance.CurrentRoom.GetComponent<Room>();
+        Objective currentObjective = GameManager.instance.CurrentRoom.GetComponent<Room>().Objective;
         bossText.gameObject.SetActive(true);
         bossText.text = GameManager.instance.GetComponent<ObjectiveController>().NrOfBossesCompleted + "/" + EnemyManager.instance.BossObjectives.Count;
 
-        if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsHeavenRoom == true)
+        UpdateRoomSettings(currentRoom);
+        UpdateObjectiveText(currentObjective);
+    }
+
+    private void UpdateRoomSettings(Room room)
+    {
+        if (room.IsHeavenRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
 
@@ -42,7 +42,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.red;
             killText.color = Color.red;
         }
-        else if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsHellRoom == true)
+        else if (room.IsHellRoom == true)
         {
             RenderSettings.ambientLight = hellAmbientColor;
 
@@ -50,7 +50,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.green;
             killText.color = Color.green;
         }
-        else if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == true)
+        else if (room.IsBossRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
 
@@ -59,31 +59,7 @@ public class CurrentObjectiveText : MonoBehaviour
             killText.color = Color.red;
         }
 
-        if (currentObjective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
-            GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
-        {
-            surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
-            " / "
-            + currentObjective.SurvivalTime;
-            surviveText.gameObject.SetActive(true);
-        }
-        else
-        {
-            surviveText.gameObject.SetActive(false);
-        }
-
-        if (currentObjective.IsKillObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
-                GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
-        {
-            killText.text = GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + currentObjective.KillCount;
-            killText.gameObject.SetActive(true);
-        }
-        else
-        {
-            killText.gameObject.SetActive(false);
-        }
-
-        if (GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == true)
+        if (room.IsStartRoom == true)
         {
             tutPanel.SetActive(true);
         }
@@ -91,18 +67,35 @@ public class CurrentObjectiveText : MonoBehaviour
         {
             tutPanel.SetActive(false);
         }
+    }
 
-        if (currentObjective.IsBossObjective == true)
+    private void UpdateObjectiveText(Objective objective)
+    {
+        if (objective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
+            GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
         {
-            //if (GameManager.instance.GetComponent<ObjectiveController>().BossCompleted == true)
-            //{
-            //    GameManager.instance.GameWon = true;
-            //    bossText.text = "1 / 1";
-            //}
-            //else
-            //{
-            //    bossText.text = "0 / 1";
-            //}
+            surviveText.text = GameManager.instance.GetComponent<ObjectiveController>().TimePassed.ToString("0.0") +
+                " / " + objective.SurvivalTime;
+            surviveText.gameObject.SetActive(true);
+        }
+        else
+        {
+            surviveText.gameObject.SetActive(false);
+        }
+
+        if (objective.IsKillObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&
+                GameManager.instance.CurrentRoom.GetComponent<Room>().IsStartRoom == false)
+        {
+            killText.text = GameManager.instance.GetComponent<ObjectiveController>().KillCount + " / " + objective.KillCount;
+            killText.gameObject.SetActive(true);
+        }
+        else
+        {
+            killText.gameObject.SetActive(false);
+        }
+
+        if (objective.IsBossObjective == true)
+        {
             bossHealthBar.gameObject.SetActive(true);
         }
         else

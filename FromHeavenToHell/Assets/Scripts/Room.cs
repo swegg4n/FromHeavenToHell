@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public enum TileTypes { Ground, Wall, TopWall, Teleport }
-
+public enum RoomTypes { StartRoom, HeavenRoom, HellRoom, BossRoom }
 
 public class Room : MonoBehaviour
 {
@@ -22,10 +22,10 @@ public class Room : MonoBehaviour
     private Tilemap topTileMap;
     private Tilemap teleportTileMap;
 
-    public GameObject aboveRoom { get; private set; }
-    public GameObject rightRoom { get; private set; }
-    public GameObject leftRoom { get; private set; }
-    public GameObject belowRoom { get; private set; }
+    public GameObject AboveRoom { get; private set; }
+    public GameObject RightRoom { get; private set; }
+    public GameObject LeftRoom { get; private set; }
+    public GameObject BelowRoom { get; private set; }
 
     private List<Vector2> teleportPosList;
 
@@ -47,22 +47,22 @@ public class Room : MonoBehaviour
 
         foreach (Tilemap t in tileMapList)
         {
-            if (t.tag == "Ground")
+            if (t.tag == TileTypes.Ground.ToString())
             {
                 groundTileMap = t;
                 t.GetComponent<TilemapRenderer>().receiveShadows = true;
             }
-            else if (t.tag == "Wall")
+            else if (t.tag == TileTypes.Wall.ToString())
             {
                 wallTileMap = t;
                 t.GetComponent<TilemapRenderer>().receiveShadows = false;
             }
-            else if (t.tag == "TopWall")
+            else if (t.tag == TileTypes.TopWall.ToString())
             {
                 topTileMap = t;
                 t.GetComponent<TilemapRenderer>().receiveShadows = false;
             }
-            else if (t.tag == "Teleport")
+            else if (t.tag == TileTypes.Teleport.ToString())
             {
                 teleportTileMap = t;
                 t.GetComponent<TilemapRenderer>().receiveShadows = true;
@@ -73,21 +73,22 @@ public class Room : MonoBehaviour
 
         StartCoroutine(SetUpRoomRelations());
     }
+
     private void Start()
     {
-        if (gameObject.tag == "StartRoom")
+        if (gameObject.tag == RoomTypes.StartRoom.ToString())
         {
             IsStartRoom = true;
         }
-        else if (gameObject.tag == "HeavenRoom")
+        else if (gameObject.tag == RoomTypes.HeavenRoom.ToString())
         {
             IsHeavenRoom = true;
         }
-        else if (gameObject.tag == "HellRoom")
+        else if (gameObject.tag == RoomTypes.HellRoom.ToString())
         {
             IsHellRoom = true;
         }
-        else if (gameObject.tag == "BossRoom")
+        else if (gameObject.tag == RoomTypes.BossRoom.ToString())
         {
             IsBossRoom = true;
         }
@@ -121,10 +122,10 @@ public class Room : MonoBehaviour
             }
         }
 
-        aboveRoom = CheckSorrundingRoom(Vector2.up);
-        belowRoom = CheckSorrundingRoom(Vector2.down);
-        rightRoom = CheckSorrundingRoom(Vector2.right);
-        leftRoom = CheckSorrundingRoom(Vector2.left);
+        AboveRoom = CheckSorrundingRoom(Vector2.up);
+        BelowRoom = CheckSorrundingRoom(Vector2.down);
+        RightRoom = CheckSorrundingRoom(Vector2.right);
+        LeftRoom = CheckSorrundingRoom(Vector2.left);
     }
 
     private void Create3DWalls()
@@ -144,7 +145,6 @@ public class Room : MonoBehaviour
                 {
                     Vector3 position = new Vector3(firstTilePosition.x + x + transform.position.x + 0.5f, firstTilePosition.y + y + transform.position.y + 0.5f, -0.5f);
 
-                    //Instantiate(GameManager.instance.ShadowCube, position, Quaternion.identity);
                     GameObject shadowCube = Instantiate(GameManager.instance.ShadowCube, transform);
                     shadowCube.transform.position = position;
                 }
@@ -184,7 +184,6 @@ public class Room : MonoBehaviour
         }
     }
 
-
     public Tuple<Vector2Int, Vector2Int> CalculateBoundsXY()    //<(worldMinX, worldMaxX), (worldMinY, worldMaxY)>
     {
         Vector2 localMinXY = new Vector2(groundTileMap.localBounds.min.x, groundTileMap.localBounds.min.y);
@@ -213,6 +212,7 @@ public class Room : MonoBehaviour
         }
         return false;
     }
+
     public bool CheckWallTileAtPosition(Vector3 position)
     {
         if (wallTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
@@ -221,6 +221,7 @@ public class Room : MonoBehaviour
         }
         return false;
     }
+
     public bool CheckTopTileAtPosition(Vector3 position)
     {
         if (topTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
@@ -229,7 +230,6 @@ public class Room : MonoBehaviour
         }
         return false;
     }
-
 
     //test till teleporten
     public bool CheckTeleportAtPosition(Vector3 position)
@@ -240,7 +240,6 @@ public class Room : MonoBehaviour
         }
         return false;
     }
-    //1
 
     public Tilemap GetTileMap(TileTypes tileType)
     {
@@ -317,7 +316,4 @@ public class Room : MonoBehaviour
     {
         return teleportPosList;
     }
-
-
 }
-

@@ -64,19 +64,16 @@ public class BaseEnemyAi : MonoBehaviour
             aimDirection = GetClosestTargetPosition() - transform.position;
             float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
             RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
-            if (hit == true && (hit.transform.tag == "PlayerDemon" || hit.transform.tag == "PlayerAngel"))
+            if (hit == true && (hit.transform.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon] || hit.transform.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel]))
             {
                 GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
             }
-
         }
         catch (Exception e)
         {
         }
-
-
-
     }
+
     private void MoveToNextTile()
     {
         if (GetComponent<Pathfinder>().FinalPath.Count > 0)

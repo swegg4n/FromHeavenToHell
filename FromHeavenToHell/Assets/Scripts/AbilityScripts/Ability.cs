@@ -16,7 +16,7 @@ public abstract class Ability : ScriptableObject
     /// Metod som används för att aktivera abilities
     /// </summary>
     /// <param name="caster">Objektet som använder abilityn</param>
-    public abstract void TriggerAbility(GameObject caster); 
+    public abstract void TriggerAbility(GameObject caster);
 
     public virtual void Update() { }
 }

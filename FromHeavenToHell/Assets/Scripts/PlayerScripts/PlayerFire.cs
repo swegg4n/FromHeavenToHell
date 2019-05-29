@@ -54,7 +54,7 @@ public class PlayerFire : MonoBehaviour
         {
             abilityList[1].TriggerAbility(gameObject);
         }
-        if ((Input.GetButton(Inputs.PlayerDemonFire[2]) || Input.GetButton(Inputs.PlayerDemonFire[2])) 
+        if ((Input.GetButton(Inputs.PlayerDemonFire[2]) || Input.GetButton(Inputs.PlayerDemonFire[2]))
             && abilityList[2] != null)
         {
             abilityList[2].TriggerAbility(gameObject);

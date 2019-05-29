@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public static class Inputs
 {
@@ -18,11 +17,11 @@ public static class Inputs
     public static string[] PlayerAngelFire { get; private set; } = new string[3];
 
 
-    public static void AssignPlayer(string playerTag, int controller)
+    public static void AssignPlayer(GameManager.Objects characterType, int controller)
     {
-        switch (playerTag)
+        switch (characterType)
         {
-            case "PlayerDemon":
+            case GameManager.Objects.PlayerDemon:
                 {
                     if (controller == 0)
                     {
@@ -51,7 +50,7 @@ public static class Inputs
                 }
                 break;
 
-            case "PlayerAngel":
+            case GameManager.Objects.PlayerAngel:
                 {
                     if (controller == 0)
                     {
