@@ -26,19 +26,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Camera playersCamera;
 
-    public string PlayerDemonHorizontalAxis { get; private set; }
-    public string PlayerDemonVerticalAxis { get; private set; }
-    public string PlayerDemonHorizontalAimAxis { get; private set; }
-    public string PlayerDemonVerticalAimAxis { get; private set; }
-    public string[] PlayerDemonFire { get; private set; }
-
-    public string PlayerAngelHorizontalAxis { get; private set; }
-    public string PlayerAngelVerticalAxis { get; private set; }
-    public string PlayerAngelHorizontalAimAxis { get; private set; }
-    public string PlayerAngelVerticalAimAxis { get; private set; }
-    public string[] PlayerAngelFire { get; private set; }
-
-
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
     [SerializeField] private GameObject playerAngelPrefab;      //Prefab som ska användas som ängel-spelare
 
@@ -62,22 +49,6 @@ public class PlayerManager : MonoBehaviour
 
         PlayerDemonInstance = Instantiate(playerDemonPrefab);       //Skapar ett objekt prefaben som används för demonspelaren
         PlayerAngelInstance = Instantiate(playerAngelPrefab);       //Skapar ett objekt prefaben som används för ängelspelaren
-
-        // Inputs för demonen
-        PlayerDemonHorizontalAxis = InputSetup.instance.PlayerDemonHorizontalAxis;
-        PlayerDemonVerticalAxis = InputSetup.instance.PlayerDemonVerticalAxis;
-        PlayerDemonHorizontalAimAxis = InputSetup.instance.PlayerDemonHorizontalAimAxis;
-        PlayerDemonVerticalAimAxis = InputSetup.instance.PlayerDemonVerticalAimAxis;
-        PlayerDemonFire = InputSetup.instance.PlayerDemonFire;
-
-        ///Inputs för ängeln
-        PlayerAngelHorizontalAxis = InputSetup.instance.PlayerAngelHorizontalAxis;
-        PlayerAngelVerticalAxis = InputSetup.instance.PlayerAngelVerticalAxis;
-        PlayerAngelHorizontalAimAxis = InputSetup.instance.PlayerAngelHorizontalAimAxis;
-        PlayerAngelVerticalAimAxis = InputSetup.instance.PlayerAngelVerticalAimAxis;
-        PlayerAngelFire = InputSetup.instance.PlayerAngelFire;
-
-        Destroy(InputSetup.instance.gameObject);
 
         StartCoroutine(GameSetup());
     }
@@ -133,6 +104,7 @@ public class PlayerManager : MonoBehaviour
     {
         health += heal;
     }
+
     /// <summary>
     /// Kallas varje frame
     /// </summary>
@@ -156,7 +128,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void DeathCheck()
     {
-
         if (health <= 0)
         {
             Destroy(PlayerDemonInstance);
@@ -176,7 +147,7 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerAngelInstance.CompareTag(player.tag) == true)
         {
-            if(caster != null)
+            if (caster != null)
             {
                 if (PlayerAngelInstance.CompareTag(caster.tag) == true)
                 {
@@ -192,7 +163,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if (PlayerDemonInstance.CompareTag(player.tag) == true)
         {
-            if(caster != null)
+            if (caster != null)
             {
                 if (PlayerDemonInstance.CompareTag(caster.tag) == true)
                 {

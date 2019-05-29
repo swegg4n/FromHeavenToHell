@@ -23,7 +23,8 @@ public class EnemyBaseClass : MonoBehaviour
 
         if (availableAbilities.Count == 0)
         {
-            Debug.LogError("Enemies has no ability, assing at least 1 availavle abillity in 'EnemyBaseClass'");
+            Debug.LogWarning("Enemies has no ability, assing at least 1 availavle abillity in 'EnemyBaseClass'");
+            return;
         }
         Ability = availableAbilities[Random.Range(0, availableAbilities.Count)];
     }

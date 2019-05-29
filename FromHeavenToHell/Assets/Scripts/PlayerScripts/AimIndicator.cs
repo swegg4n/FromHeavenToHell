@@ -23,7 +23,7 @@ public class AimIndicator : MonoBehaviour
             /*
             if (gameObject.tag == "PlayerDemon")
             {
-                if (PlayerManager.instance.PlayerDemonUsingMouse == true)
+                if (Inputs.PlayerDemonUsingMouse == true)
                 {
                     MoveSightKeyboard();
                 }
@@ -34,7 +34,7 @@ public class AimIndicator : MonoBehaviour
             }
             else if(gameObject.tag == "PlayerAngel")
             {
-                if (PlayerManager.instance.PlayerAngelUsingMouse == true)
+                if (Inputs.PlayerAngelUsingMouse == true)
                 {
                     MoveSightKeyboard();
                 }
@@ -53,9 +53,9 @@ public class AimIndicator : MonoBehaviour
         {
             case "PlayerDemon":
                 {
-                    if (PlayerManager.instance.PlayerDemonHorizontalAimAxis != null || PlayerManager.instance.PlayerDemonVerticalAimAxis != null)
+                    if (Inputs.PlayerDemonHorizontalAimAxis != null || Inputs.PlayerDemonVerticalAimAxis != null)
                     {
-                        MoveSightJoystick(PlayerManager.instance.PlayerDemonHorizontalAimAxis, PlayerManager.instance.PlayerDemonVerticalAimAxis);
+                        MoveSightJoystick(Inputs.PlayerDemonHorizontalAimAxis, Inputs.PlayerDemonVerticalAimAxis);
                     }
                     else
                     {
@@ -66,9 +66,9 @@ public class AimIndicator : MonoBehaviour
 
             case "PlayerAngel":
                 {
-                    if (PlayerManager.instance.PlayerAngelHorizontalAimAxis != null || PlayerManager.instance.PlayerAngelVerticalAimAxis != null)
+                    if (Inputs.PlayerAngelHorizontalAimAxis != null || Inputs.PlayerAngelVerticalAimAxis != null)
                     {
-                        MoveSightJoystick(PlayerManager.instance.PlayerAngelHorizontalAimAxis, PlayerManager.instance.PlayerAngelVerticalAimAxis);
+                        MoveSightJoystick(Inputs.PlayerAngelHorizontalAimAxis, Inputs.PlayerAngelVerticalAimAxis);
                     }
                     else
                     {
