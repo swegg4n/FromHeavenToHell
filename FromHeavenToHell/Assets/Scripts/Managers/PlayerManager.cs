@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private Camera playersCamera;
+    [SerializeField] private Camera playersCamera;      //Kameran som visar rummet spelarna är i
 
     [SerializeField] private GameObject playerDemonPrefab;      //Prefab som ska användas som demon-spelare
     [SerializeField] private GameObject playerAngelPrefab;      //Prefab som ska användas som ängel-spelare
@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour
             EnemyManager.instance.ResetRoom();  //Tar bort alla fienders spawn-positioner och räknar ut de nya spawn-positionerna för rummet
 
             GameManager.instance.CurrentRoom.GetComponent<Room>().CalculateBoundsXY();  //Räknar ut hur stort rummet är
-            GetComponent<NodeGrid>().CreateGrid();  //Skapar ett nytt rutnät av noder som används av A* (pathfinder)
+            GetComponent<NodeGrid>().CreateGrid();   //Skapar ett nytt rutnät av noder som används av A* (pathfinder)
 
             PlayerDemonInstance.transform.position = (Vector3)position;     //Flyttar demonen till nya positionen
             PlayerAngelInstance.transform.position = (Vector3)position;     //Flyttar ängeln till nya positionen

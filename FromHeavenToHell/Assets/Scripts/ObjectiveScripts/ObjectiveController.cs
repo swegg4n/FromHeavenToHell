@@ -2,17 +2,17 @@
 
 public class ObjectiveController : MonoBehaviour
 {
-    private Objective objective;
+    private Objective objective;    //Rummets objektiv
 
-    public bool ObjectiveCompleted { get; private set; }
-    public int KillCount { get; private set; }
-    public float TimePassed { get; private set; }
-    public bool BossCompleted { get; private set; }
+    public bool ObjectiveCompleted { get; private set; }    //Om objektivet är färdigt eller inte
+    public int KillCount { get; private set; }      //Antal dödade fiender i rummet
+    public float TimePassed { get; private set; }       //Tiden spelarna varit i rummet
+    public bool BossCompleted { get; private set; }     //Om bossen är dödad eller inte
 
-    bool killCompleted;
-    bool survivalCompleted;
+    private bool killCompleted;     //Om döda-objektivet är avklarat eller inte
+    private bool survivalCompleted;     //Om överlev-objektivet är avklarat eller inte
 
-    public int NrOfBossesCompleted { get; private set; }
+    public int NrOfBossesCompleted { get; private set; }    //Antal bossar dödade
 
 
     private void Start()
@@ -76,7 +76,8 @@ public class ObjectiveController : MonoBehaviour
     /// </summary>
     private void ValidateCompletion()
     {
-        if (objective.IsKillObjective == false || KillCount >= objective.KillCount)  //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
+        //kontrollerar om objektivet är ett döda-objektiv och om spelarna isf. har dödat tillräckligt många fiender
+        if (objective.IsKillObjective == false || KillCount >= objective.KillCount)  
         {
             killCompleted = true;
         }
@@ -84,8 +85,8 @@ public class ObjectiveController : MonoBehaviour
         {
             killCompleted = false;
         }
-
-        if (objective.IsSurviveObjective == false || TimePassed >= objective.SurvivalTime)   //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
+        //kontrollerar om objektivet är ett överlevnads-objektiv och om spelarna isf. har överlevt tillräckligt länge
+        if (objective.IsSurviveObjective == false || TimePassed >= objective.SurvivalTime)   
         {
             survivalCompleted = true;
         }
@@ -94,6 +95,7 @@ public class ObjectiveController : MonoBehaviour
             survivalCompleted = false;
         }
 
+        //Kontrollerar om objektivet är ett boss-objektiv och om bossen isf. dödats
         if (objective.IsBossObjective == false || GameManager.instance.CurrentRoom.GetComponentInChildren<EnemyBaseClass>() == null)
         {
             BossCompleted = true;
@@ -103,7 +105,7 @@ public class ObjectiveController : MonoBehaviour
             BossCompleted = false;
         }
 
-
+        //Om alla objektiv klarats av
         if (killCompleted == true && survivalCompleted == true && BossCompleted == true)
         {
             ObjectiveCompleted = true;
@@ -114,6 +116,7 @@ public class ObjectiveController : MonoBehaviour
             }
             Debug.Log("OBJECTIVE COMPLETED!");
 
+            //Om alla bossar besegrats
             if (NrOfBossesCompleted == EnemyManager.instance.BossObjectives.Count)
             {
                 GameManager.instance.GameWon = true;

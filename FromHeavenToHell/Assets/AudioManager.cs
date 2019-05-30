@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    public Sound[] sounds;  //Ljud som ska spelas
 
 
     void Awake()
@@ -19,6 +19,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spelar ett ljud
+    /// </summary>
+    /// <param name="name">ljudet som ska spelas namn</param>
     public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);

@@ -56,19 +56,17 @@ public class Teleporter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Räknar ut vilket håll spelarna ska teleporteras och får teleportern associerad med detta håll
+    /// </summary>
+    /// <returns>Teleportern spelarna ska teleporteras till</returns>
     private Vector2? CheckTeleporter(Collider2D collider)
     {
-        //Debug.Log("6" + collider.bounds.center + "Collider" + collider.bounds);
-
         Vector2 normalizedDirection = (collider.bounds.center - transform.parent.transform.localPosition).normalized;
         float koeficient = normalizedDirection.y / normalizedDirection.x;
 
-        //Debug.Log("4" + koeficient);
-
         if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x > 0)
         {
-            // Debug.Log("A1");
-
             roomToTeleportTo = GetComponentInParent<Room>().RightRoom;
 
             if (GetComponentInParent<Room>().RightRoom != null)
@@ -78,8 +76,6 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient < 1 && koeficient > -1) && normalizedDirection.x < 0)
         {
-            // Debug.Log("A2");
-
             roomToTeleportTo = GetComponentInParent<Room>().LeftRoom;
 
             if (GetComponentInParent<Room>().LeftRoom != null)
@@ -89,8 +85,6 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y > 0)
         {
-            //Debug.Log("A3");
-
             roomToTeleportTo = GetComponentInParent<Room>().AboveRoom;
 
             if (GetComponentInParent<Room>().AboveRoom != null)
@@ -100,8 +94,6 @@ public class Teleporter : MonoBehaviour
         }
         else if ((koeficient > 1 || koeficient < -1) && normalizedDirection.y < 0)
         {
-            // Debug.Log("A4");
-
             roomToTeleportTo = GetComponentInParent<Room>().BelowRoom;
 
             if (GetComponentInParent<Room>().BelowRoom != null)
@@ -110,7 +102,6 @@ public class Teleporter : MonoBehaviour
             }
         }
 
-        // Debug.Log("5");
         return null;
     }
 

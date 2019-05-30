@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    private int maxHp;
-    private float healthPercentage, greenColorPercentage, redColorPercentage;
+    private int maxHp;  //Spelarnas maximala liv
+    private float healthPercentage, greenColorPercentage, redColorPercentage;   //Spelarnas nuvarnade liv     //Andel som ska vara grön   //Andel som ska vara röd
 
 
     void Start()
@@ -13,7 +13,9 @@ public class PlayerHealthBar : MonoBehaviour
         GetComponent<Slider>().maxValue = maxHp;
     }
 
-
+    /// <summary>
+    /// Uppdaterar spelarnas health bar beroden på deras liv
+    /// </summary>
     void Update()
     {
         GetComponent<Slider>().value = PlayerManager.instance.Health;

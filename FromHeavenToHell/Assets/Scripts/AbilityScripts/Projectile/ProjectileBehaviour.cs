@@ -2,10 +2,11 @@
 
 public class ProjectileBehaviour : MonoBehaviour
 {
-    public ProjectileAbility ProjectileAbility { set; get; }
-    public GameObject Caster { set; get; }
-    private Vector2 startPosition;
-    private Vector2 velocity;
+    public ProjectileAbility ProjectileAbility { set; get; }    //Specialförmågan
+    public GameObject Caster { set; get; }   //Objektet som använder specialförmågan
+    private Vector2 startPosition;      //Positionen projektilen användes fårn
+    private Vector2 velocity;    //projektilens hastighet
+
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
 
+            //Om projektilen har färdats den maximala distans den kan färdas
             if (Vector2.Distance(startPosition, transform.position) * GameManager.instance.TileSize > ProjectileAbility.GetRange())
             {
                 Destroy(gameObject);
@@ -38,19 +40,23 @@ public class ProjectileBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hanterar kollision mellan projektil och objekt
+    /// </summary>
+    /// <param name="other"></param>
     private void HandleCollision(Collider2D other)
     {
-        if (other.tag == GameManager.objectsTags[GameManager.Objects.Enemy])
+        if (other.tag == GameManager.objectsTags[GameManager.Objects.Enemy])     //Om other är en fiende
         {
             other.GetComponent<EnemyBaseClass>().TakeDamage(ProjectileAbility.Damage, Caster);
             Destroy(gameObject);
         }
-        else if (other.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel] || other.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
+        else if (other.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel] || other.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])     //Om other är ängeln eller demonen
         {
-            PlayerManager.instance.TakeDamage(ProjectileAbility.Damage, other.gameObject, Caster);
+            PlayerManager.instance.TakeDamage(ProjectileAbility.Damage, other.gameObject, Caster);  
             Destroy(gameObject);
         }
-        else if (other.tag == GameManager.objectsTags[GameManager.Objects.Wall])
+        else if (other.tag == GameManager.objectsTags[GameManager.Objects.Wall])    //Om other är en vägg
         {
             Destroy(gameObject);
         }

@@ -46,24 +46,18 @@ public class GameManager : MonoBehaviour
     public bool GameWon { set; get; }
     public bool Paused { set; get; }
 
-    public int TileSize { get; private set; }
+    public int TileSize { get; private set; } = 32;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        TileSize = 32; //Oj då, vem hårdkodade detta? Inte Jonathan eller Oscar i all fall...
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) == true)
+        if (Input.GetKeyDown(KeyCode.P) == true)
         {
             Paused = !Paused;
         }
 
-        if(Paused == true)
+        if (Paused == true)
         {
             pauseMenuCanvas.SetActive(true);
             playerUICanvas.SetActive(false);
@@ -75,7 +69,7 @@ public class GameManager : MonoBehaviour
         }
 
         if (GameLost == true || GameWon == true)
-        { 
+        {
             AddCurrentGameStats();
 
             if (GameLost == true)

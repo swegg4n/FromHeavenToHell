@@ -2,7 +2,7 @@
 
 public class PlayerFire : MonoBehaviour
 {
-    [SerializeField] private Ability[] abilityList;
+    [SerializeField] private Ability[] abilityList;     //Tillgängliga specialförmågor
 
 
     private void Update()
@@ -17,32 +17,28 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Ser om någon spelare trycker för att skjuta
+    /// </summary>
     private void CheckFireInput()
     {
         try
         {
-            switch (gameObject.tag)
+            if (gameObject.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
             {
-                case "PlayerDemon":
-                    {
-                        TriggerAbilityDemon();
-                    }
-                    break;
-
-                case "PlayerAngel":
-                    {
-                        TriggerAbilityAngel();
-                    }
-                    break;
+                TriggerAbilityDemon();
+            }
+            else if (gameObject.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel])
+            {
+                TriggerAbilityAngel();
             }
         }
-        catch
-        {
-
-        }
+        catch {}
     }
 
+    /// <summary>
+    /// Triggrar en förmåga för demonen beroende på knapp tryckt
+    /// </summary>
     private void TriggerAbilityDemon()
     {
         if (Input.GetAxisRaw(Inputs.PlayerDemonFire[0]) >= 0.01 && abilityList[0] != null)
@@ -61,6 +57,9 @@ public class PlayerFire : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Triggrar en förmåga för ängeln beroende på knapp tryckt
+    /// </summary>
     private void TriggerAbilityAngel()
     {
         if (Input.GetAxisRaw(Inputs.PlayerAngelFire[0]) >= 0.01 && abilityList[0] != null)

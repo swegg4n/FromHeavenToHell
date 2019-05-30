@@ -9,7 +9,7 @@ public enum RoomTypes { StartRoom, HeavenRoom, HellRoom, BossRoom }
 
 public class Room : MonoBehaviour
 {
-    [SerializeField] private Objective objective;
+    [SerializeField] private Objective objective;       //Rummtes objektiv
     public Objective Objective { get { return objective; } }
 
     public bool IsStartRoom { get; private set; }
@@ -39,6 +39,9 @@ public class Room : MonoBehaviour
     public int NrOfEnemiesToSpawn { get { return nrOfEnemiesToSpawn; } }
 
 
+    /// <summary>
+    /// Sätter upp properties om rummets tiles
+    /// </summary>
     void Awake()
     {
         teleportPosList = new List<Vector2>();
@@ -68,12 +71,13 @@ public class Room : MonoBehaviour
                 t.GetComponent<TilemapRenderer>().receiveShadows = true;
             }
         }
-
         RoomBounds = CalculateBoundsXY();
-
         StartCoroutine(SetUpRoomRelations());
     }
 
+    /// <summary>
+    /// Sätter upp properties knytna till rummet samt 3D väggar
+    /// </summary>
     private void Start()
     {
         if (gameObject.tag == RoomTypes.StartRoom.ToString())
@@ -101,6 +105,10 @@ public class Room : MonoBehaviour
         Create3DWalls();
     }
 
+    /// <summary>
+    /// Sätter upp rummets anknytningar till grann-rummen
+    /// </summary>
+    /// <returns>Rummets grann-rum</returns>
     private IEnumerator SetUpRoomRelations()
     {
         yield return new WaitForSecondsRealtime(1);
@@ -128,6 +136,9 @@ public class Room : MonoBehaviour
         LeftRoom = CheckSorrundingRoom(Vector2.left);
     }
 
+    /// <summary>
+    /// Skapar 3D väggar för att kasta skuggor i rummet
+    /// </summary>
     private void Create3DWalls()
     {
         int gridSizeX = GetRoomSize().x;
@@ -139,7 +150,7 @@ public class Room : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x, firstTilePosition.y + y, 0));
+                bool isWall = CheckTileTypeAtPosition(TileTypes.Wall, new Vector3(firstTilePosition.x + x, firstTilePosition.y + y, 0));
 
                 if (isWall == true)
                 {
@@ -152,6 +163,10 @@ public class Room : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Får om det finns ett annat rum brevid rummet
+    /// </summary>
+    /// <returns>Om det finns ett rum brevid  och isf. vilket rum det är</returns>
     private GameObject CheckSorrundingRoom(Vector2 direction)
     {
         Vector3 rayCastOffset = Vector3.zero;
@@ -184,7 +199,11 @@ public class Room : MonoBehaviour
         }
     }
 
-    public Tuple<Vector2Int, Vector2Int> CalculateBoundsXY()    //<(worldMinX, worldMaxX), (worldMinY, worldMaxY)>
+    /// <summary>
+    /// Räknar ut rummets storlek i  tiles
+    /// </summary>
+    /// <returns>(worldMinX, worldMaxX), (worldMinY, worldMaxY)</returns>
+    public Tuple<Vector2Int, Vector2Int> CalculateBoundsXY()
     {
         Vector2 localMinXY = new Vector2(groundTileMap.localBounds.min.x, groundTileMap.localBounds.min.y);
         Vector2 localMaxXY = new Vector2(groundTileMap.localBounds.max.x, groundTileMap.localBounds.max.y);
@@ -196,6 +215,10 @@ public class Room : MonoBehaviour
             (new Vector2Int(worldMinXY.x, worldMaxXY.x), new Vector2Int(worldMinXY.y, worldMaxXY.y));
     }
 
+    /// <summary>
+    /// Får rummets storlek
+    /// </summary>
+    /// <returns></returns>
     public Vector2Int GetRoomSize()
     {
         int roomSizeX = RoomBounds.Item1.y - RoomBounds.Item1.x;
@@ -204,43 +227,61 @@ public class Room : MonoBehaviour
         return new Vector2Int(roomSizeX, roomSizeY);
     }
 
-    public bool CheckGroundTileAtPosition(Vector3 position)
+
+    /// <summary>
+    /// Kontrollerar om det finns en tile med en tiletyp vid positionen
+    /// </summary>
+    /// <param name="tileType">Tiletypen som ska kontrolleras om den finns</param>
+    /// <param name="position">Positionen för tilen som ska kontrollers</param>
+    /// <returns>Om en tile av typen tileType vid positionen position finns eller inte </returns>
+    public bool CheckTileTypeAtPosition(TileTypes tileType, Vector3 position)
     {
-        if (groundTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
+        switch (tileType)
         {
-            return true;
+            case TileTypes.Ground:
+                {
+                    if (groundTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
+                    {
+                        return true;
+                    }
+                }
+                break;
+
+            case TileTypes.Wall:
+                {
+                    if (wallTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
+                    {
+                        return true;
+                    }
+                }
+                break;
+
+            case TileTypes.TopWall:
+                {
+                    if (topTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
+                    {
+                        return true;
+                    }
+                }
+                break;
+
+            case TileTypes.Teleport:
+                {
+                    if (teleportTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
+                    {
+                        return true;
+                    }
+                }
+                break;
         }
+
         return false;
     }
 
-    public bool CheckWallTileAtPosition(Vector3 position)
-    {
-        if (wallTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool CheckTopTileAtPosition(Vector3 position)
-    {
-        if (topTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    //test till teleporten
-    public bool CheckTeleportAtPosition(Vector3 position)
-    {
-        if (teleportTileMap.HasTile(Vector3Int.FloorToInt(position)) == true)
-        {
-            return true;
-        }
-        return false;
-    }
-
+    /// <summary>
+    /// Får tilemap associerad med rummet av typen tileType
+    /// </summary>
+    /// <param name="tileType">Typen av tilemap som ska fås</param>
     public Tilemap GetTileMap(TileTypes tileType)
     {
         switch (tileType)
@@ -262,6 +303,11 @@ public class Room : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Får teleport-position i riktningen som kollas
+    /// </summary>
+    /// <param name="direction">Riktningen som ska kollas</param>
+    /// <returns>Teleport-positionen</returns>
     public Vector2 CheckTeleportInDirecction(Vector2 direction)
     {
         foreach (Vector2 tpPos in teleportPosList)
@@ -290,11 +336,16 @@ public class Room : MonoBehaviour
         return Vector2.zero;
     }
 
+    /// <summary>
+    /// Ser om det endast finns en ground-tile vid positionen
+    /// </summary>
+    /// <param name="targetPosition">Positionen som ska kollas</param>
+    /// <returns></returns>
     public bool CheckOnlyGroundTile(Vector3 targetPosition)
     {
-        if (CheckWallTileAtPosition(targetPosition) == false
-            && CheckTopTileAtPosition(targetPosition) == false
-            && CheckGroundTileAtPosition(targetPosition) == true)
+        if (CheckTileTypeAtPosition(TileTypes.Wall, targetPosition) == false
+            && CheckTileTypeAtPosition(TileTypes.TopWall, targetPosition) == false
+            && CheckTileTypeAtPosition(TileTypes.Ground, targetPosition) == true)
         {
             return true;
         }

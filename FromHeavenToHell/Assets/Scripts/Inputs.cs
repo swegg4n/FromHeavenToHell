@@ -17,6 +17,11 @@ public static class Inputs
     public static string[] PlayerAngelFire { get; private set; } = new string[3];
 
 
+    /// <summary>
+    /// Sätter styrsätt för spelare
+    /// </summary>
+    /// <param name="characterType">Spelaren vars styrsätt ska sättas</param>
+    /// <param name="controller">Hur spelaren ska styras</param>
     public static void AssignPlayer(GameManager.Objects characterType, int controller)
     {
         switch (characterType)

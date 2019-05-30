@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class BaseEnemyAi : MonoBehaviour
 {
-    private Vector3 direction;
-    private Vector3 aimDirection;
+    private Vector3 direction;      //Riktningen fienden går
+    private Vector3 aimDirection;       //Riktningen fienden siktar
 
     private GameObject player1;
     private GameObject player2;
 
-    [SerializeField] private LayerMask enemyIgnoreLayerMask;
-    [SerializeField] private bool stationary;
+    [SerializeField] private LayerMask enemyIgnoreLayerMask;    //Det fienden ska ignorera när den ser om den ska skjuta
+    [SerializeField] private bool stationary;       //Om fienden ska röra sig eller inte
 
-    private const float enemyFireSpace = 0.25f;
+    private const float enemyFireSpace = 0.25f;     //Radie fienden ska kompesera för vid skjutning
 
 
     void Start()
@@ -22,6 +22,7 @@ public class BaseEnemyAi : MonoBehaviour
 
         if (stationary == false)
         {
+            //Kallar på att ta ut en ny väg för fienden att går
             GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
         }
     }
@@ -39,16 +40,21 @@ public class BaseEnemyAi : MonoBehaviour
                 {
                     if (GetComponent<Pathfinder>().FinalPath.Count > 0)
                     {
+                        //Om fienden har kommit fram till nästa position i dens väg
                         if (GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(transform.position) ==
                             GameManager.instance.gameObject.GetComponent<NodeGrid>().GetNodeFromWorldPoint(GetComponent<Pathfinder>().FinalPath[0].WorldPosition))
                         {
+                            //Kallar på att ta ut en ny väg för fienden att går
                             GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                         }
                     }
+                    //Om fienden står still
                     else if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
                     {
+                        //Kallar på att ta ut en ny väg för fienden att går
                         GetComponent<Pathfinder>().FindPath(transform.position, GetClosestTargetPosition());
                     }
+
                     MoveToNextTile();
                 }
             }
@@ -56,14 +62,16 @@ public class BaseEnemyAi : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Ser om fienden kan skjuta närmsta spelare (ser så ingen vägg är i vägen)
+    /// </summary>
     protected virtual void CheckIfHitAndFire()
     {
         try
         {
             aimDirection = GetClosestTargetPosition() - transform.position;
-            float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / 32f;
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.25f, aimDirection, range, enemyIgnoreLayerMask);
+            float range = GetComponent<EnemyBaseClass>().Ability.OptimalRange / GameManager.instance.TileSize;
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, enemyFireSpace, aimDirection, range, enemyIgnoreLayerMask);
             if (hit == true && (hit.transform.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon] || hit.transform.tag == GameManager.objectsTags[GameManager.Objects.PlayerAngel]))
             {
                 GetComponent<EnemyBaseClass>().Ability.TriggerAbility(gameObject);
@@ -74,6 +82,9 @@ public class BaseEnemyAi : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Rör fienden till nästa position i fiendens väg
+    /// </summary>
     private void MoveToNextTile()
     {
         if (GetComponent<Pathfinder>().FinalPath.Count > 0)

@@ -6,7 +6,7 @@ public class MainBoss : EnemyBaseClass
     [SerializeField] private float switchingAbilityInterval;
     private float counter;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         Ability = abilityList[Random.Range(0, abilityList.Length)];
@@ -23,7 +23,6 @@ public class MainBoss : EnemyBaseClass
                 Ability = abilityList[Random.Range(0, abilityList.Length)];
                 counter = 0;
             }
-            DeathCheck();
         }
     }
 }

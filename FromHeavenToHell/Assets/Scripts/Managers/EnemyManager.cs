@@ -25,20 +25,19 @@ public class EnemyManager : MonoBehaviour
     #endregion
 
     private float timeBetweenSpawn;    //Tiden det tar mellan varje våg av fiender skapas. Mäts i sekunder
-    private float delay;       //Tiden det tar från att platsen en fiende ska skapas på visas till att fienden skapas. Mäts i sekunder
+    private float delay;       //Tiden det tar från att platsen en fiende ska skapas på visas till att fienden skapas
     private int nrOfEnemiesToSpawn;    //Antal fiender som ska skapas i varje våg
 
-    private float timeSinceLastSpawn;       //Tiden från förra vågen fiender skapades. Mäts i sekunder
+    private float timeSinceLastSpawn;       //Tiden från förra vågen fiender skapades
 
-    //private Tilemap groundTileMap;
-    private List<Vector3> tilePositionList;
+    private List<Vector3> tilePositionList;     //Tillåtna platser för finder att uppstå på
 
-    private List<GameObject> enemyList;
-    private List<int> tempIndexList;
-    private List<GameObject> spawnIndicatorList;
+    private List<GameObject> enemyList;     //Lista med alla fiender som skapats
+    private List<int> tempIndexList;    
+    private List<GameObject> spawnIndicatorList;    //Lista med alla spawn-indikatorer
 
-    private Tilemap wallTileMap; // Ska hämta dessa från gameManager
-    private Tilemap topWallTileMap;
+    private Tilemap wallTileMap;        //Otillåten tile att spawna på
+    private Tilemap topWallTileMap;     //Otillåten tile att spawna på
 
     [SerializeField] private GameObject spawnIndicator;
     [SerializeField] private GameObject enemy;
@@ -57,15 +56,17 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Skapar en lista med tillåtna spawnpositioner
+    /// Återställer rummet och räknar ut tillåtna spawn-positioner för nya rummet
     /// </summary>
-
     public void ResetRoom()
     {
         ResetVariabels();
         SpawnPositions();
     }
 
+    /// <summary>
+    /// Räknar ut var fiender får uppstå
+    /// </summary>
     private void SpawnPositions()
     {
         Tilemap groundTileMap = GameManager.instance.CurrentRoom.GetComponent<Room>().GetTileMap(TileTypes.Ground);
@@ -93,6 +94,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    //Återställer rummet
     private void ResetVariabels()
     {
         nrOfEnemiesToSpawn = GameManager.instance.CurrentRoom.GetComponent<Room>().NrOfEnemiesToSpawn;
@@ -117,9 +119,6 @@ public class EnemyManager : MonoBehaviour
         tilePositionList = new List<Vector3>();
     }
 
-    /// <summary>
-    /// Kallas varje frame
-    /// </summary>
     private void Update()
     {
         if (GameManager.instance.Paused == false)

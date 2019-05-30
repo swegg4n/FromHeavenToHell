@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class CurrentObjectiveText : MonoBehaviour
 {
-    [SerializeField] private Text surviveText, killText, bossText;
-    [SerializeField] private GameObject tutPanel;
-    [SerializeField] private Slider bossHealthBar;
+    [SerializeField] private Text surviveText, killText, bossText;  //Olika objective texter
+    [SerializeField] private GameObject tutPanel;   //panel för kort genomgång
+    [SerializeField] private Slider bossHealthBar;  //Bossens health bar
 
-    private Color hellAmbientColor;
-    private Color heavenAmbientColor;
+    private Color hellAmbientColor;     //Färgschema för helvetet
+    private Color heavenAmbientColor;   //Färgschema för himeln
 
     private bool bossHealthBarSet;
 
@@ -32,8 +32,12 @@ public class CurrentObjectiveText : MonoBehaviour
         UpdateObjectiveText(currentObjective);
     }
 
+    /// <summary>
+    /// Uppdaterar färgschema i rummet
+    /// </summary>
     private void UpdateRoomSettings(Room room)
     {
+        //om rummet är ett himmelrum
         if (room.IsHeavenRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
@@ -42,6 +46,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.red;
             killText.color = Color.red;
         }
+        //om rummet är ett helvetesrum
         else if (room.IsHellRoom == true)
         {
             RenderSettings.ambientLight = hellAmbientColor;
@@ -50,6 +55,7 @@ public class CurrentObjectiveText : MonoBehaviour
             surviveText.color = Color.green;
             killText.color = Color.green;
         }
+        //om rummet är ett bossrum
         else if (room.IsBossRoom == true)
         {
             RenderSettings.ambientLight = heavenAmbientColor;
@@ -59,6 +65,7 @@ public class CurrentObjectiveText : MonoBehaviour
             killText.color = Color.red;
         }
 
+        //om rummet är startrummet
         if (room.IsStartRoom == true)
         {
             tutPanel.SetActive(true);
@@ -69,6 +76,9 @@ public class CurrentObjectiveText : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Uppdaterar objective UI i rummet
+    /// </summary>
     private void UpdateObjectiveText(Objective objective)
     {
         if (objective.IsSurviveObjective == true && GameManager.instance.CurrentRoom.GetComponent<Room>().IsBossRoom == false &&

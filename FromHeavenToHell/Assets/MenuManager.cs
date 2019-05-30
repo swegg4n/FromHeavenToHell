@@ -6,8 +6,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject inputSelectionPanel;
 
-    [SerializeField] private Dropdown angelDropdown;
-    [SerializeField] private Dropdown demonDropdown;
+    [SerializeField] private Dropdown angelDropdown;    //Dropdown för hur ängeln ska styras
+    [SerializeField] private Dropdown demonDropdown;    //Dropdown för hur demonen ska styras
 
 
     private void Awake()
@@ -23,6 +23,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Assignerar karaktärernas styrsätt berodene på vad som valts i dropdown-menyerna
+    /// </summary>
     public void Play()
     {
         try
@@ -35,9 +38,13 @@ public class MenuManager : MonoBehaviour
             Debug.LogError("Cant assing players. Make sure dropdowns are assigned to the MenuManager");
         }
 
+        //Byter till spel-scenen (startar spelet)
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
+    /// <summary>
+    /// Stänger programmet
+    /// </summary>
     public void Quit()
     {
         Application.Quit();

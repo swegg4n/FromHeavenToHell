@@ -2,7 +2,7 @@
 
 public class AimIndicator : MonoBehaviour
 {
-    [SerializeField] private GameObject aimIndicator;
+    [SerializeField] private GameObject aimIndicator;   //Indiktaror-prefab
 
     private Vector3 mousePos;
 
@@ -21,6 +21,9 @@ public class AimIndicator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Ser vilket sätt spelarens sikte-riktning ska uppdateras
+    /// </summary>
     private void CheckAimInput()
     {
         if (gameObject.tag == GameManager.objectsTags[GameManager.Objects.PlayerDemon])
@@ -47,6 +50,9 @@ public class AimIndicator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Uppdaerar sikte-riktningen med joystick
+    /// </summary>
     private void MoveSightJoystick(string horizontalAimInput, string verticalAimInput)
     {
         aimX = Input.GetAxisRaw(horizontalAimInput);
@@ -64,6 +70,9 @@ public class AimIndicator : MonoBehaviour
         lastDirection = Direction;
     }
 
+    /// <summary>
+    /// Uppdaerar sikte-riktningen med mus
+    /// </summary>
     private void MoveSightKeyboard()
     {
         mousePos = Input.mousePosition;

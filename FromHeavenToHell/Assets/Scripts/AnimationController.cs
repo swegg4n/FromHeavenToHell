@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
+    /// <summary>
+    /// Animationslägen
+    /// </summary>
     private enum AnimationSelector
     {
         Idle,
@@ -15,7 +18,7 @@ public class AnimationController : MonoBehaviour
 
     private Animator animator;
 
-    private Vector2 normalizedDirection;
+    private Vector2 normalizedDirection;    //riktningen objektet ska vändas mot
     private float koeficient;
 
     void Start()
@@ -23,6 +26,9 @@ public class AnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    /// <summary>
+    /// Räknar ut vilket håll objektet ska vändas
+    /// </summary>
     void Update()
     {
         if (GameManager.instance.Paused == false)

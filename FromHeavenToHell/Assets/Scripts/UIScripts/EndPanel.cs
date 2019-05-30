@@ -8,10 +8,12 @@ public class EndPanel : MonoBehaviour
     private int numberOfStats;
 
     [SerializeField] private Text endText;
-    [SerializeField] private Text angelDamageDealtToEnemiesText, angelDamageTakenText, angelDamageDealtToDemonText, angelSelfDamageText;
-    [SerializeField] private Text demonDamageDealtToEnemiesText, demonDamageTakenText, demonDamageDealtToAngelText, demonSelfDamageText;
+    [SerializeField] private Text angelDamageDealtToEnemiesText, angelDamageTakenText, angelDamageDealtToDemonText, angelSelfDamageText;    //Statistik
+    [SerializeField] private Text demonDamageDealtToEnemiesText, demonDamageTakenText, demonDamageDealtToAngelText, demonSelfDamageText;    //Statistik
 
-
+    /// <summary>
+    /// Uppdaterar slut-text beroende på om spelarna vunnit eller förlorat
+    /// </summary>
     private void Start()
     {
         foreach (PlayerPrefKey key in (PlayerPrefKey[])Enum.GetValues(typeof(PlayerPrefKey)))
@@ -34,13 +36,15 @@ public class EndPanel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))   //TEMPORÄRT
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 
-
+    /// <summary>
+    /// Får statisktik fårn StatTracker
+    /// </summary>
     private void SetStatText()
     {
         demonDamageDealtToEnemiesText.text = StatTracker.DemonDamageDealtToEnemies.ToString();

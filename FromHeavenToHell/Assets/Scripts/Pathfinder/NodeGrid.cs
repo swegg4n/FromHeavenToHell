@@ -30,8 +30,10 @@ public class NodeGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                bool isWall = GameManager.instance.CurrentRoom.GetComponent<Room>().CheckWallTileAtPosition(new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
+                //Ser om rutan är en vägg eller inte
+                bool isWall = GameManager.instance.CurrentRoom.GetComponent<Room>().CheckTileTypeAtPosition(TileTypes.Wall, new Vector3(firstTilePosition.x + x * cellSize, firstTilePosition.y + y * cellSize, 0));
 
+                //Skapar en ny nod
                 NodeArray[x, y] = new Node(x, y, isWall, new Vector3(firstTilePosition.x + x * cellSize + GameManager.instance.CurrentRoom.transform.position.x
                     , firstTilePosition.y + y * cellSize + GameManager.instance.CurrentRoom.transform.position.y, 0));
             }
@@ -49,6 +51,7 @@ public class NodeGrid : MonoBehaviour
         {
             for (int x = -1; x <= 1; x++)
             {
+                //Kontrollerar inte diagonaler ( (-1;-1), (-1;1), (1;-1), (1;1) ) eller inskickade noden ( (0;0) )
                 if (Mathf.Abs(x) == Mathf.Abs(y))
                 {
                     continue;
@@ -65,7 +68,6 @@ public class NodeGrid : MonoBehaviour
                         neighborList.Add(NodeArray[indexCheckX, indexCheckY]);
                     }
                 }
-
             }
         }
 
@@ -94,7 +96,7 @@ public class NodeGrid : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos() //THROW AWAY CODE
+    private void OnDrawGizmos()
     {
         try
         {

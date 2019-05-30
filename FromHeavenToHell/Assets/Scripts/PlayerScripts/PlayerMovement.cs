@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Förflyttar spelaren beroende på velocityX och velocityY och inputs
+    /// </summary>
     private void MovePlayer()
     {
         if (Dashing == false)
