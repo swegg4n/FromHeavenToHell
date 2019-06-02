@@ -1,0 +1,1 @@
+För att styra båda karaktärerna behövs minst en handkontroll ikoplad. Man måste starta via "MainMenu"-scenen.

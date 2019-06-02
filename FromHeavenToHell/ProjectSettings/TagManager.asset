@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - PlayerDemon
+  - PlayerAngel
+  - Wall
+  - TopWall
+  - AOE
+  - Projectile
+  - Ground
+  - Teleport
+  - Boss
+  - HellRoom
+  - HeavenRoom
+  - BossRoom
+  - StartRoom
   layers:
   - Default
   - TransparentFX
@@ -14,11 +28,11 @@ TagManager:
   - 
   - 
   - Player
-  - Projectile
+  - Ability
   - EnemyCollider
   - Enemy
-  - 
-  - 
+  - Walls
+  - Teleporter
   - 
   - 
   - 
@@ -44,15 +58,24 @@ TagManager:
   - name: Ground
     uniqueID: 4060389441
     locked: 0
+  - name: Teleport
+    uniqueID: 1445490619
+    locked: 0
+  - name: AOE
+    uniqueID: 2071665185
+    locked: 0
+  - name: Projectile
+    uniqueID: 1672218159
+    locked: 0
   - name: Walls
     uniqueID: 2168224427
     locked: 0
-  - name: Enemies
-    uniqueID: 3471241851
-    locked: 0
-  - name: Player
+  - name: Player/Enemy
     uniqueID: 1021368853
     locked: 0
   - name: Top
     uniqueID: 3687888261
+    locked: 0
+  - name: UI
+    uniqueID: 4198296543
     locked: 0
