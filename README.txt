@@ -13,3 +13,6 @@ Efter det startar man i startrummet. Om man trycker på 'P' öppnas pausmenyn där 
 
 Med mus/tangentbord styr man karaktären med 'w', 'a', 's', och 'd'. Man siktar med musen.
 Med handkontroll styr man karaktären med vänster spak och siktet med höger spak.
+
+Git repository:
+https://github.com/swegg4n/FromHeavenToHell.git
